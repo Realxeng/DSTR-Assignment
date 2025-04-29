@@ -33,6 +33,6 @@ int main()
     ifstream tfile(transactionsFile);
     rarr.insertToArray(rfile, rarr.list);
     tarr.insertToArray(tfile, tarr.list);
-    rarr.showAllReviews(rarr.list, reviewSize);
-    tarr.showAllTransactions(tarr.list, transactionSize);
+    //rarr.showAllReviews(rarr.list, reviewSize);
+    //tarr.showAllTransactions(tarr.list, transactionSize);
 }

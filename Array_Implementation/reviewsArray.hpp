@@ -15,14 +15,22 @@ class reviewsArray
     int top = 0;
 public:
     Reviews* list;
+    reviewsArray() {
+
+    }
     reviewsArray(int size) {
         list = new Reviews[size];
     }
     ~reviewsArray() {
         delete[] list;
     }
+
+    int getTop() { return top; }
+
     void insertToArray(ifstream& file, Reviews* list) {
         if (file.is_open()) {
+            string header;
+            getline(file, header);
             while (file.good()) {
                 string wholeline;
                 getline(file, wholeline, '\n');
@@ -30,13 +38,37 @@ public:
                 getline(iss, list[top].pid, ',');
                 getline(iss, list[top].cid, ',');
                 getline(iss, list[top].rating, ',');
-                getline(iss, list[top].review, ',');
+                getline(iss, list[top].review);
                 top++;
             }
         }
     }
-    void showAllReviews(Reviews* list, int rowsize) {
-        for (int lines = 0; lines < rowsize; lines++) {
+
+    Reviews* deleteAtIndex(Reviews* list, int index) {
+        if (index < 0 || index > top) {
+            cout << "Nothing to delete!";
+            return list;
+        }
+        for (int i = index; i < top - 1; i++) {
+            list[i] = list[i + 1];
+        }
+        top--;
+        return list;
+    }
+
+    void deleteAtIndex(int index) {
+        if (index < 0 || index > top) {
+            cout << "Nothing to delete!";
+            return;
+        }
+        for (int i = index; i < top - 1; i++) {
+            list[i] = list[i + 1];
+        }
+        top--;
+    }
+
+    void showAllReviews() {
+        for (int lines = 0; lines <= top; lines++) {
             cout << list[lines].pid << "|";
             cout << list[lines].cid << "|";
             cout << list[lines].rating << "|";
