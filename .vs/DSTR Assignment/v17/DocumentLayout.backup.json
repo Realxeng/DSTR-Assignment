@@ -32,7 +32,7 @@
               "RelativeDocumentMoniker": "LinkedList_Implementation\\LinkedList.h",
               "ToolTip": "C:\\PartitionD\\SEM 4\\Data Structures\\Assignment\\DSTR Assignment\\LinkedList_Implementation\\LinkedList.h",
               "RelativeToolTip": "LinkedList_Implementation\\LinkedList.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-04-29T08:04:04.929Z",
               "EditorCaption": ""
@@ -47,8 +47,7 @@
               "RelativeToolTip": "LinkedList_Implementation\\LinkedList_Implementation.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-29T07:02:57.441Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T07:02:57.441Z"
             },
             {
               "$type": "Document",
@@ -60,8 +59,7 @@
               "RelativeToolTip": "LinkedList_Implementation\\LinkedList.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-29T08:04:08.656Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T08:04:08.656Z"
             }
           ]
         }
