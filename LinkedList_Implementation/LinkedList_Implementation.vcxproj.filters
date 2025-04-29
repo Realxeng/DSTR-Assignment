@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DSTR Assignment.cpp">
+    <ClCompile Include="LinkedList_Implementation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
