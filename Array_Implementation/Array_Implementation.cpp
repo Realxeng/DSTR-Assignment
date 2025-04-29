@@ -1,34 +1,15 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
-#include "bubbleSort.h"
+#include "transactionsArray.hpp";
+#include "reviewsArray.hpp";
 
 using namespace std;
+const string reviewsFile = "..//data//reviews_raw.csv";
+const string transactionsFile = "..//data//transactions_raw.csv";
 
-class reviewsArray {
-public:
-    string* list;
-    reviewsArray(int size) {
-        list = new string[size * 4];
-    }
-    ~reviewsArray() {
-        delete[] list;
-    }
-};
-
-class transactionsArray {
-public:
-    string* list;
-    transactionsArray(int size) {
-        list = new string[size * 6];
-    }
-    ~transactionsArray() {
-        delete[] list;
-    }
-};
-
-int getMaxLine(string filename) {
-    ifstream file(filename);
+int getMaxLine(ifstream file) {
     int count = 0;
     if (file.is_open()) {
         string line;
@@ -42,20 +23,17 @@ int getMaxLine(string filename) {
     return count;
 }
 
-void showAll(string* list, int colsize, int rowsize) {
-    for (int lines = 0; lines < rowsize; lines++) {
-        for (int line = 0; line < colsize; line++) {
-            cout << list[lines][line] << ", ";
-        }
-        cout << endl;
-    }
+void insertToArray(string* list, int colsize, int rowsize) {
+
 }
 
 int main()
 {
-    int reviewSize = getMaxLine("..//data/reviews_raw.txt");
+    int reviewSize = getMaxLine(ifstream(reviewsFile));
     reviewsArray rarr = reviewsArray(reviewSize);
-    int transactionSize = getMaxLine("..//data/transactions_raw.txt");
-    transactionsArray tarr = transactionsArray(transactionSize);
-    showAll(tarr.list, 4, reviewSize);
+    //int transactionSize = getMaxLine(ifstream("..//data//transactions_raw.csv"));
+    //transactionsArray tarr = transactionsArray(transactionSize);
+    ifstream file(reviewsFile);
+    rarr.insertToArray(file, rarr.list);
+    rarr.showAllReviews(rarr.list, reviewSize);
 }
