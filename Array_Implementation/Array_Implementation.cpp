@@ -4,10 +4,11 @@
 #include <string>
 #include "transactionsArray.hpp";
 #include "reviewsArray.hpp";
+#include "Cleaning.hpp";
 
 using namespace std;
-const string reviewsFile = "..//data//reviews_raw.csv";
-const string transactionsFile = "..//data//transactions_raw.csv";
+const string reviewsFile = "..//data//reviews_cleaned.csv";
+const string transactionsFile = "..//data//transactions_cleaned.csv";
 
 int getMaxLine(ifstream file) {
     int count = 0;

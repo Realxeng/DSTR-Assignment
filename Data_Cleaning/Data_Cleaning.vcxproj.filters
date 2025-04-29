@@ -15,19 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Array_Implementation.cpp">
+    <ClCompile Include="Data_Cleaning.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="reviewsArray.hpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="transactionsArray.hpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Cleaning.hpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

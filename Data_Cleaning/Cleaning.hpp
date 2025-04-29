@@ -8,8 +8,8 @@
 using namespace std;
 
 class Cleaning {
-	reviewsArray ra = NULL;
-	transactionsArray ta = NULL;
+	reviewsArray ra;
+	transactionsArray ta;
 public:
 	Cleaning(reviewsArray ra) {
 		this->ra = ra;
