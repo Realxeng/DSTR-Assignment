@@ -1,23 +1,15 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
-#include "bubbleSort.h"
+#include "transactionsArray.hpp";
+#include "reviewsArray.hpp";
 
 using namespace std;
+const string reviewsFile = "..//data//reviews_raw.csv";
+const string transactionsFile = "..//data//transactions_raw.csv";
 
-class reviewsArray {
-    string* list;
-public:
-    reviewsArray(int size) {
-        list = new string[size];
-    }
-    ~reviewsArray() {
-        delete[] list;
-    }
-};
-
-int getMaxLine(string filename) {
-    ifstream file(filename);
+int getMaxLine(ifstream file) {
     int count = 0;
     if (file.is_open()) {
         string line;
@@ -33,5 +25,14 @@ int getMaxLine(string filename) {
 
 int main()
 {
-    reviewsArray rarr = reviewsArray(getMaxLine("..//data/reviews_raw.txt"));
+    int reviewSize = getMaxLine(ifstream(reviewsFile));
+    reviewsArray rarr = reviewsArray(reviewSize);
+    int transactionSize = getMaxLine(ifstream(transactionsFile));
+    transactionsArray tarr = transactionsArray(transactionSize);
+    ifstream rfile(reviewsFile);
+    ifstream tfile(transactionsFile);
+    rarr.insertToArray(rfile, rarr.list);
+    tarr.insertToArray(tfile, tarr.list);
+    rarr.showAllReviews(rarr.list, reviewSize);
+    tarr.showAllTransactions(tarr.list, transactionSize);
 }

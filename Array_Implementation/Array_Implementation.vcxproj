@@ -20,10 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Array_Implementation.cpp" />
-    <ClCompile Include="bubbleSort.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="bubbleSort.h" />
+    <ClCompile Include="reviewsArray.hpp" />
+    <ClCompile Include="transactionsArray.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

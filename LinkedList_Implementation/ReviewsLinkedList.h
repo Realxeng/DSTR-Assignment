@@ -2,26 +2,23 @@
 #include <iostream>
 using namespace std;
 
-class LinkedList
+class ReviewsLinkedList
 {
     struct reviewsLL //Linked List for the reviews
     {
         string productID, customerID, reviewDesc;
-        int Rate;
+        int rate;
 
-        reviewsLL* prev;
-        reviewsLL* next;
-    }*head, * tail;
+        reviewsLL* prev = nullptr;
+        reviewsLL* next = nullptr;
+    };
+    reviewsLL* head = nullptr;
+    reviewsLL* tail = nullptr;
 
-    struct transactionsLL
+public:
+    void addNode(string productID, string customerID, int rate, string reviewDesc)
     {
-        string customerID, product, category, date, paymentMethod;
-        float price;
 
-        transactionsLL* prev;
-        transactionsLL* next;
-    }*head, *tail;
-
-
+    }
 };
 

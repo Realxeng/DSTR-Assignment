@@ -18,13 +18,11 @@
     <ClCompile Include="Array_Implementation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bubbleSort.cpp">
+    <ClCompile Include="reviewsArray.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="bubbleSort.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="transactionsArray.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
