@@ -23,17 +23,16 @@ int getMaxLine(ifstream file) {
     return count;
 }
 
-void insertToArray(string* list, int colsize, int rowsize) {
-
-}
-
 int main()
 {
     int reviewSize = getMaxLine(ifstream(reviewsFile));
     reviewsArray rarr = reviewsArray(reviewSize);
-    //int transactionSize = getMaxLine(ifstream("..//data//transactions_raw.csv"));
-    //transactionsArray tarr = transactionsArray(transactionSize);
-    ifstream file(reviewsFile);
-    rarr.insertToArray(file, rarr.list);
+    int transactionSize = getMaxLine(ifstream(transactionsFile));
+    transactionsArray tarr = transactionsArray(transactionSize);
+    ifstream rfile(reviewsFile);
+    ifstream tfile(transactionsFile);
+    rarr.insertToArray(rfile, rarr.list);
+    tarr.insertToArray(tfile, tarr.list);
     rarr.showAllReviews(rarr.list, reviewSize);
+    tarr.showAllTransactions(tarr.list, transactionSize);
 }

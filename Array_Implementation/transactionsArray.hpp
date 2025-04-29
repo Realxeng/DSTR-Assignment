@@ -10,7 +10,8 @@ struct Transactions
     string cid, product, cat, price, date, payment;
 };
 
-class transactionsArray {
+class transactionsArray
+{
     int top = 0;
 public:
     Transactions* list;
@@ -22,7 +23,7 @@ public:
         delete[] transactionsArray::list;
     }
 
-    void insertToArray(ifstream& file) {
+    void insertToArray(ifstream& file, Transactions* list) {
         if (file.is_open()) {
             while (file.good()) {
                 string wholeline;
@@ -36,6 +37,18 @@ public:
                 getline(iss, list[top].payment, ',');
                 top++;
             }
+        }
+    }
+
+    void showAllTransactions(Transactions* list, int rowsize) {
+        for (int lines = 0; lines < rowsize; lines++) {
+            cout << list[lines].cid << "|";
+            cout << list[lines].product << "|";
+            cout << list[lines].cat << "|";
+            cout << list[lines].price << "|";
+            cout << list[lines].date << "|";
+            cout << list[lines].payment << "|";
+            cout << endl;
         }
     }
 };
