@@ -29,7 +29,7 @@ public:
     int getTop() { return top; }
 	void setTop(int top) { this->top = top; }
 
-    void insertToArray(ifstream& file, Transactions* list) {
+    void insertToArray(ifstream& file) {
         if (file.is_open()) {
             string header;
             getline(file, header);
@@ -47,6 +47,38 @@ public:
             }
         }
     }
+
+	void insertionSort(ifstream& file) {
+        if (file.is_open()) {
+            Transactions temp;
+            string line;
+            while (getline(file, line, '\n')) {
+                istringstream iss(line);
+                getline(iss, temp.cid, ',');
+                getline(iss, temp.product, ',');
+                getline(iss, temp.cat, ',');
+                getline(iss, temp.price, ',');
+                getline(iss, temp.date, ',');
+                getline(iss, temp.payment, ',');
+                int i = top - 1;
+				if (temp.cid.length() < 8) {
+					cout << "Invalid transaction ID: " << temp.cid << endl;
+					continue;
+				}
+                while (i>0 && stoi(temp.cid.substr(4,4)) < stoi(list[i].cid.substr(4,4))) {
+					cout << temp.cid << " " << list[i].cid << " Record: " << top << " Progress: " << (float)top/4128 << "\%" << endl;
+					list[i + 1] = list[i];
+                    i--;
+                }
+				list[i + 1] = temp;
+				top++;
+            }
+            file.close();
+        }
+        else {
+			cerr << "Unable to open file!";
+        }
+	}
 
     Transactions* deleteAtIndex(Transactions* list, int index) {
         if (index < 0 || index > top) {
@@ -82,4 +114,5 @@ public:
             cout << endl;
         }
     }
+    
 };

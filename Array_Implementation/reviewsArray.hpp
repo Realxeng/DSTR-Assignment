@@ -29,7 +29,7 @@ public:
     int getTop() { return top; }
 	void setTop(int top) { this->top = top; }
 
-    void insertToArray(ifstream& file, Reviews* list) {
+    void insertToArray(ifstream& file) {
         if (file.is_open()) {
             string header;
             getline(file, header);

@@ -31,8 +31,8 @@ int main()
     transactionsArray tarr = transactionsArray(transactionSize);
     ifstream rfile(reviewsFile);
     ifstream tfile(transactionsFile);
-    rarr.insertToArray(rfile, rarr.list);
-    tarr.insertToArray(tfile, tarr.list);
+    rarr.insertToArray(rfile);
+    tarr.insertionSort(tfile);
     //rarr.showAllReviews();
-    //tarr.showAllTransactions();
+    tarr.showAllTransactions();
 }
