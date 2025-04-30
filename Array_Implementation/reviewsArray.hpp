@@ -69,6 +69,8 @@ public:
         top--;
     }
 
+
+
     void showAllReviews() {
         for (int lines = 0; lines < top; lines++) {
             cout << list[lines].pid << "|";

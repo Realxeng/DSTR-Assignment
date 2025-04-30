@@ -32,7 +32,9 @@ int main()
     ifstream rfile(reviewsFile);
     ifstream tfile(transactionsFile);
     rarr.insertToArray(rfile);
-    tarr.insertionSort(tfile);
+	tarr.insertToArray(tfile);
+    //tarr.insertionSort(tfile);
+	tarr.bubbleSort();
     //rarr.showAllReviews();
     tarr.showAllTransactions();
 }

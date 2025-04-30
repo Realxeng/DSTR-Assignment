@@ -67,10 +67,10 @@ public:
 					continue;
 				}
                 while (i>=0 && stoi(temp.cid.substr(4,4)) < stoi(list[i].cid.substr(4,4))) {
-					cout << temp.cid << " " << list[i].cid << " Record: " << top << " Progress: " << (float)top/4128*100 << "%" << endl;
 					list[i + 1] = list[i];
                     i--;
                 }
+                cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
 				list[i + 1] = temp;
                 top++;
             }
@@ -80,6 +80,27 @@ public:
         }
         file.close();
 	}
+
+    void bubbleSort() {
+        bool swapped;
+        int totalComparisons = top * (top - 1) / 2;
+        int count = 0;
+
+        for (int i = 0; i < top - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < top - i - 1; j++) {
+                count++;
+                if (list[j].cid > list[j + 1].cid) {
+                    Transactions temp = list[j];
+                    list[j] = list[j + 1];
+                    list[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            cout << "Progress: " << ((float)count / totalComparisons) * 100 << "%\n";
+            if (!swapped) break;
+        }
+    }
 
     Transactions* deleteAtIndex(Transactions* list, int index) {
         if (index < 0 || index > top) {
