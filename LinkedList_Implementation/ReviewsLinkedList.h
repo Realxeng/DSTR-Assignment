@@ -7,7 +7,7 @@ class ReviewsLinkedList
     struct reviewsLL //Linked List for the reviews
     {
         string productID, customerID, reviewDesc;
-        int rate;
+        int rate = 0;
 
         reviewsLL* prev = nullptr;
         reviewsLL* next = nullptr;

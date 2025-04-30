@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include "ReviewsLinkedList.h"
 #include "TransactionsLinkedList.hpp"
@@ -10,7 +11,7 @@ int main()
 {
     transactionsLinkedList transLL;
 
-    ifstream file("..\\transactions_cleaned.csv");
+    ifstream file("..\\data\\transactions_cleaned.csv");
     if (!file.is_open()) {
         cerr << "Error opening file!" << endl;
         return 1;
@@ -20,17 +21,18 @@ int main()
     getline(file, line); // Skip the header line
 
     while (getline(file, line)) {
+        stringstream ss(line);
         string customerID, product, category, priceStr, date, paymentMethod;
         float price;
 
-        
-        getline(file, customerID, ',');
-        getline(file, product, ',');
-        getline(file, category, ',');
-        getline(file, priceStr, ',');
-        getline(file, date, ',');
-        getline(file, paymentMethod, '\n');
+        getline(ss, customerID, ',');
+        getline(ss, product, ',');
+        getline(ss, category, ',');
+        getline(ss, priceStr, ',');
+        getline(ss, date, ',');
+        getline(ss, paymentMethod, '\n');
 
+        if (priceStr.empty()) continue; // Prevents crash on malformed line
         price = stof(priceStr); // Convert price string to float
 
         // Insert into linked list

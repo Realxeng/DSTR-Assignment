@@ -7,7 +7,7 @@ class transactionsLinkedList
     struct transactionsLL
     {
         string customerID, product, category, date, paymentMethod;
-        float price;
+        float price = 0.0f;
 
         transactionsLL* prev = nullptr;
         transactionsLL* next = nullptr;
@@ -22,9 +22,14 @@ class transactionsLinkedList
         int day2, month2, year2;
 
         // Parse first date
-        sscanf(d1.c_str(), "%d/%d/%d", &day1, &month1, &year1);
+        if (sscanf_s(d1.c_str(), "%d/%d/%d", &day1, &month1, &year1) != 3) {
+            cerr << "Invalid date format!";
+        }
         // Parse second date
-        sscanf(d2.c_str(), "%d/%d/%d", &day2, &month2, &year2);
+        
+        if (sscanf_s(d2.c_str(), "%d/%d/%d", &day2, &month2, &year2) != 3) {
+            cerr << "Invalid date fornat!";
+        }
 
         if (year1 != year2) return year1 < year2;
         if (month1 != month2) return month1 < month2;
@@ -52,7 +57,7 @@ public:
 
         transactionsLL* currentNode = head;
 
-        while (currentNode && isEarlier(currentNode->date, date))//to loop until the end to compare the dates
+        while (currentNode!=nullptr && isEarlier(currentNode->date, date))//to loop until the end to compare the dates
         {
             currentNode = currentNode->next;
         }
@@ -63,7 +68,7 @@ public:
             newNode->prev = tail;
             tail = newNode;
         }
-        else if (currentNode = head)//insert to front
+        else if (currentNode == head)//insert to front
         {
             newNode->next = head;
             head->prev = newNode;
