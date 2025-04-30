@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "..//Array_Implementation/Cleaning.hpp";
+#include "Cleaning.hpp";
 
 const string reviewsRaw = "..//data//reviews_raw.csv";
 const string transactionsRaw = "..//data//transactions_raw.csv";

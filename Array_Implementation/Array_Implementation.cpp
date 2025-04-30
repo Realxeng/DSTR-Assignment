@@ -4,7 +4,6 @@
 #include <string>
 #include "transactionsArray.hpp";
 #include "reviewsArray.hpp";
-#include "Cleaning.hpp";
 
 using namespace std;
 const string reviewsFile = "..//data//reviews_cleaned.csv";

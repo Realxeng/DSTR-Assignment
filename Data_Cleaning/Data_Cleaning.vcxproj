@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="Data_Cleaning.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cleaning.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
