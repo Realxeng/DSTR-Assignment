@@ -16,9 +16,19 @@ class ReviewsLinkedList
     reviewsLL* tail = nullptr;
 
 public:
-    void addNode(string productID, string customerID, int rate, string reviewDesc)
+    reviewsLL* addNode(string productID, string customerID, int rate, string reviewDesc)
     {
+        reviewsLL* newNode = new reviewsLL;
 
+        newNode->productID = productID;
+        newNode->customerID = customerID;
+        newNode->rate = rate;
+        newNode->reviewDesc = reviewDesc;
+
+        newNode->prev = nullptr;
+        newNode->next = nullptr;
+
+        return newNode;
     }
 };
 
