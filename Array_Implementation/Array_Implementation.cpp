@@ -40,7 +40,8 @@ int main()
 	tarr.bubbleSortDate();
     //auto stop = high_resolution_clock::now();
     //rarr.showAllReviews();
-    tarr.showAllTransactions();
+    //tarr.showAllTransactions();
+    tarr.displayByProduct("Monitor");
 	//auto duration = duration_cast<microseconds>(stop - start);
 	//cout << "Time taken to sort: " << duration.count() << " microseconds" << endl;
 	tfile.close();

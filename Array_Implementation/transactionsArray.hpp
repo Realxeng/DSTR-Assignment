@@ -49,6 +49,10 @@ public:
         }
     }
 
+    void insertToArray(Transactions data) {
+		list[top] = data;
+    }
+
 	void insertionSortCid(ifstream& file) {
         if (file.is_open()) {
             Transactions temp;
@@ -117,6 +121,84 @@ public:
         }
     }
 
+	void displayByCategory(string category) {
+		for (int i = 0; i < top; i++) {
+			if (list[i].cat == category) {
+				cout << list[i].cid << "|";
+				cout << list[i].product << "|";
+				cout << list[i].cat << "|";
+				cout << list[i].price << "|";
+				cout << list[i].date << "|";
+				cout << list[i].payment << "|";
+				cout << endl;
+			}
+		}
+	}
+
+    void displayByPayment(string payment) {
+        for (int i = 0; i < top; i++) {
+            if (list[i].payment == payment) {
+                cout << list[i].cid << "|";
+                cout << list[i].product << "|";
+                cout << list[i].cat << "|";
+                cout << list[i].price << "|";
+                cout << list[i].date << "|";
+                cout << list[i].payment << "|";
+                cout << endl;
+            }
+        }
+    }
+
+    void displayByProduct(string product) {
+        for (int i = 0; i < top; i++) {
+            if (list[i].product == product) {
+                cout << list[i].cid << "|";
+                cout << list[i].product << "|";
+                cout << list[i].cat << "|";
+                cout << list[i].price << "|";
+                cout << list[i].date << "|";
+                cout << list[i].payment << "|";
+                cout << endl;
+            }
+        }
+    }
+
+    Transactions* linearSearchCategory(string category) {
+		Transactions* result = new Transactions[top];
+		int count = 0;
+        for (int i = 0; i < top; i++) {
+            if (list[i].cat == category) {
+                result[count] = list[i];
+                count++;
+            }
+        }
+		return result;
+    }
+
+    Transactions* linearSearchPayment(string payment) {
+        Transactions* result = new Transactions[top];
+        int count = 0;
+        for (int i = 0; i < top; i++) {
+            if (list[i].payment == payment) {
+                result[count] = list[i];
+                count++;
+            }
+        }
+        return result;
+    }
+
+    Transactions* linearSearchProduct(string product) {
+        Transactions* result = new Transactions[top];
+        int count = 0;
+        for (int i = 0; i < top; i++) {
+            if (list[i].product == product) {
+                result[count] = list[i];
+                count++;
+            }
+        }
+        return result;
+    }
+
     Transactions* deleteAtIndex(Transactions* list, int index) {
         if (index < 0 || index > top) {
             cout << "No transaction found at index " << index << ". Top: " << top << endl;
@@ -161,5 +243,4 @@ public:
             cout << endl;
         }
     }
-    
 };
