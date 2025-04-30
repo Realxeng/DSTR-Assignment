@@ -6,8 +6,8 @@
 #include "reviewsArray.hpp";
 
 using namespace std;
-const string reviewsFile = "..//data//reviews_raw.csv";
-const string transactionsFile = "..//data//transactions_raw.csv";
+const string reviewsFile = "..//data//reviews_cleaned.csv";
+const string transactionsFile = "..//data//transactions_cleaned.csv";
 
 int getMaxLine(ifstream file) {
     int count = 0;
@@ -33,6 +33,6 @@ int main()
     ifstream tfile(transactionsFile);
     rarr.insertToArray(rfile, rarr.list);
     tarr.insertToArray(tfile, tarr.list);
-    rarr.showAllReviews(rarr.list, reviewSize);
-    tarr.showAllTransactions(tarr.list, transactionSize);
+    //rarr.showAllReviews();
+    //tarr.showAllTransactions();
 }

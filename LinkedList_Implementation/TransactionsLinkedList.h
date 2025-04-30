@@ -15,7 +15,8 @@ class transactionsLinkedList
     transactionsLL* head = nullptr;
     transactionsLL* tail = nullptr;
 
-    bool isEarlier(string d1, string d2) 
+    //Function to check which date is earlier
+    bool isEarlier(string d1, string d2)
     {
         int day1, month1, year1;
         int day2, month2, year2;
@@ -31,7 +32,8 @@ class transactionsLinkedList
     }
 
 public:
-    void addNode(string customerID, string product, string category, float price, string date, string paymentMethod)
+    //to do data population with insertion slot
+    void addSorted(string customerID, string product, string category, float price, string date, string paymentMethod)
     {
         transactionsLL* newNode = new transactionsLL;
 
@@ -47,19 +49,33 @@ public:
             head = newNode;
             tail = newNode;
         }
-        else
+        
+        transactionsLL* currentNode = head;
+
+        while (currentNode && isEarlier(currentNode->date, date))//to loop until the end to compare the dates
         {
-            transactionsLL* currentNode = head;
-            while (currentNode->next != nullptr)
-            {
-                if (isEarlier)
-                {
-
-                }
-            }
+            currentNode = currentNode->next;
         }
-
+        
+        if (currentNode = nullptr)//insert at the end
+        {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+        else if (currentNode = head)//insert to front
+        {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+        else//insert to middle basically in the middle of currentNode.prev & currentNode
+        {
+            newNode->next = currentNode; //changing next pointer of new node to current node
+            newNode->prev = currentNode->prev; //changing previous pointer of new node to current node previous pointer
+            currentNode->prev->next = newNode; //changing current node previous's next pointer to new node
+            currentNode->prev = newNode; // changing current node's previous pointer to new node
+        }
     }
-
 };
 

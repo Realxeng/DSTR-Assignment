@@ -15,16 +15,24 @@ class transactionsArray
     int top = 0;
 public:
     Transactions* list;
+	transactionsArray() {
+        list = NULL;
+	}
+    transactionsArray(Transactions* list, int top) {
+		this->list = list;
+        this->top = top;
+    }
     transactionsArray(int size) {
         list = new Transactions[size];
     }
 
-    ~transactionsArray() {
-        delete[] transactionsArray::list;
-    }
+    int getTop() { return top; }
+	void setTop(int top) { this->top = top; }
 
     void insertToArray(ifstream& file, Transactions* list) {
         if (file.is_open()) {
+            string header;
+            getline(file, header);
             while (file.good()) {
                 string wholeline;
                 getline(file, wholeline, '\n');
@@ -40,8 +48,31 @@ public:
         }
     }
 
-    void showAllTransactions(Transactions* list, int rowsize) {
-        for (int lines = 0; lines < rowsize; lines++) {
+    Transactions* deleteAtIndex(Transactions* list, int index) {
+        if (index < 0 || index > top) {
+            cout << "No transaction found at index " << index << ". Top: " << top << endl;
+            return list;
+        }
+        for (int i = index; i < top - 1; i++) {
+            list[i] = list[i + 1];
+        }
+        top--;
+        return list;
+    }
+
+    void deleteAtIndex(int index) {
+        if (index < 0 || index > top) {
+            cout << "Nothing to delete!";
+            return;
+        }
+        for (int i = index; i < top - 1; i++) {
+            list[i] = list[i + 1];
+        }
+        top--;
+    }
+
+    void showAllTransactions() {
+        for (int lines = 0; lines <= top; lines++) {
             cout << list[lines].cid << "|";
             cout << list[lines].product << "|";
             cout << list[lines].cat << "|";
