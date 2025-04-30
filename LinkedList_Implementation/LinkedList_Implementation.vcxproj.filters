@@ -29,7 +29,7 @@
     <ClInclude Include="ReviewsLinkedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TransactionsLinkedList.h">
+    <ClInclude Include="TransactionsLinkedList.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

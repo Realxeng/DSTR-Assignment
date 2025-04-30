@@ -49,14 +49,14 @@ public:
             head = newNode;
             tail = newNode;
         }
-        
+
         transactionsLL* currentNode = head;
 
         while (currentNode && isEarlier(currentNode->date, date))//to loop until the end to compare the dates
         {
             currentNode = currentNode->next;
         }
-        
+
         if (currentNode == nullptr)//insert at the end
         {
             tail->next = newNode;
@@ -77,5 +77,14 @@ public:
             currentNode->prev = newNode; // changing current node's previous pointer to new node
         }
     }
-};
 
+    void display()//display each lines
+    {
+        transactionsLL* temp = head;
+        while (temp)
+        {
+            cout << temp->customerID << " - " << temp->product << " - " << temp->price << " - " << temp->date << endl;
+            temp = temp->next;
+        }
+    }
+};

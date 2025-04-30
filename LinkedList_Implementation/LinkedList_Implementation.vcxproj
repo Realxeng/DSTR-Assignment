@@ -133,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReviewsLinkedList.h" />
-    <ClInclude Include="TransactionsLinkedList.h" />
+    <ClInclude Include="TransactionsLinkedList.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
