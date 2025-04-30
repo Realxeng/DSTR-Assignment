@@ -33,7 +33,7 @@ class transactionsLinkedList
 
         if (year1 != year2) return year1 < year2;
         if (month1 != month2) return month1 < month2;
-        return day1 <= day2;
+        return day1 < day2;
     }
 
 public:
@@ -53,9 +53,11 @@ public:
         {
             head = newNode;
             tail = newNode;
+            return;
         }
 
         transactionsLL* currentNode = head;
+        int i = 0;
 
         while (currentNode!=nullptr && isEarlier(currentNode->date, date))//to loop until the end to compare the dates
         {
