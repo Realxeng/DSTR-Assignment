@@ -118,7 +118,7 @@ public:
 				<< tlist[i].product << ","
 				<< tlist[i].cat << ","
 				<< tlist[i].price << ","
-				<< tlist[i].date << ","
+				<< ta.convertDate(tlist[i].date) << ","
 				<< tlist[i].payment << endl;
 		}
 		file.close();

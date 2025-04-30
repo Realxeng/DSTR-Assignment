@@ -2,12 +2,14 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <chrono>
 #include "transactionsArray.hpp"
 #include "reviewsArray.hpp"
 
 using namespace std;
+using namespace std::chrono;
 const string reviewsFile = "..//data//reviews_cleaned.csv";
-const string transactionsFile = "..//data//transactions_cleaned.csv";
+const string transactionsFile = "..//data//transactions_cleaned_date.csv";
 
 int getMaxLine(ifstream file) {
     int count = 0;
@@ -32,9 +34,16 @@ int main()
     ifstream rfile(reviewsFile);
     ifstream tfile(transactionsFile);
     rarr.insertToArray(rfile);
-	tarr.insertToArray(tfile);
-    //tarr.insertionSort(tfile);
-	tarr.bubbleSort();
+    tarr.insertToArray(tfile);
+    //auto start = high_resolution_clock::now();
+    //tarr.insertionSortCid(tfile);
+	tarr.bubbleSortDate();
+    //auto stop = high_resolution_clock::now();
     //rarr.showAllReviews();
     tarr.showAllTransactions();
+	//auto duration = duration_cast<microseconds>(stop - start);
+	//cout << "Time taken to sort: " << duration.count() << " microseconds" << endl;
+	tfile.close();
+	rfile.close();
+	return 0;
 }

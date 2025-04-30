@@ -49,7 +49,7 @@ public:
         }
     }
 
-	void insertionSort(ifstream& file) {
+	void insertionSortCid(ifstream& file) {
         if (file.is_open()) {
             Transactions temp;
             string line;
@@ -70,7 +70,7 @@ public:
 					list[i + 1] = list[i];
                     i--;
                 }
-                cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
+                //cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
 				list[i + 1] = temp;
                 top++;
             }
@@ -81,15 +81,15 @@ public:
         file.close();
 	}
 
-    void bubbleSort() {
+    void bubbleSortCid() {
         bool swapped;
-        int totalComparisons = top * (top - 1) / 2;
-        int count = 0;
+        //int totalComparisons = top * (top - 1) / 2;
+        //int count = 0;
 
         for (int i = 0; i < top - 1; i++) {
             swapped = false;
             for (int j = 0; j < top - i - 1; j++) {
-                count++;
+                //count++;
                 if (list[j].cid > list[j + 1].cid) {
                     Transactions temp = list[j];
                     list[j] = list[j + 1];
@@ -97,8 +97,23 @@ public:
                     swapped = true;
                 }
             }
-            cout << "Progress: " << ((float)count / totalComparisons) * 100 << "%\n";
+            //cout << "Progress: " << ((float)count / totalComparisons) * 100 << "%\n";
             if (!swapped) break;
+        }
+    }
+
+    void bubbleSortDate() {
+        bool swapped = false;
+        for (int i = 0; i < top - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < top - i - 1; j++) {
+                if (isEarlier(list[j + 1].date, list[j].date)) {
+                    Transactions temp = list[j];
+					list[j] = list[j + 1];
+					list[j + 1] = temp;
+					swapped = true;
+                }
+            }
         }
     }
 
@@ -113,6 +128,16 @@ public:
         top--;
         return list;
     }
+
+    string convertDate(string sdate) {
+        int day, month, year;
+        sscanf_s(sdate.c_str(), "%d/%d/%d", &day, &month, &year);
+        return to_string(year) + "/" + (month < 10 ? "0" : "") + to_string(month) + "/" + (day < 10 ? "0" : "") + to_string(day);
+    }
+
+	bool isEarlier(string date1, string date2) {
+		return date1 < date2;
+	}
 
     void deleteAtIndex(int index) {
         if (index < 0 || index > top) {

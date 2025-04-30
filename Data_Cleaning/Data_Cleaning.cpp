@@ -41,6 +41,6 @@ int main()
     ct.transactionCleanNullEntry();
     ct.transactionCleanNanEntry();
     ct.transactionCleanInvalidDate();
-    ct.exportTransaction("..//data//transactions_cleaned.csv");
+    ct.exportTransaction("..//data//transactions_cleaned_date.csv");
     ct.~Cleaning();
 }
