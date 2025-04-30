@@ -70,7 +70,7 @@ public:
     }
 
     void showAllReviews() {
-        for (int lines = 0; lines <= top; lines++) {
+        for (int lines = 0; lines < top; lines++) {
             cout << list[lines].pid << "|";
             cout << list[lines].cid << "|";
             cout << list[lines].rating << "|";

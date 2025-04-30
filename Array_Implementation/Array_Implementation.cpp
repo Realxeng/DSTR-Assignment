@@ -2,8 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "transactionsArray.hpp";
-#include "reviewsArray.hpp";
+#include "transactionsArray.hpp"
+#include "reviewsArray.hpp"
 
 using namespace std;
 const string reviewsFile = "..//data//reviews_cleaned.csv";

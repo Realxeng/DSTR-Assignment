@@ -16,7 +16,8 @@ class transactionsArray
 public:
     Transactions* list;
 	transactionsArray() {
-        list = NULL;
+        list = nullptr;
+        top = 0;
 	}
     transactionsArray(Transactions* list, int top) {
 		this->list = list;
@@ -65,19 +66,19 @@ public:
 					cout << "Invalid transaction ID: " << temp.cid << endl;
 					continue;
 				}
-                while (i>0 && stoi(temp.cid.substr(4,4)) < stoi(list[i].cid.substr(4,4))) {
-					cout << temp.cid << " " << list[i].cid << " Record: " << top << " Progress: " << (float)top/4128 << "\%" << endl;
+                while (i>=0 && stoi(temp.cid.substr(4,4)) < stoi(list[i].cid.substr(4,4))) {
+					cout << temp.cid << " " << list[i].cid << " Record: " << top << " Progress: " << (float)top/4128*100 << "%" << endl;
 					list[i + 1] = list[i];
                     i--;
                 }
 				list[i + 1] = temp;
-				top++;
+                top++;
             }
-            file.close();
         }
         else {
 			cerr << "Unable to open file!";
         }
+        file.close();
 	}
 
     Transactions* deleteAtIndex(Transactions* list, int index) {
@@ -104,7 +105,7 @@ public:
     }
 
     void showAllTransactions() {
-        for (int lines = 0; lines <= top; lines++) {
+        for (int lines = 0; lines < top; lines++) {
             cout << list[lines].cid << "|";
             cout << list[lines].product << "|";
             cout << list[lines].cat << "|";
