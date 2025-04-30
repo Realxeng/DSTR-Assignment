@@ -15,17 +15,19 @@ class reviewsArray
     int top = 0;
 public:
     Reviews* list;
-    reviewsArray() {
-
+	reviewsArray() {
+		list = NULL;
+	}
+    reviewsArray(Reviews* list, int top) {
+        this->list = list;
+        this->top = top;
     }
     reviewsArray(int size) {
         list = new Reviews[size];
     }
-    ~reviewsArray() {
-        delete[] list;
-    }
 
     int getTop() { return top; }
+	void setTop(int top) { this->top = top; }
 
     void insertToArray(ifstream& file, Reviews* list) {
         if (file.is_open()) {
@@ -46,7 +48,7 @@ public:
 
     Reviews* deleteAtIndex(Reviews* list, int index) {
         if (index < 0 || index > top) {
-            cout << "Nothing to delete!";
+            cout << "No transaction found at index " << index << ". Top: " << top << endl;
             return list;
         }
         for (int i = index; i < top - 1; i++) {

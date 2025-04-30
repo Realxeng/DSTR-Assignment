@@ -29,16 +29,18 @@ int main()
     ifstream tfile(transactionsRaw);
     rarr.insertToArray(rfile, rarr.list);
     tarr.insertToArray(tfile, tarr.list);
-    //rarr.showAllReviews(rarr.list, reviewSize);
-    //tarr.showAllTransactions(tarr.list, transactionSize);
-    Cleaning cr = Cleaning(rarr);
+    //rarr.showAllReviews();
+    //tarr.showAllTransactions();
+    Cleaning cr = Cleaning(rarr.list, rarr.getTop());
     cr.reviewCleanNullEntry();
     cr.reviewCleanInvalidRating();
     cr.reviewQuote();
     cr.exportReview("..//data//reviews_cleaned.csv");
-    Cleaning ct = Cleaning(tarr);
+	cr.~Cleaning();
+    Cleaning ct = Cleaning(tarr.list, tarr.getTop());
     ct.transactionCleanNullEntry();
     ct.transactionCleanNanEntry();
     ct.transactionCleanInvalidDate();
     ct.exportTransaction("..//data//transactions_cleaned.csv");
+    ct.~Cleaning();
 }

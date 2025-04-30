@@ -15,17 +15,19 @@ class transactionsArray
     int top = 0;
 public:
     Transactions* list;
-    transactionsArray() {
-
+	transactionsArray() {
+        list = NULL;
+	}
+    transactionsArray(Transactions* list, int top) {
+		this->list = list;
+        this->top = top;
     }
     transactionsArray(int size) {
         list = new Transactions[size];
     }
-    ~transactionsArray() {
-        delete[] transactionsArray::list;
-    }
 
     int getTop() { return top; }
+	void setTop(int top) { this->top = top; }
 
     void insertToArray(ifstream& file, Transactions* list) {
         if (file.is_open()) {
@@ -48,7 +50,7 @@ public:
 
     Transactions* deleteAtIndex(Transactions* list, int index) {
         if (index < 0 || index > top) {
-            cout << "Nothing to delete!";
+            cout << "No transaction found at index " << index << ". Top: " << top << endl;
             return list;
         }
         for (int i = index; i < top - 1; i++) {
