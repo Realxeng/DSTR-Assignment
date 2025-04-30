@@ -11,15 +11,15 @@
       "RelativeMoniker": "D:0:0:{C056E3EE-9758-4A17-AC0B-A2B7EFF9BFE6}|LinkedList_Implementation\\LinkedList_Implementation.vcxproj|solutionrelative:LinkedList_Implementation\\ReviewsLinkedList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\PartitionD\\SEM 4\\Data Structures\\Coding\\DSLab_6\\DSLab_6\\DSLab_6.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C056E3EE-9758-4A17-AC0B-A2B7EFF9BFE6}|LinkedList_Implementation\\LinkedList_Implementation.vcxproj|C:\\PartitionD\\SEM 4\\Data Structures\\Assignment\\DSTR Assignment\\LinkedList_Implementation\\LinkedList_Implementation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C056E3EE-9758-4A17-AC0B-A2B7EFF9BFE6}|LinkedList_Implementation\\LinkedList_Implementation.vcxproj|solutionrelative:LinkedList_Implementation\\LinkedList_Implementation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C056E3EE-9758-4A17-AC0B-A2B7EFF9BFE6}|LinkedList_Implementation\\LinkedList_Implementation.vcxproj|C:\\PartitionD\\SEM 4\\Data Structures\\Assignment\\DSTR Assignment\\LinkedList_Implementation\\ReviewsLinkedList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C056E3EE-9758-4A17-AC0B-A2B7EFF9BFE6}|LinkedList_Implementation\\LinkedList_Implementation.vcxproj|solutionrelative:LinkedList_Implementation\\ReviewsLinkedList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4BF14C0-8A0C-911B-1C21-30973F831D67}|..\\..\\..\\..\\..\\Users\\Legion\\AppData\\Roaming\\Microsoft\\VisualStudio\\17.0_20613308\\SingleFileISense\\_sfi_d1bbf46b-61f9-4ccb-ba89-dca3b3a40095_.vcxproj|C:\\PartitionD\\SEM 4\\Data Structures\\Coding\\DSLab_6\\DSLab_6\\DSLab_6.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,7 +39,7 @@
               "RelativeDocumentMoniker": "LinkedList_Implementation\\TransactionsLinkedList.h",
               "ToolTip": "C:\\PartitionD\\SEM 4\\Data Structures\\Assignment\\DSTR Assignment\\LinkedList_Implementation\\TransactionsLinkedList.h",
               "RelativeToolTip": "LinkedList_Implementation\\TransactionsLinkedList.h",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAADcAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAADcAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-04-29T16:40:14.618Z",
               "EditorCaption": ""
@@ -54,12 +54,11 @@
               "RelativeToolTip": "LinkedList_Implementation\\ReviewsLinkedList.h*",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-29T08:04:04.929Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T08:04:04.929Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "LinkedList_Implementation.cpp",
               "DocumentMoniker": "C:\\PartitionD\\SEM 4\\Data Structures\\Assignment\\DSTR Assignment\\LinkedList_Implementation\\LinkedList_Implementation.cpp",
               "RelativeDocumentMoniker": "LinkedList_Implementation\\LinkedList_Implementation.cpp",
@@ -67,12 +66,11 @@
               "RelativeToolTip": "LinkedList_Implementation\\LinkedList_Implementation.cpp*",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-29T07:02:57.441Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T07:02:57.441Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "ReviewsLinkedList.cpp",
               "DocumentMoniker": "C:\\PartitionD\\SEM 4\\Data Structures\\Assignment\\DSTR Assignment\\LinkedList_Implementation\\ReviewsLinkedList.cpp",
               "RelativeDocumentMoniker": "LinkedList_Implementation\\ReviewsLinkedList.cpp",
@@ -80,12 +78,11 @@
               "RelativeToolTip": "LinkedList_Implementation\\ReviewsLinkedList.cpp*",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-29T08:04:08.656Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T08:04:08.656Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "DSLab_6.cpp",
               "DocumentMoniker": "C:\\PartitionD\\SEM 4\\Data Structures\\Coding\\DSLab_6\\DSLab_6\\DSLab_6.cpp",
               "RelativeDocumentMoniker": "..\\..\\Coding\\DSLab_6\\DSLab_6\\DSLab_6.cpp",
@@ -93,8 +90,7 @@
               "RelativeToolTip": "..\\..\\Coding\\DSLab_6\\DSLab_6\\DSLab_6.cpp",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-29T08:53:32.097Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T08:53:32.097Z"
             }
           ]
         }
