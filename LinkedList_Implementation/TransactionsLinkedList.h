@@ -28,7 +28,7 @@ class transactionsLinkedList
 
         if (year1 != year2) return year1 < year2;
         if (month1 != month2) return month1 < month2;
-        return day1 < day2;
+        return day1 <= day2;
     }
 
 public:
@@ -57,7 +57,7 @@ public:
             currentNode = currentNode->next;
         }
         
-        if (currentNode = nullptr)//insert at the end
+        if (currentNode == nullptr)//insert at the end
         {
             tail->next = newNode;
             newNode->prev = tail;
