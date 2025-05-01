@@ -45,8 +45,8 @@ int main()
     //rarr.showAllReviews();
     //tarr.showAllTransactions();
     //tarr.displayByProduct("Monitor");
-	tarr.showTransaction(tarr.binarySearchCustomer(tarr, "CUST9944"));
-    //tarr.showTransaction(tarr.linearSearchProduct(tarr, "Mouse"));
+	tarr.showTransaction(binarySearchCustomer(tarr, "CUST9944"));
+    //tarr.showTransaction(linearSearchProduct(tarr, "Mouse"));
 	//auto stop = high_resolution_clock::now();
 	//auto duration = duration_cast<microseconds>(stop - start);
 	//cout << "Time taken to sort: " << duration.count() << " microseconds" << endl;
