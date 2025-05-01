@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "ReviewsLinkedList.h"
+#include "ReviewsLinkedList.hpp"
 #include "TransactionsLinkedList.hpp"
 using namespace std;
 
@@ -11,7 +11,7 @@ int main()
 {
     transactionsLinkedList transLL;
 
-    ifstream file("..\\data\\transactions_cleaned.csv");
+    ifstream file("../data/transactions_cleaned.csv");
     if (!file.is_open()) {
         cerr << "Error opening file!" << endl;
         return 1;

@@ -26,7 +26,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ReviewsLinkedList.h">
+    <ClInclude Include="ReviewsLinkedList.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TransactionsLinkedList.hpp">
