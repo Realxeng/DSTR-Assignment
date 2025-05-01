@@ -28,7 +28,7 @@ int main()
     ifstream rfile(reviewsRaw);
     ifstream tfile(transactionsRaw);
     rarr.insertFromFile(rfile);
-    tarr.insertFromFile(tfile);
+    tarr.insertFromFileRaw(tfile);
     rarr.showAllReviews();
     //tarr.showAllTransactions();
     Cleaning cr = Cleaning(rarr);
