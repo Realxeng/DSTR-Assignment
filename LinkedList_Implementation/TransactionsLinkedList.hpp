@@ -21,13 +21,14 @@ class transactionsLinkedList
         int day1, month1, year1;
         int day2, month2, year2;
 
-        // Parse first date
-        if (sscanf_s(d1.c_str(), "%d/%d/%d", &day1, &month1, &year1) != 3) {
+        //get date into string and split by / to compare the date from current node and date from csv
+        if (sscanf_s(d1.c_str(), "%d/%d/%d", &year1, &month1, &day1) != 3) 
+        {
             cerr << "Invalid date format!";
         }
-        // Parse second date
         
-        if (sscanf_s(d2.c_str(), "%d/%d/%d", &day2, &month2, &year2) != 3) {
+        if (sscanf_s(d2.c_str(), "%d/%d/%d", &year2, &month2, &day2) != 3) 
+        {
             cerr << "Invalid date fornat!";
         }
 
