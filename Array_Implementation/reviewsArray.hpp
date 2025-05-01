@@ -131,4 +131,44 @@ public:
         file.close();
         return ar;
     }
+
+    void mergeSortByPID(int left = 0, int right = -1) {
+        if (right == -1) right = top - 1;
+        if (left >= right) return;
+
+        int mid = left + (right - left) / 2;
+
+        // Recursively divide
+        mergeSortByPID(left, mid);
+        mergeSortByPID(mid + 1, right);
+
+        // Temporary arrays
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        Reviews* L = new Reviews[n1];
+        Reviews* R = new Reviews[n2];
+
+        for (int i = 0; i < n1; i++) L[i] = list[left + i];
+        for (int i = 0; i < n2; i++) R[i] = list[mid + 1 + i];
+
+        // Merge step
+        cout << "left: "<< left<<endl;
+        int i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (L[i].pid <= R[j].pid) list[k++] = L[i++];
+            else list[k++] = R[j++];
+        }
+        while (i < n1) {
+            cout << "Adding remaining L[" << i << "] = " << L[i].pid << " to list[" << k << "]" << endl;
+            list[k++] = L[i++];
+        }
+        while (j < n2) {
+            cout << "Adding remaining R[" << j << "] = " << R[j].pid << " to list[" << k << "]" << endl;
+            list[k++] = R[j++];
+        }
+
+        delete[] L;
+        delete[] R;
+    }
+
 };

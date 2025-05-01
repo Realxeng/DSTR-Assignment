@@ -35,17 +35,19 @@ int main()
     ifstream rfile(reviewsFile);
     ifstream tfile(transactionsFile);
 
-    //rarr.insertFromFile(rfile);
+    rarr.insertFromFile(rfile);
     //auto start = high_resolution_clock::now();
 	//rarr = insertionSortRating(rfile, rarr);
-    tarr.insertFromFile(tfile);
+    //tarr.insertFromFile(tfile);
     //tarr = tarr.insertionSortCid(tfile, tarr);
 	//tarr = tarr.bubbleSortDate(tarr);
     //auto stop = high_resolution_clock::now();
     //rarr.showAllReviews();
     //tarr.showAllTransactions();
     //tarr.displayByProduct("Monitor");
-	tarr.showTransaction(binarySearchCustomer(tarr, "CUST9944"));
+	rarr.mergeSortByPID();
+	rarr.showAllReviews();
+	//tarr.showTransaction(binarySearchCustomer(tarr, "CUST9944"));
     //tarr.showTransaction(linearSearchProduct(tarr, "Mouse"));
 	//auto stop = high_resolution_clock::now();
 	//auto duration = duration_cast<microseconds>(stop - start);
