@@ -66,6 +66,7 @@ int main()
     ifstream tfile(transactionsFile);
     rarr.insertFromFile(rfile);
     tarr.insertFromFile(tfile);
+    rarr.mergeSortByPID();
     //auto start = high_resolution_clock::now();
     //insertionSortCid(tfile, tarr);
 	//tarr.bubbleSortDate();
@@ -73,7 +74,7 @@ int main()
     //rarr.showAllReviews();
     //tarr.showAllTransactions();
     //tarr.displayByProduct("Monitor");
-	transactionsArray customerTransactions = tarr.binarySearchCustomer("CUST9944");
+	//transactionsArray customerTransactions = tarr.binarySearchCustomer("CUST9944");
     //tarr.showTransaction(customerTransactions);
 	//auto stop = high_resolution_clock::now();
 	//auto duration = duration_cast<microseconds>(stop - start);
