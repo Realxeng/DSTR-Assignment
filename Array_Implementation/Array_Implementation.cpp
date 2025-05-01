@@ -42,6 +42,10 @@ int main()
     //rarr.showAllReviews();
     //tarr.showAllTransactions();
     tarr.displayByProduct("Monitor");
+    tarr.showTransaction(tarr.binarySearchCustomer("CUST9944"));
+	//auto stop = high_resolution_clock::now();
+	//auto duration = duration_cast<microseconds>(stop - start);
+	//cout << "Time taken to sort: " << duration.count() << " microseconds" << endl;
 	//auto duration = duration_cast<microseconds>(stop - start);
 	//cout << "Time taken to sort: " << duration.count() << " microseconds" << endl;
 	tfile.close();

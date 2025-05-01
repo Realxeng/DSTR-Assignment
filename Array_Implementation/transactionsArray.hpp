@@ -8,6 +8,7 @@ using namespace std;
 struct Transactions
 {
     string cid, product, cat, price, date, payment;
+    int size = 0;
 };
 
 class transactionsArray
@@ -25,6 +26,7 @@ public:
     }
     transactionsArray(int size) {
         list = new Transactions[size];
+        list->size = size;
     }
 
     int getTop() { return top; }
@@ -44,6 +46,7 @@ public:
                 getline(iss, list[top].price, ',');
                 getline(iss, list[top].date, ',');
                 getline(iss, list[top].payment, ',');
+                list[top].size = top + 1;
                 top++;
             }
         }
@@ -65,12 +68,9 @@ public:
                 getline(iss, temp.price, ',');
                 getline(iss, temp.date, ',');
                 getline(iss, temp.payment, ',');
+				temp.size = top;
                 int i = top - 1;
-				if (temp.cid.length() < 8) {
-					cout << "Invalid transaction ID: " << temp.cid << endl;
-					continue;
-				}
-                while (i>=0 && stoi(temp.cid.substr(4,4)) < stoi(list[i].cid.substr(4,4))) {
+                while (i>=0 && temp.cid < list[i].cid) {
 					list[i + 1] = list[i];
                     i--;
                 }
@@ -172,6 +172,12 @@ public:
                 count++;
             }
         }
+		if (count == 0) {
+			list[0].size = 0;
+		}
+		else {
+			cout << "Transaction(s) found: " << count << endl;
+		}
 		return result;
     }
 
@@ -183,6 +189,12 @@ public:
                 result[count] = list[i];
                 count++;
             }
+        }
+        if (count == 0) {
+            list[0].size = 0;
+        }
+        else {
+            cout << "Transaction(s) found: " << count << endl;
         }
         return result;
     }
@@ -196,11 +208,48 @@ public:
                 count++;
             }
         }
+        if (count == 0) {
+            list[0].size = 0;
+        }
+        else {
+            cout << "Transaction(s) found: " << count << endl;
+        }
         return result;
     }
 
-    Transactions* binarySearchCustomer(string customer) {
-
+    Transactions* binarySearchCustomer(string cid) {
+		bubbleSortCid();
+		Transactions* result = new Transactions[top];
+        int left = 0, mid = 0, count = 0;
+        int right = top - 1;
+        while (left <= right) {
+			if (list[left].cid == cid) {
+				while (list[left].cid == cid && left < top) {
+					result[count] = list[left];
+					count++;
+					left++;
+				}
+                break;
+			}
+			mid = (left + right) / 2;
+            /*if (list[mid].cid == cid) {
+                result[0] = list[mid];
+            }*/
+            if (list[mid].cid < cid) {
+                left = mid + 1;
+            }
+            else {
+				right = mid - 1;
+            }
+        }
+        if (count == 0) {
+			list[0].size = 0;
+            return result;
+        }
+        else {
+			cout << "Transaction(s) found: " << count << endl;
+			return result;
+        }
     }
 
     Transactions* deleteAtIndex(Transactions* list, int index) {
@@ -215,11 +264,11 @@ public:
         return list;
     }
 
-    string convertDate(string sdate) {
+    /*string convertDate(string sdate) {
         int day, month, year;
         sscanf_s(sdate.c_str(), "%d/%d/%d", &day, &month, &year);
         return to_string(year) + "/" + (month < 10 ? "0" : "") + to_string(month) + "/" + (day < 10 ? "0" : "") + to_string(day);
-    }
+    }*/
 
 	bool isEarlier(string date1, string date2) {
 		return date1 < date2;
@@ -247,4 +296,21 @@ public:
             cout << endl;
         }
     }
+
+    void showTransaction(Transactions* list) {
+		if (list->size > 0) {
+			for (int i = 0; i < list->size; i++) {
+				cout << list[i].cid << "|";
+				cout << list[i].product << "|";
+				cout << list[i].cat << "|";
+				cout << list[i].price << "|";
+				cout << list[i].date << "|";
+				cout << list[i].payment << "|";
+				cout << endl;
+			}
+		}
+        else {
+            cout << "No transaction to be displayed!" << endl;
+        }
+	}
 };
