@@ -24,7 +24,8 @@ int main()
     cin >> choice;
     cin.ignore(); // Ignore the newline character left in the buffer
 
-    if (choice == 1) {
+    if (choice == 1) 
+    {
         // Reviews Linked List
         ReviewsLinkedList reviewsLL = setUp_reviewLL();
 
@@ -60,7 +61,8 @@ int main()
         cin >> choice;
         cin.ignore();
 
-        if (choice == 1) {
+        if (choice == 1) 
+        {
             cout << "Total Records: " << transLL.getLLSize() << endl;
             transLL.display();
         }
@@ -72,7 +74,7 @@ int main()
             auto duration = duration_cast<milliseconds>(stop - start);
 
             transLL.display();
-            cout << "\nTime taken to sort: " << duration.count() << " milliseconds" << endl;
+            cout << "\nInsertion sort completed in: " << duration.count() << " ms" << endl;
             
             int searchChoice;
             cout << "\nSearch by:\n1. Category\n2. Payment Method\nEnter choice: ";
@@ -81,7 +83,8 @@ int main()
             cin.ignore(); // clear newline from input buffer
             string searchTerm;
 
-            if (searchChoice == 1) {
+            if (searchChoice == 1) 
+            {
                 cout << "Enter category: ";
                 getline(cin, searchTerm);
 
@@ -93,7 +96,8 @@ int main()
                 cout << "Search completed in " << searchDuration.count() << " ms.\n";
 
             }
-            else if (searchChoice == 2) {
+            else if (searchChoice == 2) 
+            {
                 cout << "Enter payment method: ";
                 getline(cin, searchTerm);
 
@@ -104,7 +108,8 @@ int main()
                 auto searchDuration = duration_cast<milliseconds>(searchEnd - searchStart);
                 cout << "Search completed in " << searchDuration.count() << " ms.\n";
             }
-            else {
+            else 
+            {
                 cout << "Invalid choice.\n";
             }
         }
@@ -115,8 +120,8 @@ int main()
             auto end = high_resolution_clock::now();
 
             auto duration = duration_cast<milliseconds>(end - start);
-            cout << "Bubble Sort completed in " << duration.count() << " ms.\n";
             transLL.display();
+            cout << "Bubble Sort completed in " << duration.count() << " ms.\n";
 
             int searchChoice;
             cout << "\nSearch by:\n1. Category\n2. Payment Method\nEnter choice: ";
@@ -125,7 +130,8 @@ int main()
             cin.ignore(); // clear newline from input buffer
             string searchTerm;
 
-            if (searchChoice == 1) {
+            if (searchChoice == 1) 
+            {
                 cout << "Enter category: ";
                 getline(cin, searchTerm);
 
@@ -137,7 +143,8 @@ int main()
                 cout << "Search completed in " << searchDuration.count() << " ms.\n";
 
             }
-            else if (searchChoice == 2) {
+            else if (searchChoice == 2) 
+            {
                 cout << "Enter payment method: ";
                 getline(cin, searchTerm);
 
@@ -148,7 +155,8 @@ int main()
                 auto searchDuration = duration_cast<milliseconds>(searchEnd - searchStart);
                 cout << "Search completed in " << searchDuration.count() << " ms.\n";
             }
-            else {
+            else 
+            {
                 cout << "Invalid choice.\n";
             }
         }
