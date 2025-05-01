@@ -8,36 +8,31 @@
 using namespace std;
 
 class Cleaning {
-	Reviews* rlist;
 	reviewsArray ra;
-	Transactions* tlist;
 	transactionsArray ta;
 public:
-	Cleaning(Reviews* list, int top) {
-		ra = reviewsArray(list, top);
-		tlist = NULL;
-		ra.setTop(top);
+	Cleaning(reviewsArray ra) {
+		this->ra = ra;
+		ta = NULL;
 	}
-	Cleaning(Transactions* list, int top) {
-		ta = transactionsArray();
-		tlist = list;
-		rlist = NULL;
-		ta.setTop(top);
+	Cleaning(transactionsArray ta) {
+		this->ta = ta;
+		ta = NULL;
 	}
 	~Cleaning() {
-		if (rlist != NULL) {
-			delete[] rlist;
-			rlist = nullptr;
+		if (ra.list != NULL) {
+			delete[] ra.list;
+			ra.list = nullptr;
 		}
-		if (tlist != NULL) {
-			delete[] tlist;
-			tlist = nullptr;
+		if (ta.list != NULL) {
+			delete[] ta.list;
+			ta.list = nullptr;
 		}
 	}
 	
 	void reviewCleanNullEntry() {
 		for (int i = 0; i < ra.getTop(); i++){
-			if (rlist[i].cid.empty() || rlist[i].pid.empty() || rlist[i].rating.empty() || rlist[i].review.empty()) {
+			if (ra.list[i].cid.empty() || ra.list[i].pid.empty() || ra.list[i].rating.empty() || ra.list[i].review.empty()) {
 				cout << "Deleted null review at index: " << i << endl;
 				ra.deleteAtIndex(i);
 				i--;
@@ -47,7 +42,7 @@ public:
 
 	void reviewCleanInvalidRating() {
 		for (int i = 0; i < ra.getTop(); i++) {
-			if (rlist[i].rating == "Invalid Rating") {
+			if (ra.list[i].rating == "Invalid Rating") {
 				cout << "Deleted invalid rating at index: " << i << endl;
 				ra.deleteAtIndex(i);
 				i--;
@@ -57,22 +52,22 @@ public:
 
 	void reviewQuote() {
 		for (int i = 0; i < ra.getTop(); i++) {
-			string review = rlist[i].review;
+			string review = ra.list[i].review;
 			if (review.find('"') != string::npos) {
-				return;
+				continue;
 			}
 			else {
-				rlist[i].review = "\"" + review + "\"";
+				ra.list[i].review = "\"" + review + "\"";
 			}
 		}
 	}
 
 	void transactionCleanNullEntry() {
 		for (int i = 0; i < ta.getTop(); i++) {
-			if (tlist[i].cid.empty() || tlist[i].product.empty() || tlist[i].cat.empty() 
-				|| tlist[i].price.empty() || tlist[i].date.empty() || tlist[i].payment.empty()) {
+			if (ta.list[i].cid.empty() || ta.list[i].product.empty() || ta.list[i].cat.empty() 
+				|| ta.list[i].price.empty() || ta.list[i].date.empty() || ta.list[i].payment.empty()) {
 				cout << "Deleted transaction at index: " << i << endl;
-				tlist = ta.deleteAtIndex(tlist, i);
+				ta.list = ta.deleteAtIndex(ta.list, i);
 				i--;
 			}
 		}
@@ -80,9 +75,9 @@ public:
 
 	void transactionCleanNanEntry() {
 		for (int i = 0; i < ta.getTop(); i++) {
-			if (tlist[i].price == "NaN") {
+			if (ta.list[i].price == "NaN") {
 				cout << "Deleted transaction at index: " << i << endl;
-				tlist = ta.deleteAtIndex(tlist, i);
+				ta.list = ta.deleteAtIndex(ta.list, i);
 				i--;
 			}
 		}
@@ -90,9 +85,9 @@ public:
 
 	void transactionCleanInvalidDate() {
 		for (int i = 0; i < ta.getTop(); i++) {
-			if (tlist[i].date == "Invalid Date") {
+			if (ta.list[i].date == "Invalid Date") {
 				cout << "Deleted transaction at index: " << i << endl;
-				tlist = ta.deleteAtIndex(tlist, i);
+				ta.list = ta.deleteAtIndex(ta.list, i);
 				i--;
 			}
 		}
@@ -107,10 +102,10 @@ public:
 	void exportReview(string path) {
 		ofstream file(path);
 		for (int i = 0; i < ra.getTop(); i++) {
-			file<< rlist[i].pid << ","
-				<< rlist[i].cid << ","
-				<< rlist[i].rating << ","
-				<< rlist[i].review << endl;
+			file<< ra.list[i].pid << ","
+				<< ra.list[i].cid << ","
+				<< ra.list[i].rating << ","
+				<< ra.list[i].review << endl;
 		}
 		file.close();
 		cout << "Exported reviews. " << "Total Reviews: " << ra.getTop() << endl;
@@ -119,12 +114,12 @@ public:
 	void exportTransaction(string path) {
 		ofstream file(path);
 		for (int i = 0; i < ta.getTop(); i++) {
-			file << tlist[i].cid << ","
-				<< tlist[i].product << ","
-				<< tlist[i].cat << ","
-				<< tlist[i].price << ","
-				<< convertDate(tlist[i].date) << ","
-				<< tlist[i].payment << endl;
+			file << ta.list[i].cid << ","
+				<< ta.list[i].product << ","
+				<< ta.list[i].cat << ","
+				<< ta.list[i].price << ","
+				<< convertDate(ta.list[i].date) << ","
+				<< ta.list[i].payment << endl;
 		}
 		file.close();
 		cout << "Exported transactions. " << "Total Transactions: " << ta.getTop() << endl;

@@ -11,16 +11,16 @@ bool transactionsLinkedList::isEarlier(string d1, string d2)
     int day1, month1, year1;
     int day2, month2, year2;
 
-    if (sscanf_s(d1.c_str(), "%d/%d/%d", &year1, &month1, &day1) != 3)
+    if (sscanf(d1.c_str(), "%d/%d/%d", &year1, &month1, &day1) != 3)
         cerr << "Invalid date format: " << d1 << endl;
 
-    if (sscanf_s(d2.c_str(), "%d/%d/%d", &year2, &month2, &day2) != 3)
+    if (sscanf(d2.c_str(), "%d/%d/%d", &year2, &month2, &day2) != 3)
         cerr << "Invalid date format: " << d2 << endl;
 
     if (year1 != year2) return year1 < year2;
     if (month1 != month2) return month1 < month2;
     return day1 < day2;
-}
+};
 
 void transactionsLinkedList::addNode(string customerID, string product, string category, float price, string date, string paymentMethod)
 {
@@ -36,7 +36,7 @@ void transactionsLinkedList::addNode(string customerID, string product, string c
         newNode->prev = tail;
         tail = newNode;
     }
-}
+};
 
 // Insertion sort for doubly linked list by date
 void transactionsLinkedList::SortByDate()
@@ -87,7 +87,7 @@ void transactionsLinkedList::SortByDate()
     while (tail->next) {
         tail = tail->next;
     }
-}
+};
 
 //Insert node in sorted order
 //void transactionsLinkedList::addSorted(string customerID, string product, string category, float price, string date, string paymentMethod)
@@ -138,5 +138,5 @@ void transactionsLinkedList::display()
         cout << temp->customerID << " - " << temp->product << " - " << temp->price << " - " << temp->date << endl;
         temp = temp->next;
     }
-}
+};
 
