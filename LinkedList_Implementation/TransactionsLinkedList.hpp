@@ -1,98 +1,26 @@
 #pragma once
 #include <iostream>
+#include <string>
 using namespace std;
+
+struct transactionsLL
+{
+    string customerID, product, category, date, paymentMethod;
+    float price = 0.0f;
+
+    transactionsLL* prev = nullptr;
+    transactionsLL* next = nullptr;
+};
 
 class transactionsLinkedList
 {
-    struct transactionsLL
-    {
-        string customerID, product, category, date, paymentMethod;
-        float price = 0.0f;
-
-        transactionsLL* prev = nullptr;
-        transactionsLL* next = nullptr;
-    };
+private:
     transactionsLL* head = nullptr;
     transactionsLL* tail = nullptr;
 
-    //Function to check which date is earlier
-    bool isEarlier(string d1, string d2)
-    {
-        int day1, month1, year1;
-        int day2, month2, year2;
-
-        //get date into string and split by / to compare the date from current node and date from csv
-        if (sscanf_s(d1.c_str(), "%d/%d/%d", &year1, &month1, &day1) != 3) 
-        {
-            cerr << "Invalid date format!";
-        }
-        
-        if (sscanf_s(d2.c_str(), "%d/%d/%d", &year2, &month2, &day2) != 3) 
-        {
-            cerr << "Invalid date fornat!";
-        }
-
-        if (year1 != year2) return year1 < year2;
-        if (month1 != month2) return month1 < month2;
-        return day1 < day2;
-    }
+    bool isEarlier(string d1, string d2); // declaration only
 
 public:
-    //to do data population with insertion slot
-    void addSorted(string customerID, string product, string category, float price, string date, string paymentMethod)
-    {
-        transactionsLL* newNode = new transactionsLL;
-
-        newNode->customerID = customerID;
-        newNode->product = product;
-        newNode->category = category;
-        newNode->price = price;
-        newNode->date = date;
-        newNode->paymentMethod = paymentMethod;
-
-        if (head == nullptr)
-        {
-            head = newNode;
-            tail = newNode;
-            return;
-        }
-
-        transactionsLL* currentNode = head;
-        int i = 0;
-
-        while (currentNode!=nullptr && isEarlier(currentNode->date, date))//to loop until the end to compare the dates
-        {
-            currentNode = currentNode->next;
-        }
-
-        if (currentNode == nullptr)//insert at the end
-        {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
-        }
-        else if (currentNode == head)//insert to front
-        {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
-        }
-        else//insert to middle basically in the middle of currentNode.prev & currentNode
-        {
-            newNode->next = currentNode; //changing next pointer of new node to current node
-            newNode->prev = currentNode->prev; //changing previous pointer of new node to current node previous pointer
-            currentNode->prev->next = newNode; //changing current node previous's next pointer to new node
-            currentNode->prev = newNode; // changing current node's previous pointer to new node
-        }
-    }
-
-    void display()//display each lines
-    {
-        transactionsLL* temp = head;
-        while (temp)
-        {
-            cout << temp->customerID << " - " << temp->product << " - " << temp->price << " - " << temp->date << endl;
-            temp = temp->next;
-        }
-    }
+    void addSorted(string customerID, string product, string category, float price, string date, string paymentMethod);
+    void display();
 };
