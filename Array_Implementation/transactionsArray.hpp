@@ -12,8 +12,7 @@ struct Transactions
 
 class transactionsArray
 {
-    int top = 0;
-    int max = 0;
+    int top = 0, max = 0;
 public:
     Transactions* list;
 	transactionsArray() {

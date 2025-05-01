@@ -12,7 +12,7 @@ struct Reviews
 
 class reviewsArray
 {
-    int top = 0;
+    int top = 0, max = 0;
 public:
     Reviews* list;
     reviewsArray() {
@@ -25,6 +25,7 @@ public:
     }
     reviewsArray(int size) {
         list = new Reviews[size];
+		this->max = size;
     }
 
     int getTop() { return top; }
@@ -78,7 +79,7 @@ public:
     }
 
     void showAllReviews() {
-        for (int lines = 0; lines < top; lines++) {
+        for (int lines = 0; lines < max; lines++) {
             cout << list[lines].pid << "|";
             cout << list[lines].cid << "|";
             cout << list[lines].rating << "|";
