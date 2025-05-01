@@ -13,6 +13,7 @@ struct Transactions
 class transactionsArray
 {
     int top = 0;
+    int max = 0;
 public:
     Transactions* list;
 	transactionsArray() {
@@ -21,10 +22,11 @@ public:
 	}
     transactionsArray(Transactions* list, int top) {
 		this->list = list;
-        this->top = top;
+        this->top = this->max = top;
     }
     transactionsArray(int size) {
         list = new Transactions[size];
+        this->max = size;
     }
 
     int getTop() { return top; }
@@ -33,6 +35,16 @@ public:
     void insertToArray(Transactions data) {
 		list[top] = data;
         top++;
+    }
+
+    void insertToArray(Transactions data, int index) {
+		if (index < 0 || index > top) {
+			cout << "Invalid index!" << endl;
+			return;
+		}
+		for (int i = index; i < top; i++) {
+			list[i] = list[i + 1];
+		}
     }
 
     void insertFromFile(ifstream& file) {
@@ -107,11 +119,11 @@ public:
     }
 
     void showAllTransactions() {
-		if (top == 0) {
+		if (max == 0) {
 			cout << "No transaction to be displayed!" << endl;
 			return;
 		}
-        for (int lines = 0; lines < top; lines++) {
+        for (int lines = 0; lines < max; lines++) {
             cout << list[lines].cid << "|";
             cout << list[lines].product << "|";
             cout << list[lines].cat << "|";
@@ -139,24 +151,35 @@ public:
         }
 	}
 
-    transactionsArray insertionSortCid(transactionsArray ar)
+    transactionsArray insertionSortCid()
     {
         Transactions temp;
-        transactionsArray result = transactionsArray(ar.getTop());
+        transactionsArray result = transactionsArray(top);
         for (int i = 0; i < top; i++) {
-			temp.cid = ar.list[i].cid;
-			temp.product = ar.list[i].product;
-			temp.cat = ar.list[i].cat;
-			temp.price = ar.list[i].price;
-			temp.date = ar.list[i].date;
-			temp.payment = ar.list[i].payment;
+			temp.cid = list[i].cid;
+			temp.product = list[i].product;
+			temp.cat = list[i].cat;
+			temp.price = list[i].price;
+			temp.date = list[i].date;
+			temp.payment = list[i].payment;
             if (i == 0) {
                 result.list[0] = temp;
             }
-            int j = 1;
-            while (j < ar.getTop() && temp.cid < result.list[j].cid) {
-                result.list[j] = temp;
-                j++;
+            else{
+				int j = 0;
+                while (j<i && temp.cid > result.list[j].cid) {
+                    j++;
+                    continue;
+                }
+                if (j == i) {
+					result.list[i] = temp;
+				}
+				else {
+					for (int k = i; k > j; k--) {
+						result.list[k] = result.list[k - 1];
+					}
+					result.list[j] = temp;
+				}
             }
             //cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
         }
