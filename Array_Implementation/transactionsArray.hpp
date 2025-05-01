@@ -26,34 +26,14 @@ public:
     }
     transactionsArray(int size) {
         list = new Transactions[size];
-        list->size = size;
     }
 
     int getTop() { return top; }
 	void setTop(int top) { this->top = top; }
 
-    void insertToArray(ifstream& file) {
-        if (file.is_open()) {
-            string header;
-            getline(file, header);
-            while (file.good()) {
-                string wholeline;
-                getline(file, wholeline, '\n');
-                istringstream iss(wholeline);
-                getline(iss, list[top].cid, ',');
-                getline(iss, list[top].product, ',');
-                getline(iss, list[top].cat, ',');
-                getline(iss, list[top].price, ',');
-                getline(iss, list[top].date, ',');
-                getline(iss, list[top].payment, ',');
-                list[top].size = top + 1;
-                top++;
-            }
-        }
-    }
-
     void insertToArray(Transactions data) {
 		list[top] = data;
+        top++;
     }
 
 	void insertionSortCid(ifstream& file) {

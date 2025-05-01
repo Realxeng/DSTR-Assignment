@@ -17,6 +17,7 @@ public:
     Reviews* list;
 	reviewsArray() {
 		list = NULL;
+		top = 0;
 	}
     reviewsArray(Reviews* list, int top) {
         this->list = list;
@@ -29,21 +30,9 @@ public:
     int getTop() { return top; }
 	void setTop(int top) { this->top = top; }
 
-    void insertToArray(ifstream& file) {
-        if (file.is_open()) {
-            string header;
-            getline(file, header);
-            while (file.good()) {
-                string wholeline;
-                getline(file, wholeline, '\n');
-                istringstream iss(wholeline);
-                getline(iss, list[top].pid, ',');
-                getline(iss, list[top].cid, ',');
-                getline(iss, list[top].rating, ',');
-                getline(iss, list[top].review);
-                top++;
-            }
-        }
+    void insertToArray(Reviews data) {
+        list[top] = data;
+        top++;
     }
 
     Reviews* deleteAtIndex(Reviews* list, int index) {
