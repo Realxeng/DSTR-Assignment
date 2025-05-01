@@ -101,7 +101,7 @@ public:
 	}
 
     void deleteAtIndex(int index) {
-        if (index < 0 || index > top) {
+        if (index < 0 || index >= top) {
             cout << "Nothing to delete!";
             return;
         }
@@ -144,35 +144,28 @@ public:
         }
 	}
 
-    transactionsArray insertionSortCid(ifstream& file, transactionsArray ar)
+    transactionsArray insertionSortCid(transactionsArray ar)
     {
-        if (file.is_open()) {
-            Transactions temp;
-            string line;
-            while (getline(file, line, '\n')) {
-                istringstream iss(line);
-                getline(iss, temp.cid, ',');
-                getline(iss, temp.product, ',');
-                getline(iss, temp.cat, ',');
-                getline(iss, temp.price, ',');
-                getline(iss, temp.date, ',');
-                getline(iss, temp.payment, '\n');
-                int size = ar.getTop();
-                int i = ar.getTop() - 1;
-                while (i >= 0 && temp.cid < ar.list[i].cid) {
-                    ar.list[i + 1] = ar.list[i];
-                    i--;
-                }
-                //cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
-                ar.list[i + 1] = temp;
-                size++;
-                ar.setTop(size);
+        Transactions temp;
+        transactionsArray result = transactionsArray(ar.getTop());
+        for (int i = 0; i < top; i++) {
+			temp.cid = ar.list[i].cid;
+			temp.product = ar.list[i].product;
+			temp.cat = ar.list[i].cat;
+			temp.price = ar.list[i].price;
+			temp.date = ar.list[i].date;
+			temp.payment = ar.list[i].payment;
+            int size = ar.getTop();
+            int j = ar.getTop() - 1;
+            while (j >= 0 && temp.cid < ar.list[j].cid) {
+                ar.list[j + 1] = ar.list[j];
+                j--;
             }
+            //cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
+            ar.list[j + 1] = temp;
+            size++;
+            ar.setTop(size);
         }
-        else {
-            cerr << "Unable to open file!";
-        }
-        file.close();
         return ar;
     }
 

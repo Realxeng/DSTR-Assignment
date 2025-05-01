@@ -38,15 +38,14 @@ int main()
     //rarr.insertFromFile(rfile);
     //auto start = high_resolution_clock::now();
 	//rarr = insertionSortRating(rfile, rarr);
-    //tarr.insertFromFile(tfile);
-    //tarr = tarr.insertionSortCid(tfile, tarr);
+    tarr.insertFromFile(tfile);
+    tarr = tarr.insertionSortCid(tarr);
 	//tarr = tarr.bubbleSortDate(tarr);
     //auto stop = high_resolution_clock::now();
     //rarr.showAllReviews();
-    //tarr.showAllTransactions();
+    tarr.showAllTransactions();
     //tarr.displayByProduct("Monitor");
 	//rarr.mergeSortByPID();
-	//rarr.showAllReviews();
 	//tarr.showTransaction(binarySearchCustomer(tarr, "CUST9944"));
     //tarr.showTransaction(linearSearchProduct(tarr, "Mouse"));
 	//auto stop = high_resolution_clock::now();
