@@ -14,6 +14,55 @@ using namespace std::chrono;
 // Define Function in MAIN
 ReviewsLinkedList setUp_reviewLL();
 
+void performSearch(transactionsLinkedList& transLL) {
+    int searchChoice;
+    cout << "\nSearch by:\n1. Category\n2. Payment Method\nEnter choice: ";
+    cin >> searchChoice;
+
+    cin.ignore(); // clear newline
+    string searchTerm;
+
+    if (searchChoice == 1) {
+        cout << "Enter category: ";
+        getline(cin, searchTerm);
+
+        auto start = high_resolution_clock::now();
+        transLL.searchByCategory(searchTerm);
+        auto end = high_resolution_clock::now();
+        cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
+
+    }
+    else if (searchChoice == 2) {
+        cout << "Enter payment method: ";
+        getline(cin, searchTerm);
+
+        auto start = high_resolution_clock::now();
+        transLL.searchByPaymentMethod(searchTerm);
+        auto end = high_resolution_clock::now();
+        cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
+    }
+    else {
+        cout << "Invalid choice.\n";
+    }
+}
+
+void performSortAndSearch(transactionsLinkedList& transLL, bool useInsertionSort) {
+    auto start = high_resolution_clock::now();
+
+    if (useInsertionSort)
+        transLL.SortByDate();
+    else
+        transLL.bubbleSortByDate();
+
+    auto end = high_resolution_clock::now();
+    transLL.display();
+    cout << (useInsertionSort ? "\nInsertion Sort" : "\nBubble Sort")
+        << " completed in: "
+        << duration_cast<milliseconds>(end - start).count() << " ms\n";
+
+    performSearch(transLL);
+}
+
 int main()
 {
     int choice;
@@ -61,105 +110,20 @@ int main()
         cin >> choice;
         cin.ignore();
 
-        if (choice == 1) 
+        if (choice == 1)
         {
             cout << "Total Records: " << transLL.getLLSize() << endl;
             transLL.display();
         }
         else if (choice == 2) 
         {
-            auto start = high_resolution_clock::now();
-            transLL.SortByDate();
-            auto stop = high_resolution_clock::now();
-            auto duration = duration_cast<milliseconds>(stop - start);
-
-            transLL.display();
-            cout << "\nInsertion sort completed in: " << duration.count() << " ms" << endl;
-            
-            int searchChoice;
-            cout << "\nSearch by:\n1. Category\n2. Payment Method\nEnter choice: ";
-            cin >> searchChoice;
-
-            cin.ignore(); // clear newline from input buffer
-            string searchTerm;
-
-            if (searchChoice == 1) 
-            {
-                cout << "Enter category: ";
-                getline(cin, searchTerm);
-
-                auto searchStart = high_resolution_clock::now();
-                transLL.searchByCategory(searchTerm);
-                auto searchEnd = high_resolution_clock::now();
-
-                auto searchDuration = duration_cast<milliseconds>(searchEnd - searchStart);
-                cout << "Search completed in " << searchDuration.count() << " ms.\n";
-
-            }
-            else if (searchChoice == 2) 
-            {
-                cout << "Enter payment method: ";
-                getline(cin, searchTerm);
-
-                auto searchStart = high_resolution_clock::now();
-                transLL.searchByPaymentMethod(searchTerm);
-                auto searchEnd = high_resolution_clock::now();
-
-                auto searchDuration = duration_cast<milliseconds>(searchEnd - searchStart);
-                cout << "Search completed in " << searchDuration.count() << " ms.\n";
-            }
-            else 
-            {
-                cout << "Invalid choice.\n";
-            }
+            performSortAndSearch(transLL, true);  //true = insertion sort
         }
-        else if (choice == 3)
+        else if (choice == 3) 
         {
-            auto start = high_resolution_clock::now();
-            transLL.bubbleSortByDate();
-            auto end = high_resolution_clock::now();
-
-            auto duration = duration_cast<milliseconds>(end - start);
-            transLL.display();
-            cout << "Bubble Sort completed in " << duration.count() << " ms.\n";
-
-            int searchChoice;
-            cout << "\nSearch by:\n1. Category\n2. Payment Method\nEnter choice: ";
-            cin >> searchChoice;
-
-            cin.ignore(); // clear newline from input buffer
-            string searchTerm;
-
-            if (searchChoice == 1) 
-            {
-                cout << "Enter category: ";
-                getline(cin, searchTerm);
-
-                auto searchStart = high_resolution_clock::now();
-                transLL.searchByCategory(searchTerm);
-                auto searchEnd = high_resolution_clock::now();
-
-                auto searchDuration = duration_cast<milliseconds>(searchEnd - searchStart);
-                cout << "Search completed in " << searchDuration.count() << " ms.\n";
-
-            }
-            else if (searchChoice == 2) 
-            {
-                cout << "Enter payment method: ";
-                getline(cin, searchTerm);
-
-                auto searchStart = high_resolution_clock::now();
-                transLL.searchByPaymentMethod(searchTerm);
-                auto searchEnd = high_resolution_clock::now();
-
-                auto searchDuration = duration_cast<milliseconds>(searchEnd - searchStart);
-                cout << "Search completed in " << searchDuration.count() << " ms.\n";
-            }
-            else 
-            {
-                cout << "Invalid choice.\n";
-            }
+            performSortAndSearch(transLL, false); //false = bubble sort
         }
+
     }
     return 0;
 }

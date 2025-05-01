@@ -129,6 +129,7 @@ void transactionsLinkedList::bubbleSortByDate() {
     } while (swapped);
 }
 
+//Linear Search
 void transactionsLinkedList::searchByCategory(const string& targetCategory) const {
     if (!head) {
         cout << "No transactions available.\n";
@@ -156,6 +157,7 @@ void transactionsLinkedList::searchByCategory(const string& targetCategory) cons
     }
 }
 
+//Linear Search
 void transactionsLinkedList::searchByPaymentMethod(const string& targetMethod) const {
     if (!head) {
         cout << "No transactions available.\n";
@@ -183,7 +185,7 @@ void transactionsLinkedList::searchByPaymentMethod(const string& targetMethod) c
     }
 }
 
-// Display all nodes
+//display all nodes
 void transactionsLinkedList::display()
 {
     transactionsLL* temp = head;
