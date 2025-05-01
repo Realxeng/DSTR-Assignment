@@ -47,7 +47,7 @@ public:
                 getline(iss, temp.pid, ',');
                 getline(iss, temp.cid, ',');
                 getline(iss, temp.rating, ',');
-                getline(iss, temp.review, ',');
+                getline(iss, temp.review, '\n');
                 insertToArray(temp);
             }
         }

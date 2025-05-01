@@ -29,13 +29,13 @@ int main()
     ifstream tfile(transactionsRaw);
     rarr.insertFromFile(rfile);
     tarr.insertFromFile(tfile);
-    //rarr.showAllReviews();
+    rarr.showAllReviews();
     //tarr.showAllTransactions();
-    Cleaning cr = Cleaning(rarr.list, rarr.getTop());
+    Cleaning cr = Cleaning(rarr);
     cr.reviewCleanNullEntry();
     cr.reviewCleanInvalidRating();
     cr.reviewQuote();
-    Cleaning ct = Cleaning(tarr.list, tarr.getTop());
+    Cleaning ct = Cleaning(tarr);
     ct.transactionCleanNullEntry();
     ct.transactionCleanNanEntry();
     ct.transactionCleanInvalidDate();

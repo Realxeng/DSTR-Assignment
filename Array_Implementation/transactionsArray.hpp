@@ -50,7 +50,7 @@ public:
                 getline(iss, temp.cat, ',');
                 getline(iss, temp.price, ',');
                 getline(iss, temp.date, ',');
-                getline(iss, temp.payment, ',');
+                getline(iss, temp.payment, '\n');
                 temp.size = top + 1;
                 insertToArray(temp);
                 setTop(temp.size);
@@ -60,35 +60,6 @@ public:
             cerr << "Unable to open file!";
         }
     }
-
-	void insertionSortCid(ifstream& file) {
-        if (file.is_open()) {
-            Transactions temp;
-            string line;
-            while (getline(file, line, '\n')) {
-                istringstream iss(line);
-                getline(iss, temp.cid, ',');
-                getline(iss, temp.product, ',');
-                getline(iss, temp.cat, ',');
-                getline(iss, temp.price, ',');
-                getline(iss, temp.date, ',');
-                getline(iss, temp.payment, ',');
-				temp.size = top;
-                int i = top - 1;
-                while (i>=0 && temp.cid < list[i].cid) {
-					list[i + 1] = list[i];
-                    i--;
-                }
-                //cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
-				list[i + 1] = temp;
-                top++;
-            }
-        }
-        else {
-			cerr << "Unable to open file!";
-        }
-        file.close();
-	}
 
     void bubbleSortCid() {
         bool swapped;

@@ -8,6 +8,7 @@
 
 using namespace std;
 using namespace std::chrono;
+
 const string reviewsFile = "../data/reviews_cleaned.csv";
 const string transactionsFile = "../data/transactions_cleaned.csv";
 
@@ -25,6 +26,36 @@ int getMaxLine(ifstream file) {
     return count;
 }
 
+void insertionSortCid(ifstream& file, transactionsArray ar) {
+    if (file.is_open()) {
+        Transactions temp;
+        string line;
+        while (getline(file, line, '\n')) {
+            istringstream iss(line);
+            getline(iss, temp.cid, ',');
+            getline(iss, temp.product, ',');
+            getline(iss, temp.cat, ',');
+            getline(iss, temp.price, ',');
+            getline(iss, temp.date, ',');
+            getline(iss, temp.payment, ',');
+            int size = ar.getTop();
+            int i = ar.getTop() - 1;
+            while (i >= 0 && temp.cid < ar.list[i].cid) {
+                ar.list[i + 1] = ar.list[i];
+                i--;
+            }
+            //cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
+            ar.list[i + 1] = temp;
+            size++;
+            ar.setTop(size);
+        }
+    }
+    else {
+        cerr << "Unable to open file!";
+    }
+    file.close();
+}
+
 int main()
 {
     int reviewSize = getMaxLine(ifstream(reviewsFile));
@@ -36,7 +67,7 @@ int main()
     rarr.insertFromFile(rfile);
     tarr.insertFromFile(tfile);
     //auto start = high_resolution_clock::now();
-    //tarr.insertionSortCid(tfile);
+    //insertionSortCid(tfile, tarr);
 	//tarr.bubbleSortDate();
     //auto stop = high_resolution_clock::now();
     //rarr.showAllReviews();
