@@ -36,6 +36,31 @@ public:
         top++;
     }
 
+    void insertFromFile(ifstream& file) {
+        if (file.is_open()) {
+            Transactions temp;
+            string header;
+            getline(file, header);
+            while (file.good()) {
+                string wholeline;
+                getline(file, wholeline, '\n');
+                istringstream iss(wholeline);
+                getline(iss, temp.cid, ',');
+                getline(iss, temp.product, ',');
+                getline(iss, temp.cat, ',');
+                getline(iss, temp.price, ',');
+                getline(iss, temp.date, ',');
+                getline(iss, temp.payment, ',');
+                temp.size = top + 1;
+                insertToArray(temp);
+                setTop(temp.size);
+            }
+        }
+        else {
+            cerr << "Unable to open file!";
+        }
+    }
+
 	void insertionSortCid(ifstream& file) {
         if (file.is_open()) {
             Transactions temp;

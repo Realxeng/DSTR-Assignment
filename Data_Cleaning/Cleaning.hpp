@@ -14,8 +14,7 @@ class Cleaning {
 	transactionsArray ta;
 public:
 	Cleaning(Reviews* list, int top) {
-		ra = reviewsArray();
-		rlist = list;
+		ra = reviewsArray(list, top);
 		tlist = NULL;
 		ra.setTop(top);
 	}
@@ -40,7 +39,7 @@ public:
 		for (int i = 0; i < ra.getTop(); i++){
 			if (rlist[i].cid.empty() || rlist[i].pid.empty() || rlist[i].rating.empty() || rlist[i].review.empty()) {
 				cout << "Deleted null review at index: " << i << endl;
-				rlist = ra.deleteAtIndex(rlist, i);
+				ra.deleteAtIndex(i);
 				i--;
 			}
 		}
@@ -50,7 +49,7 @@ public:
 		for (int i = 0; i < ra.getTop(); i++) {
 			if (rlist[i].rating == "Invalid Rating") {
 				cout << "Deleted invalid rating at index: " << i << endl;
-				rlist = ra.deleteAtIndex(rlist, i);
+				ra.deleteAtIndex(i);
 				i--;
 			}
 		}

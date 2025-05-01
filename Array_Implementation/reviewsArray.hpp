@@ -35,6 +35,27 @@ public:
         top++;
     }
 
+    void insertFromFile(ifstream& file) {
+        if (file.is_open()) {
+            Reviews temp;
+            string header;
+            getline(file, header);
+            while (file.good()) {
+                string wholeline;
+                getline(file, wholeline, '\n');
+                istringstream iss(wholeline);
+                getline(iss, temp.pid, ',');
+                getline(iss, temp.cid, ',');
+                getline(iss, temp.rating, ',');
+                getline(iss, temp.review, ',');
+                insertToArray(temp);
+            }
+        }
+        else {
+            cerr << "Unable to open file!";
+        }
+    }
+
     Reviews* deleteAtIndex(Reviews* list, int index) {
         if (index < 0 || index > top) {
             cout << "No transaction found at index " << index << ". Top: " << top << endl;
@@ -57,8 +78,6 @@ public:
         }
         top--;
     }
-
-
 
     void showAllReviews() {
         for (int lines = 0; lines < top; lines++) {

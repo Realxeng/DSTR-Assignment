@@ -27,8 +27,8 @@ int main()
     transactionsArray tarr = transactionsArray(transactionSize);
     ifstream rfile(reviewsRaw);
     ifstream tfile(transactionsRaw);
-    rarr.insertToArray(rfile);
-    tarr.insertToArray(tfile);
+    rarr.insertFromFile(rfile);
+    tarr.insertFromFile(tfile);
     //rarr.showAllReviews();
     //tarr.showAllTransactions();
     Cleaning cr = Cleaning(rarr.list, rarr.getTop());

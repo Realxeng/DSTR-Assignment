@@ -25,56 +25,6 @@ int getMaxLine(ifstream file) {
     return count;
 }
 
-transactionsArray insertToArray(ifstream& file, transactionsArray list) {
-    if (file.is_open()) {
-        Transactions temp;
-        string header;
-        getline(file, header);
-        while (file.good()) {
-            string wholeline;
-            getline(file, wholeline, '\n');
-            istringstream iss(wholeline);
-            getline(iss, temp.cid, ',');
-            getline(iss, temp.product, ',');
-            getline(iss, temp.cat, ',');
-            getline(iss, temp.price, ',');
-            getline(iss, temp.date, ',');
-            getline(iss, temp.payment, ',');
-            temp.size = list.getTop() + 1;
-            list.insertToArray(temp);
-            list.setTop(temp.size);
-        }
-        return list;
-    }
-    else {
-        cerr << "Unable to open file!";
-        return list;
-    }
-}
-
-reviewsArray insertToArray(ifstream& file, reviewsArray list) {
-    if (file.is_open()) {
-        Reviews temp;
-        string header;
-        getline(file, header);
-        while (file.good()) {
-            string wholeline;
-            getline(file, wholeline, '\n');
-            istringstream iss(wholeline);
-            getline(iss, temp.pid, ',');
-            getline(iss, temp.cid, ',');
-            getline(iss, temp.rating, ',');
-            getline(iss, temp.review, ',');
-            list.insertToArray(temp);
-        }
-        return list;
-    }
-    else {
-        cerr << "Unable to open file!";
-        return list;
-    }
-}
-
 int main()
 {
     int reviewSize = getMaxLine(ifstream(reviewsFile));
@@ -83,8 +33,8 @@ int main()
     transactionsArray tarr = transactionsArray(transactionSize);
     ifstream rfile(reviewsFile);
     ifstream tfile(transactionsFile);
-    rarr = insertToArray(rfile, rarr);
-    tarr = insertToArray(tfile, tarr);
+    rarr.insertFromFile(rfile);
+    tarr.insertFromFile(tfile);
     //auto start = high_resolution_clock::now();
     //tarr.insertionSortCid(tfile);
 	//tarr.bubbleSortDate();
