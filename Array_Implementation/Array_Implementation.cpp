@@ -37,12 +37,13 @@ int main()
     tarr.insertToArray(tfile);
     //auto start = high_resolution_clock::now();
     //tarr.insertionSortCid(tfile);
-	tarr.bubbleSortDate();
+	//tarr.bubbleSortDate();
     //auto stop = high_resolution_clock::now();
     //rarr.showAllReviews();
     //tarr.showAllTransactions();
     tarr.displayByProduct("Monitor");
-    tarr.showTransaction(tarr.binarySearchCustomer("CUST9944"));
+	transactionsArray customerTransactions = tarr.binarySearchCustomer("CUST9944");
+    tarr.showTransaction(customerTransactions);
 	//auto stop = high_resolution_clock::now();
 	//auto duration = duration_cast<microseconds>(stop - start);
 	//cout << "Time taken to sort: " << duration.count() << " microseconds" << endl;

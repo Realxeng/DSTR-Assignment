@@ -99,6 +99,12 @@ public:
 		}
 	}
 
+	string convertDate(string sdate) {
+		int day, month, year;
+		sscanf_s(sdate.c_str(), "%d/%d/%d", &day, &month, &year);
+		return to_string(year) + "/" + (month < 10 ? "0" : "") + to_string(month) + "/" + (day < 10 ? "0" : "") + to_string(day);
+	}
+
 	void exportReview(string path) {
 		ofstream file(path);
 		for (int i = 0; i < ra.getTop(); i++) {
@@ -118,7 +124,7 @@ public:
 				<< tlist[i].product << ","
 				<< tlist[i].cat << ","
 				<< tlist[i].price << ","
-				<< ta.convertDate(tlist[i].date) << ","
+				<< convertDate(tlist[i].date) << ","
 				<< tlist[i].payment << endl;
 		}
 		file.close();

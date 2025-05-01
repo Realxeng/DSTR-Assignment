@@ -150,6 +150,7 @@ public:
     }
 
     void displayByProduct(string product) {
+        int count = 0;
         for (int i = 0; i < top; i++) {
             if (list[i].product == product) {
                 cout << list[i].cid << "|";
@@ -159,11 +160,15 @@ public:
                 cout << list[i].date << "|";
                 cout << list[i].payment << "|";
                 cout << endl;
+                count++;
             }
         }
+		if (count == 0) {
+			cout << "No transaction found for product: " << product << endl;
+		}
     }
 
-    Transactions* linearSearchCategory(string category) {
+    transactionsArray linearSearchCategory(string category) {
 		Transactions* result = new Transactions[top];
 		int count = 0;
         for (int i = 0; i < top; i++) {
@@ -172,16 +177,17 @@ public:
                 count++;
             }
         }
-		if (count == 0) {
-			list[0].size = 0;
-		}
-		else {
-			cout << "Transaction(s) found: " << count << endl;
-		}
-		return result;
+        if (count == 0) {
+            return transactionsArray();
+        }
+        else {
+            cout << "Transaction(s) found: " << count << endl;
+            transactionsArray resultArray = transactionsArray(result, count);
+            return resultArray;
+        }
     }
 
-    Transactions* linearSearchPayment(string payment) {
+    transactionsArray linearSearchPayment(string payment) {
         Transactions* result = new Transactions[top];
         int count = 0;
         for (int i = 0; i < top; i++) {
@@ -191,15 +197,16 @@ public:
             }
         }
         if (count == 0) {
-            list[0].size = 0;
+            return transactionsArray();
         }
         else {
             cout << "Transaction(s) found: " << count << endl;
+            transactionsArray resultArray = transactionsArray(result, count);
+            return resultArray;
         }
-        return result;
     }
 
-    Transactions* linearSearchProduct(string product) {
+    transactionsArray linearSearchProduct(string product) {
         Transactions* result = new Transactions[top];
         int count = 0;
         for (int i = 0; i < top; i++) {
@@ -209,15 +216,16 @@ public:
             }
         }
         if (count == 0) {
-            list[0].size = 0;
+            return transactionsArray();
         }
         else {
             cout << "Transaction(s) found: " << count << endl;
+            transactionsArray resultArray = transactionsArray(result, count);
+            return resultArray;
         }
-        return result;
     }
 
-    Transactions* binarySearchCustomer(string cid) {
+    transactionsArray binarySearchCustomer(string cid) {
 		bubbleSortCid();
 		Transactions* result = new Transactions[top];
         int left = 0, mid = 0, count = 0;
@@ -243,12 +251,12 @@ public:
             }
         }
         if (count == 0) {
-			list[0].size = 0;
-            return result;
+            return transactionsArray();
         }
         else {
 			cout << "Transaction(s) found: " << count << endl;
-			return result;
+			transactionsArray resultArray = transactionsArray(result, count);
+			return resultArray;
         }
     }
 
@@ -263,12 +271,6 @@ public:
         top--;
         return list;
     }
-
-    /*string convertDate(string sdate) {
-        int day, month, year;
-        sscanf_s(sdate.c_str(), "%d/%d/%d", &day, &month, &year);
-        return to_string(year) + "/" + (month < 10 ? "0" : "") + to_string(month) + "/" + (day < 10 ? "0" : "") + to_string(day);
-    }*/
 
 	bool isEarlier(string date1, string date2) {
 		return date1 < date2;
@@ -297,15 +299,15 @@ public:
         }
     }
 
-    void showTransaction(Transactions* list) {
-		if (list->size > 0) {
-			for (int i = 0; i < list->size; i++) {
-				cout << list[i].cid << "|";
-				cout << list[i].product << "|";
-				cout << list[i].cat << "|";
-				cout << list[i].price << "|";
-				cout << list[i].date << "|";
-				cout << list[i].payment << "|";
+    void showTransaction(transactionsArray tarr) {
+		if (tarr.getTop() > 0) {
+			for (int i = 0; i < tarr.getTop(); i++) {
+				cout << tarr.list[i].cid << "|";
+				cout << tarr.list[i].product << "|";
+				cout << tarr.list[i].cat << "|";
+				cout << tarr.list[i].price << "|";
+				cout << tarr.list[i].date << "|";
+				cout << tarr.list[i].payment << "|";
 				cout << endl;
 			}
 		}
