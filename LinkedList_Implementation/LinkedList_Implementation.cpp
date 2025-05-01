@@ -48,73 +48,130 @@ int main()
         }
 
     }
-    else if (choice == 2) {
+    else if (choice == 2) 
+    {
+        transactionsLinkedList transLL = setUp_transactionLL();
 
-        /*
-        TODO: Insert transactions linked list code here <-----------
-        */
-        transactionsLinkedList transLL;
-        ifstream file("../data/transactions_cleaned.csv");
+        cout << "Transactions Linked List Menu:\n";
+        cout << "1. Display Transaction Records\n";
+        cout << "2. Sort by Date (using insertion sort)\n";
+        cout << "3. Sort by Date (using bubble sort)\n";
 
-        if (!file.is_open()) {
-            cerr << "Error opening file!" << endl;
-            return 1;
+        cin >> choice;
+        cin.ignore();
+
+        if (choice == 1) {
+            cout << "Total Records: " << transLL.getLLSize() << endl;
+            transLL.display();
         }
+        else if (choice == 2) 
+        {
+            auto start = high_resolution_clock::now();
+            transLL.SortByDate();
+            auto stop = high_resolution_clock::now();
+            auto duration = duration_cast<milliseconds>(stop - start);
 
-        string line;
-        getline(file, line); // Skip header
+            transLL.display();
+            cout << "\nTime taken to sort: " << duration.count() << " milliseconds" << endl;
+            
+            int searchChoice;
+            cout << "\nSearch by:\n1. Category\n2. Payment Method\nEnter choice: ";
+            cin >> searchChoice;
 
-        int totalRecords = 0; // Counter for number of valid records
+            cin.ignore(); // clear newline from input buffer
+            string searchTerm;
 
-        while (getline(file, line)) {
-            stringstream ss(line);
-            string customerID, product, category, priceStr, date, paymentMethod;
-            float price;
+            if (searchChoice == 1) {
+                cout << "Enter category: ";
+                getline(cin, searchTerm);
 
-            getline(ss, customerID, ',');
-            getline(ss, product, ',');
-            getline(ss, category, ',');
-            getline(ss, priceStr, ',');
-            getline(ss, date, ',');
-            getline(ss, paymentMethod, '\n');
+                auto searchStart = high_resolution_clock::now();
+                transLL.searchByCategory(searchTerm);
+                auto searchEnd = high_resolution_clock::now();
 
-            if (priceStr.empty()) continue;
+                auto searchDuration = duration_cast<milliseconds>(searchEnd - searchStart);
+                cout << "Search completed in " << searchDuration.count() << " ms.\n";
 
-            price = stof(priceStr);
-            transLL.addNode(customerID, product, category, price, date, paymentMethod);
-            totalRecords++;
+            }
+            else if (searchChoice == 2) {
+                cout << "Enter payment method: ";
+                getline(cin, searchTerm);
+
+                auto searchStart = high_resolution_clock::now();
+                transLL.searchByPaymentMethod(searchTerm);
+                auto searchEnd = high_resolution_clock::now();
+
+                auto searchDuration = duration_cast<milliseconds>(searchEnd - searchStart);
+                cout << "Search completed in " << searchDuration.count() << " ms.\n";
+            }
+            else {
+                cout << "Invalid choice.\n";
+            }
         }
+        else if (choice == 3)
+        {
+            auto start = high_resolution_clock::now();
+            transLL.bubbleSortByDate();
+            auto end = high_resolution_clock::now();
 
-        file.close();
+            auto duration = duration_cast<milliseconds>(end - start);
+            cout << "Bubble Sort completed in " << duration.count() << " ms.\n";
+            transLL.display();
 
-        cout << "Total transactions loaded: " << totalRecords << endl;
+            int searchChoice;
+            cout << "\nSearch by:\n1. Category\n2. Payment Method\nEnter choice: ";
+            cin >> searchChoice;
 
-        auto start = high_resolution_clock::now();
+            cin.ignore(); // clear newline from input buffer
+            string searchTerm;
 
-        transLL.SortByDate();
-        transLL.display();
+            if (searchChoice == 1) {
+                cout << "Enter category: ";
+                getline(cin, searchTerm);
 
-        auto stop = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(stop - start);
-        cout << "\nTime taken to sort and display: " << duration.count() << " milliseconds" << endl;
+                auto searchStart = high_resolution_clock::now();
+                transLL.searchByCategory(searchTerm);
+                auto searchEnd = high_resolution_clock::now();
+
+                auto searchDuration = duration_cast<milliseconds>(searchEnd - searchStart);
+                cout << "Search completed in " << searchDuration.count() << " ms.\n";
+
+            }
+            else if (searchChoice == 2) {
+                cout << "Enter payment method: ";
+                getline(cin, searchTerm);
+
+                auto searchStart = high_resolution_clock::now();
+                transLL.searchByPaymentMethod(searchTerm);
+                auto searchEnd = high_resolution_clock::now();
+
+                auto searchDuration = duration_cast<milliseconds>(searchEnd - searchStart);
+                cout << "Search completed in " << searchDuration.count() << " ms.\n";
+            }
+            else {
+                cout << "Invalid choice.\n";
+            }
+        }
     }
     return 0;
 }
 
-ReviewsLinkedList setUp_reviewLL() {
+ReviewsLinkedList setUp_reviewLL() 
+{
     // Reviews Linked List
     ReviewsLinkedList reviewsLL;
 
     ifstream file("../data/reviews_cleaned.csv");
-    if (!file.is_open()) {
+    if (!file.is_open()) 
+    {
         cerr << "Error opening file!" << endl;
         return reviewsLL; // Return empty linked list
     }
 
     string line;
-    getline(file, line); // Skip the header line
 
-    while (getline(file, line)) {
+    while (getline(file, line)) 
+    {
         stringstream ss(line);
         string productID, customerID, reviewDesc;
         int rate;
@@ -135,4 +192,41 @@ ReviewsLinkedList setUp_reviewLL() {
 
     return reviewsLL;
 
+}
+
+transactionsLinkedList setUp_transactionLL()
+{
+    transactionsLinkedList transLL;
+
+    ifstream file("../data/transactions_cleaned.csv");
+    if (!file.is_open()) {
+        cerr << "Error opening file!" << endl;
+        return transLL;
+    }
+
+    string line;
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string customerID, product, category, priceStr, date, paymentMethod;
+        float price;
+
+        getline(ss, customerID, ',');
+        getline(ss, product, ',');
+        getline(ss, category, ',');
+        getline(ss, priceStr, ',');
+        getline(ss, date, ',');
+        getline(ss, paymentMethod, '\n');
+
+        if (priceStr.empty()) continue;
+        price = stof(priceStr);
+
+        transLL.createTransactionNode(customerID, product, category, price, date, paymentMethod);
+    }
+
+    file.close();
+    cout << "\nTransactions linked list created and populated.\n";
+    cout << "Number of transactions: " << transLL.getLLSize() << endl;
+
+    return transLL;
 }

@@ -26,7 +26,7 @@ bool transactionsLinkedList::isEarlier(string d1, string d2)
     return day1 < day2;
 };
 
-void transactionsLinkedList::addNode(string customerID, string product, string category, float price, string date, string paymentMethod)
+void transactionsLinkedList::createTransactionNode(string customerID, string product, string category, float price, string date, string paymentMethod)
 {
     transactionsLL* newNode = new transactionsLL{customerID, product, category, date, paymentMethod, price};
 
@@ -40,6 +40,7 @@ void transactionsLinkedList::addNode(string customerID, string product, string c
         newNode->prev = tail;
         tail = newNode;
     }
+    size++;
 };
 
 //insertion sort sorted by date from newest to oldest
@@ -98,14 +99,112 @@ void transactionsLinkedList::SortByDate()
     }
 };
 
+//bubble sort
+void transactionsLinkedList::bubbleSortByDate() {
+    if (!head or !head->next) return;
+
+    bool swapped;
+    transactionsLL* ptr1;
+    transactionsLL* lptr = nullptr;
+
+    do {
+        swapped = false;
+        ptr1 = head;
+
+        while (ptr1->next != lptr) {
+            if (!isEarlier(ptr1->date, ptr1->next->date)) {
+                // Swap data values instead of nodes
+                swap(ptr1->customerID, ptr1->next->customerID);
+                swap(ptr1->product, ptr1->next->product);
+                swap(ptr1->category, ptr1->next->category);
+                swap(ptr1->price, ptr1->next->price);
+                swap(ptr1->date, ptr1->next->date);
+                swap(ptr1->paymentMethod, ptr1->next->paymentMethod);
+
+                swapped = true;
+            }
+            ptr1 = ptr1->next;
+        }
+        lptr = ptr1;
+    } while (swapped);
+}
+
+void transactionsLinkedList::searchByCategory(const string& targetCategory) const {
+    if (!head) {
+        cout << "No transactions available.\n";
+        return;
+    }
+
+    bool found = false;
+    transactionsLL* current = head;
+
+    while (current) {
+        if (current->category == targetCategory) {
+            cout << current->customerID << " - "
+                << current->product << " - "
+                << current->category << " - "
+                << current->price << " - "
+                << current->date << " - "
+                << current->paymentMethod << endl;
+            found = true;
+        }
+        current = current->next;
+    }
+
+    if (!found) {
+        cout << "No transactions found in category: " << targetCategory << endl;
+    }
+}
+
+void transactionsLinkedList::searchByPaymentMethod(const string& targetMethod) const {
+    if (!head) {
+        cout << "No transactions available.\n";
+        return;
+    }
+
+    bool found = false;
+    transactionsLL* current = head;
+
+    while (current) {
+        if (current->paymentMethod == targetMethod) {
+            cout << current->customerID << " - "
+                << current->product << " - "
+                << current->category << " - "
+                << current->price << " - "
+                << current->date << " - "
+                << current->paymentMethod << endl;
+            found = true;
+        }
+        current = current->next;
+    }
+
+    if (!found) {
+        cout << "No transactions found with payment method: " << targetMethod << endl;
+    }
+}
+
 // Display all nodes
 void transactionsLinkedList::display()
 {
     transactionsLL* temp = head;
     while (temp)
     {
-        cout << temp->customerID << " - " << temp->product << " - " << temp->price << " - " << temp->date << endl;
+        cout << "Customer ID: \"" << temp->customerID << "\", Product Name: \"" << temp->product << "\", Category: \"" << temp->category << "\", Price:  \"" << temp->price << "\", Payment Method: \"" << temp->paymentMethod << "\", Date: \"" << temp->date << "\"" << endl;
         temp = temp->next;
     }
 };
+
+//count records in LL
+int transactionsLinkedList::getLLSize()
+{
+    int count = 0;
+    transactionsLL* temp = head;
+    while (temp) 
+    {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
 
