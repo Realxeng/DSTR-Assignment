@@ -1,8 +1,12 @@
-#include "TransactionsLinkedList.hpp"
-#include <iostream>
+#include <fstream>
+#include <sstream>
 #include <string>
-#include <cstdio>
+#include <chrono>
+#include "ReviewsLinkedList.hpp"
+#include "TransactionsLinkedList.hpp"
 
+using namespace std;
+using namespace std::chrono;
 using namespace std;
 
 // Function to check which date is earlier
@@ -20,54 +24,65 @@ bool transactionsLinkedList::isEarlier(string d1, string d2)
     if (year1 != year2) return year1 < year2;
     if (month1 != month2) return month1 < month2;
     return day1 < day2;
-}
+};
 
 void transactionsLinkedList::addNode(string customerID, string product, string category, float price, string date, string paymentMethod)
 {
-    transactionsLL* newNode = new transactionsLL{ customerID, product, category, date, paymentMethod, price };
+    transactionsLL* newNode = new transactionsLL{customerID, product, category, date, paymentMethod, price};
 
-    if (!head) {
+    if (!head) 
+    {
         head = tail = newNode;
     }
-    else {
+    else 
+    {
         tail->next = newNode;
         newNode->prev = tail;
         tail = newNode;
     }
-}
+};
 
-// Insertion sort for doubly linked list by date
-void transactionsLinkedList::insertionSortByDate()
+//insertion sort sorted by date from newest to oldest
+void transactionsLinkedList::SortByDate()
 {
-    if (!head || !head->next) return;
+    if (!head or !head->next) 
+    {
+        return;
+    }
 
     transactionsLL* sorted = nullptr;
-
     transactionsLL* current = head;
-    while (current != nullptr) {
+
+    while (current != nullptr)//loop through the original LL
+    {
         transactionsLL* next = current->next;
 
         // Disconnect current
         current->prev = current->next = nullptr;
 
-        // Insert into sorted list
-        if (!sorted) {
+        if (!sorted)//insert current node into new LL as Head
+        {
             sorted = current;
         }
-        else if (isEarlier(current->date, sorted->date)) {
-            // Insert at beginning
+        else if (isEarlier(current->date, sorted->date))//insert to the front
+        {
             current->next = sorted;
             sorted->prev = current;
             sorted = current;
         }
-        else {
+        else//insert to middle or behind
+        {
             transactionsLL* temp = sorted;
-            while (temp->next && isEarlier(temp->next->date, current->date)) {
+            while (temp->next && isEarlier(temp->next->date, current->date)) //loop to find date that is later than current node date
+            {
                 temp = temp->next;
             }
 
             current->next = temp->next;
-            if (temp->next) temp->next->prev = current;
+            if (temp->next)
+            {
+                temp->next->prev = current;
+            }
             current->prev = temp;
             temp->next = current;
         }
@@ -81,47 +96,7 @@ void transactionsLinkedList::insertionSortByDate()
     while (tail->next) {
         tail = tail->next;
     }
-}
-
-//Insert node in sorted order
-//void transactionsLinkedList::addSorted(string customerID, string product, string category, float price, string date, string paymentMethod)
-//{
-//    transactionsLL* newNode = new transactionsLL{ customerID, product, category, date, paymentMethod, price };
-//
-//    if (head == nullptr)
-//    {
-//        head = tail = newNode;
-//        return;
-//    }
-//
-//    transactionsLL* currentNode = head;
-//
-//    while (currentNode != nullptr && isEarlier(currentNode->date, date))
-//    {
-//        currentNode = currentNode->next;
-//    }
-//
-//
-//    if (currentNode == nullptr)//insert to end
-//    {
-//        tail->next = newNode;
-//        newNode->prev = tail;
-//        tail = newNode;
-//    }
-//    else if (currentNode == head)//insert to front
-//    {
-//        newNode->next = head;
-//        head->prev = newNode;
-//        head = newNode;
-//    }
-//    else//insert to middle basically in the middle of currentNode.prev & currentNode
-//    {
-//        newNode->next = currentNode;//changing next pointer of new node to current node
-//        newNode->prev = currentNode->prev;//changing previous pointer of new node to current node previous pointer
-//        currentNode->prev->next = newNode;//changing current node previous's next pointer to new node
-//        currentNode->prev = newNode;//changing current node's previous pointer to new node
-//    }
-//}
+};
 
 // Display all nodes
 void transactionsLinkedList::display()
@@ -132,5 +107,5 @@ void transactionsLinkedList::display()
         cout << temp->customerID << " - " << temp->product << " - " << temp->price << " - " << temp->date << endl;
         temp = temp->next;
     }
-}
+};
 

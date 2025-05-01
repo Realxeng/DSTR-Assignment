@@ -70,7 +70,7 @@ void ReviewsLinkedList::display() {
     reviewNode* temp = head;  // Create a temp pointer to traverse the list
 
     while (temp != nullptr) {  // Traverse the list
-        cout << "Product ID: " << temp->productID << ", Customer ID: " << temp->customerID
+        cout << temp->productID << ", " << temp->customerID
              << ", Rating: " << temp->rate << ", Review: " << temp->reviewDesc << endl;
         temp = temp->next;  // Move to the next node
     }
