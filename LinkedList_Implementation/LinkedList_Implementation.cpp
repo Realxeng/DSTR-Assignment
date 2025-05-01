@@ -4,13 +4,12 @@
 #include <sstream>
 #include <string>
 #include <chrono>
+
 #include "ReviewsLinkedList.hpp"
-#include "ReviewsLinkedList.cpp"
 #include "TransactionsLinkedList.hpp"
-#include "TransactionsLinkedList.cpp"
 using namespace std;
-using namespace std::chrono;  // So we can use high_resolution_clock directly
-using namespace std;
+using namespace std::chrono;
+
 
 // Define Function in MAIN
 ReviewsLinkedList setUp_reviewLL();
@@ -37,98 +36,103 @@ int main()
         cin.ignore(); // Ignore the newline character left in the buffer
 
         switch (choice) {
-            case 1:
-                // Display Reviews
-                cout << "Displaying Reviews:\n";
-                reviewsLL.display();
-                break;
-            
-            case 2:
-            default:
-                cout << "Invalid choice.\n";
+        case 1:
+            // Display Reviews
+            cout << "Displaying Reviews:\n";
+            reviewsLL.display();
+            break;
+
+        case 2:
+        default:
+            cout << "Invalid choice.\n";
         }
 
-    } else if (choice == 2) {
+    }
+    else if (choice == 2) {
 
         /*
         TODO: Insert transactions linked list code here <-----------
         */
+        transactionsLinkedList transLL;
+        ifstream file("../data/transactions_cleaned.csv");
 
+        if (!file.is_open()) {
+            cerr << "Error opening file!" << endl;
+            return 1;
+        }
+
+        string line;
+        getline(file, line); // Skip header
+
+        int totalRecords = 0; // Counter for number of valid records
+
+        while (getline(file, line)) {
+            stringstream ss(line);
+            string customerID, product, category, priceStr, date, paymentMethod;
+            float price;
+
+            getline(ss, customerID, ',');
+            getline(ss, product, ',');
+            getline(ss, category, ',');
+            getline(ss, priceStr, ',');
+            getline(ss, date, ',');
+            getline(ss, paymentMethod, '\n');
+
+            if (priceStr.empty()) continue;
+
+            price = stof(priceStr);
+            transLL.addNode(customerID, product, category, price, date, paymentMethod);
+            totalRecords++;
+        }
+
+        file.close();
+
+        cout << "Total transactions loaded: " << totalRecords << endl;
+
+        auto start = high_resolution_clock::now();
+
+        transLL.SortByDate();
+        transLL.display();
+
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(stop - start);
+        cout << "\nTime taken to sort and display: " << duration.count() << " milliseconds" << endl;
     }
-        
-
-
-     //transactionsLinkedList transLL;
-
-    int totalRecords = 0; // Counter for number of valid records
-
-    while (getline(file, line)) {
-        stringstream ss(line);
-        string customerID, product, category, priceStr, date, paymentMethod;
-        float price;
-
-        getline(ss, customerID, ',');
-        getline(ss, product, ',');
-        getline(ss, category, ',');
-        getline(ss, priceStr, ',');
-        getline(ss, date, ',');
-        getline(ss, paymentMethod, '\n');
-
-        if (priceStr.empty()) continue;
-
-        price = stof(priceStr);
-        transLL.addNode(customerID, product, category, price, date, paymentMethod);
-        totalRecords++;
-    }
-
-    file.close();
-
-    cout << "Total transactions loaded: " << totalRecords << endl;
-
-    auto start = high_resolution_clock::now();
-
-    transLL.SortByDate();
-    transLL.display();
-
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(stop - start);
-    cout << "\nTime taken to sort and display: " << duration.count() << " milliseconds" << endl;
-
     return 0;
 }
 
-ReviewsLinkedList setUp_reviewLL(){
-            // Reviews Linked List
-            ReviewsLinkedList reviewsLL;
+ReviewsLinkedList setUp_reviewLL() {
+    // Reviews Linked List
+    ReviewsLinkedList reviewsLL;
 
-            ifstream file("../data/reviews_cleaned.csv");
-            if (!file.is_open()) {
-                cerr << "Error opening file!" << endl;
-                return reviewsLL; // Return empty linked list
-            }
-    
-            string line;
-            getline(file, line); // Skip the header line
-    
-            while (getline(file, line)) {
-                stringstream ss(line);
-                string productID, customerID, reviewDesc;
-                int rate;
-    
-                getline(ss, productID, ',');
-                getline(ss, customerID, ',');
-                ss >> rate;
-                ss.ignore(); // Ignore the comma
-                getline(ss, reviewDesc);
-    
-                // Insert into linked list
-                reviewsLL.insertNode_atEnd(productID, customerID, rate, reviewDesc);
-            }
-    
-            file.close();
-            cout << "\nReviews linked list created and populated.\n";
-            cout << "Number of reviews: " << reviewsLL.getSize() << endl;
+    ifstream file("../data/reviews_cleaned.csv");
+    if (!file.is_open()) {
+        cerr << "Error opening file!" << endl;
+        return reviewsLL; // Return empty linked list
+    }
 
-            return reviewsLL;
-            
+    string line;
+    getline(file, line); // Skip the header line
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string productID, customerID, reviewDesc;
+        int rate;
+
+        getline(ss, productID, ',');
+        getline(ss, customerID, ',');
+        ss >> rate;
+        ss.ignore(); // Ignore the comma
+        getline(ss, reviewDesc);
+
+        // Insert into linked list
+        reviewsLL.insertNode_atEnd(productID, customerID, rate, reviewDesc);
+    }
+
+    file.close();
+    cout << "\nReviews linked list created and populated.\n";
+    cout << "Number of reviews: " << reviewsLL.getSize() << endl;
+
+    return reviewsLL;
+
 }
