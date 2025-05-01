@@ -11,7 +11,7 @@ int main()
 {
     transactionsLinkedList transLL;
 
-    ifstream file("..\\data\\transactions_cleaned_date.csv");
+    ifstream file("../data/transactions_cleaned.csv");
     if (!file.is_open()) {
         cerr << "Error opening file!" << endl;
         return 1;
