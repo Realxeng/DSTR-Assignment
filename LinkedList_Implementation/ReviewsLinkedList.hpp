@@ -2,16 +2,17 @@
 #include <iostream>
 using namespace std;
 
+struct reviewsLL //Linked List for the reviews
+{
+    string productID, customerID, reviewDesc;
+    int rate = 0;
+
+    reviewsLL* prev = nullptr;
+    reviewsLL* next = nullptr;
+};
+
 class ReviewsLinkedList
 {
-    struct reviewsLL //Linked List for the reviews
-    {
-        string productID, customerID, reviewDesc;
-        int rate = 0;
-
-        reviewsLL* prev = nullptr;
-        reviewsLL* next = nullptr;
-    };
     reviewsLL* head = nullptr;
     reviewsLL* tail = nullptr;
 
