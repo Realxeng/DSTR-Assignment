@@ -8,6 +8,7 @@ using namespace std;
 struct Reviews
 {
     string pid, cid, rating, review;
+	int size = 0;
 };
 
 class reviewsArray
@@ -16,7 +17,7 @@ class reviewsArray
 public:
     Reviews* list;
     reviewsArray() {
-        list = NULL;
+        list = nullptr;
         top = 0;
     }
     reviewsArray(Reviews* list, int top) {
@@ -38,6 +39,29 @@ public:
     void insertFromFile(ifstream& file) {
         if (file.is_open()) {
             Reviews temp;
+			string header;
+			getline(file, header);
+            while (file.good()) {
+                string wholeline;
+                getline(file, wholeline, '\n');
+                istringstream iss(wholeline);
+                getline(iss, temp.pid, ',');
+                getline(iss, temp.cid, ',');
+                getline(iss, temp.rating, ',');
+                getline(iss, temp.review, '\n');
+                temp.size = top + 1;
+                insertToArray(temp);
+                setTop(temp.size);
+            }
+        }
+        else {
+            cerr << "Unable to open file!";
+        }
+    }
+
+    void insertFromFileRaw(ifstream& file) {
+        if (file.is_open()) {
+            Reviews temp;
             string header;
             getline(file, header);
             while (file.good()) {
@@ -49,6 +73,8 @@ public:
                 getline(iss, temp.rating, ',');
                 getline(iss, temp.review, '\n');
                 insertToArray(temp);
+                temp.size = top + 1;
+                setTop(temp.size);
             }
         }
         else {
@@ -132,17 +158,17 @@ public:
         return ar;
     }
 
-    void mergeSortByPID(int left = 0, int right = -1) {
+    void mergeSortByPID(int left = 0, int right = -1, bool isTopLevel = true) {
         if (right == -1) right = top - 1;
         if (left >= right) return;
 
         int mid = left + (right - left) / 2;
 
-        // Recursively divide
-        mergeSortByPID(left, mid);
-        mergeSortByPID(mid + 1, right);
+        // Recursive sort
+        mergeSortByPID(left, mid, false);
+        mergeSortByPID(mid + 1, right, false);
 
-        // Temporary arrays
+        // Merge step
         int n1 = mid - left + 1;
         int n2 = right - mid;
         Reviews* L = new Reviews[n1];
@@ -151,24 +177,20 @@ public:
         for (int i = 0; i < n1; i++) L[i] = list[left + i];
         for (int i = 0; i < n2; i++) R[i] = list[mid + 1 + i];
 
-        // Merge step
-        cout << "left: "<< left<<endl;
         int i = 0, j = 0, k = left;
         while (i < n1 && j < n2) {
             if (L[i].pid <= R[j].pid) list[k++] = L[i++];
             else list[k++] = R[j++];
         }
-        while (i < n1) {
-            cout << "Adding remaining L[" << i << "] = " << L[i].pid << " to list[" << k << "]" << endl;
-            list[k++] = L[i++];
-        }
-        while (j < n2) {
-            cout << "Adding remaining R[" << j << "] = " << R[j].pid << " to list[" << k << "]" << endl;
-            list[k++] = R[j++];
-        }
+        while (i < n1) list[k++] = L[i++];
+        while (j < n2) list[k++] = R[j++];
 
         delete[] L;
         delete[] R;
-    }
 
+        // After full merge sort, delete index 0
+        if (isTopLevel) {
+            deleteAtIndex(0);
+        }
+    }
 };
