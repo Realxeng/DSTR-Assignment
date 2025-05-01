@@ -8,19 +8,26 @@ struct transactionsLL
     string customerID, product, category, date, paymentMethod;
     float price = 0.0f;
 
-    transactionsLL* prev = nullptr;
-    transactionsLL* next = nullptr;
+    transactionsLL* prev;
+    transactionsLL* next;
 };
 
 class transactionsLinkedList
 {
 private:
-    transactionsLL* head = nullptr;
-    transactionsLL* tail = nullptr;
+    int size = 0;
+    transactionsLL* head;
+    transactionsLL* tail;
 
-    bool isEarlier(string d1, string d2); // declaration only
+    bool isEarlier(string d1, string d2);
 
 public:
-    void addSorted(string customerID, string product, string category, float price, string date, string paymentMethod);
+    //// Constructor
+    //transactionsLinkedList();
+    //// Destructor
+    //~transactionsLinkedList();
+
+    void addNode(string customerID, string product, string category, float price, string date, string paymentMethod);
+    void insertionSortByDate();
     void display();
 };
