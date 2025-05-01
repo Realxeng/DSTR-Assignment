@@ -24,12 +24,14 @@ bool transactionsLinkedList::isEarlier(string d1, string d2)
 
 void transactionsLinkedList::addNode(string customerID, string product, string category, float price, string date, string paymentMethod)
 {
-    transactionsLL* newNode = new transactionsLL{ customerID, product, category, date, paymentMethod, price };
+    transactionsLL* newNode = new transactionsLL{customerID, product, category, date, paymentMethod, price};
 
-    if (!head) {
+    if (!head) 
+    {
         head = tail = newNode;
     }
-    else {
+    else 
+    {
         tail->next = newNode;
         newNode->prev = tail;
         tail = newNode;
@@ -37,9 +39,9 @@ void transactionsLinkedList::addNode(string customerID, string product, string c
 }
 
 // Insertion sort for doubly linked list by date
-void transactionsLinkedList::insertionSortByDate()
+void transactionsLinkedList::SortByDate()
 {
-    if (!head || !head->next) return;
+    if (!head or !head->next) return;
 
     transactionsLL* sorted = nullptr;
 
@@ -51,18 +53,22 @@ void transactionsLinkedList::insertionSortByDate()
         current->prev = current->next = nullptr;
 
         // Insert into sorted list
-        if (!sorted) {
+        if (!sorted)
+        {
             sorted = current;
         }
-        else if (isEarlier(current->date, sorted->date)) {
+        else if (isEarlier(current->date, sorted->date)) 
+        {
             // Insert at beginning
             current->next = sorted;
             sorted->prev = current;
             sorted = current;
         }
-        else {
+        else 
+        {
             transactionsLL* temp = sorted;
-            while (temp->next && isEarlier(temp->next->date, current->date)) {
+            while (temp->next && isEarlier(temp->next->date, current->date)) 
+            {
                 temp = temp->next;
             }
 

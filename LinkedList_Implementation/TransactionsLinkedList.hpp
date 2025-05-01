@@ -28,6 +28,6 @@ public:
     //~transactionsLinkedList();
 
     void addNode(string customerID, string product, string category, float price, string date, string paymentMethod);
-    void insertionSortByDate();
+    void SortByDate();
     void display();
 };
