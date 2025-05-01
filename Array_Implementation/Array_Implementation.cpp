@@ -149,12 +149,15 @@ transactionsArray linearSearchCategory(transactionsArray ta, string cat) {
     }
     cout << "Transaction(s) found: " << count << endl;
     Transactions* result = new Transactions[count];
+	int index = 0;
     for (int i = 0; i < count; i++) {
         if (ta.list[i].cat == cat) {
-            result[i] = ta.list[i];
+            result[index] = ta.list[i];
+			index++;
         }
     }
     transactionsArray resultArray = transactionsArray(result, count);
+    delete[] result;
     return resultArray;
 }
 
@@ -170,12 +173,15 @@ transactionsArray linearSearchPayment(transactionsArray ta, string payment) {
     }
     cout << "Transaction(s) found: " << count << endl;
     Transactions* result = new Transactions[count];
+	int index = 0;
     for (int i = 0; i < count; i++) {
         if (ta.list[i].payment == payment) {
-            result[i] = ta.list[i];
+            result[index] = ta.list[i];
+			index++;
         }
     }
     transactionsArray resultArray = transactionsArray(result, count);
+    delete[] result;
     return resultArray;
 }
 
@@ -191,60 +197,66 @@ transactionsArray linearSearchProduct(transactionsArray ta, string product) {
     }
     cout << "Transaction(s) found: " << count << endl;
     Transactions* result = new Transactions[count];
+	int index = 0;
     for (int i = 0; i < count; i++) {
         if (ta.list[i].product == product) {
-            result[i] = ta.list[i];
+            result[index] = ta.list[i];
+            index++;
         }
     }
     transactionsArray resultArray = transactionsArray(result, count);
+    delete[] result;
     return resultArray;
 }
 
-transactionsArray binarySearchCustomer(transactionsArray tarr, string cid) {
-    transactionsArray ta = bubbleSortCid(tarr); // Ensure the list is sorted by `cid`
-    Transactions* result = new Transactions[ta.getTop()];
-    int left = 0, right = ta.getTop() - 1, count = 0;
+transactionsArray binarySearchCustomer(transactionsArray tarr, string cid) {  
+   transactionsArray ta = bubbleSortCid(tarr); // Ensure the list is sorted by `cid`  
+   int maxSize = ta.getTop();  
+   Transactions* result = new Transactions[maxSize]; // Allocate memory based on the maximum possible size  
+   int left = 0, right = maxSize - 1, count = 0;  
 
-    while (left <= right) {
-        int mid = (left + right) / 2;
+   while (left <= right) {  
+       int mid = (left + right) / 2;  
 
-        if (ta.list[mid].cid == cid) {
-            // Collect all matching transactions
-            int i = mid;
-            while (i >= 0 && ta.list[i].cid == cid) { // Check left side of mid
-                result[count] = ta.list[i];
-                count++;
-                i--;
-            }
-            i = mid + 1;
-            while (i < ta.getTop() && ta.list[i].cid == cid) { // Check right side of mid
-                result[count] = ta.list[i];
-                count++;
-                i++;
-            }
-            break;
-        }
+       if (ta.list[mid].cid == cid) {  
+           // Collect all matching transactions  
+           int i = mid;  
+           while (i >= 0 && ta.list[i].cid == cid) { // Check left side of mid  
+               result[count] = ta.list[i];  
+               count++;  
+               i--;  
+           }  
+           i = mid + 1;  
+           while (i < maxSize && ta.list[i].cid == cid) { // Check right side of mid  
+               result[count] = ta.list[i];  
+               count++;  
+               i++;  
+           }  
+           break;  
+       }  
 
-        if (ta.list[mid].cid < cid) {
-            left = mid + 1;
-        }
-        else {
-            right = mid - 1;
-        }
-    }
+       if (ta.list[mid].cid < cid) {  
+           left = mid + 1;  
+       }  
+       else {  
+           right = mid - 1;  
+       }  
+   }  
 
-    if (count == 0) {
-        return transactionsArray(); // Return an empty array if no match is found
-    }
-    else {
-        cout << "Transaction(s) found: " << count << endl;
-        Transactions* list = new Transactions[count];
-        for (int i = 0; i < count; i++) {
-            list[i] = result[i];
-        }
-        transactionsArray resultArray = transactionsArray(list, count);
-        return resultArray;
-    }
+   if (count == 0) {  
+       delete[] result; // Free allocated memory if no match is found  
+       return transactionsArray(); // Return an empty array  
+   }  
+   else {  
+       cout << "Transaction(s) found: " << count << endl;  
+       Transactions* list = new Transactions[count];  
+       for (int i = 0; i < count; i++) {  
+           list[i] = result[i];  
+       }  
+       delete[] result; // Free the temporary result array  
+       transactionsArray resultArray = transactionsArray(list, count);  
+       return resultArray;  
+   }  
 }
 
 int main()
