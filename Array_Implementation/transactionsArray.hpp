@@ -61,27 +61,6 @@ public:
         }
     }
 
-    void bubbleSortCid() {
-        bool swapped;
-        //int totalComparisons = top * (top - 1) / 2;
-        //int count = 0;
-
-        for (int i = 0; i < top - 1; i++) {
-            swapped = false;
-            for (int j = 0; j < top - i - 1; j++) {
-                //count++;
-                if (list[j].cid > list[j + 1].cid) {
-                    Transactions temp = list[j];
-                    list[j] = list[j + 1];
-                    list[j + 1] = temp;
-                    swapped = true;
-                }
-            }
-            //cout << "Progress: " << ((float)count / totalComparisons) * 100 << "%\n";
-            if (!swapped) break;
-        }
-    }
-
     void bubbleSortDate() {
         bool swapped = false;
         for (int i = 0; i < top - 1; i++) {
@@ -202,7 +181,7 @@ public:
     }
 
     transactionsArray binarySearchCustomer(string cid) {
-        bubbleSortCid(); // Ensure the list is sorted by `cid`
+        //bubbleSortCid(); // Ensure the list is sorted by `cid`
         Transactions* result = new Transactions[top];
         int left = 0, right = top - 1, count = 0;
 
