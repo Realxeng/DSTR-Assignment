@@ -38,8 +38,6 @@ public:
     void insertFromFile(ifstream& file) {
         if (file.is_open()) {
             Reviews temp;
-            string header;
-            getline(file, header);
             while (file.good()) {
                 string wholeline;
                 getline(file, wholeline, '\n');

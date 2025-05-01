@@ -102,10 +102,13 @@ public:
 	void exportReview(string path) {
 		ofstream file(path);
 		for (int i = 0; i < ra.getTop(); i++) {
+			if (i != 0) {
+				file << endl;
+			}
 			file<< ra.list[i].pid << ","
 				<< ra.list[i].cid << ","
 				<< ra.list[i].rating << ","
-				<< ra.list[i].review << endl;
+				<< ra.list[i].review;
 		}
 		file.close();
 		cout << "Exported reviews. " << "Total Reviews: " << ra.getTop() << endl;
@@ -114,12 +117,15 @@ public:
 	void exportTransaction(string path) {
 		ofstream file(path);
 		for (int i = 0; i < ta.getTop(); i++) {
+			if (i != 0) {
+				file << endl;
+			}
 			file << ta.list[i].cid << ","
 				<< ta.list[i].product << ","
 				<< ta.list[i].cat << ","
 				<< ta.list[i].price << ","
 				<< convertDate(ta.list[i].date) << ","
-				<< ta.list[i].payment << endl;
+				<< ta.list[i].payment;
 		}
 		file.close();
 		cout << "Exported transactions. " << "Total Transactions: " << ta.getTop() << endl;

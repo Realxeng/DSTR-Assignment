@@ -8,7 +8,6 @@ using namespace std;
 struct Transactions
 {
     string cid, product, cat, price, date, payment;
-    int size = 0;
 };
 
 class transactionsArray
@@ -49,9 +48,7 @@ public:
                 getline(iss, temp.price, ',');
                 getline(iss, temp.date, ',');
                 getline(iss, temp.payment, '\n');
-                temp.size = top + 1;
                 insertToArray(temp);
-                setTop(temp.size);
             }
         }
         else {
@@ -74,9 +71,7 @@ public:
                 getline(iss, temp.price, ',');
                 getline(iss, temp.date, ',');
                 getline(iss, temp.payment, '\n');
-                temp.size = top + 1;
                 insertToArray(temp);
-                setTop(temp.size);
             }
         }
         else {
@@ -155,18 +150,17 @@ public:
 			temp.price = ar.list[i].price;
 			temp.date = ar.list[i].date;
 			temp.payment = ar.list[i].payment;
-            int size = ar.getTop();
-            int j = ar.getTop() - 1;
-            while (j >= 0 && temp.cid < ar.list[j].cid) {
-                ar.list[j + 1] = ar.list[j];
-                j--;
+            if (i == 0) {
+                result.list[0] = temp;
+            }
+            int j = 1;
+            while (j < ar.getTop() && temp.cid < result.list[j].cid) {
+                result.list[j] = temp;
+                j++;
             }
             //cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
-            ar.list[j + 1] = temp;
-            size++;
-            ar.setTop(size);
         }
-        return ar;
+        return result;
     }
 
     transactionsArray bubbleSortDate(transactionsArray ta)
