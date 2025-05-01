@@ -9,7 +9,7 @@
 using namespace std;
 using namespace std::chrono;
 const string reviewsFile = "..//data//reviews_cleaned.csv";
-const string transactionsFile = "..//data//transactions_cleaned_date.csv";
+const string transactionsFile = "..//data//transactions_cleaned.csv";
 
 int getMaxLine(ifstream file) {
     int count = 0;

@@ -199,6 +199,10 @@ public:
         return result;
     }
 
+    Transactions* binarySearchCustomer(string customer) {
+
+    }
+
     Transactions* deleteAtIndex(Transactions* list, int index) {
         if (index < 0 || index > top) {
             cout << "No transaction found at index " << index << ". Top: " << top << endl;

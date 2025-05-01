@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "Cleaning.hpp";
+#include "Cleaning.hpp"
 
 const string reviewsRaw = "..//data//reviews_raw.csv";
 const string transactionsRaw = "..//data//transactions_raw.csv";
@@ -35,12 +35,12 @@ int main()
     cr.reviewCleanNullEntry();
     cr.reviewCleanInvalidRating();
     cr.reviewQuote();
-    cr.exportReview("..//data//reviews_cleaned.csv");
-	cr.~Cleaning();
     Cleaning ct = Cleaning(tarr.list, tarr.getTop());
     ct.transactionCleanNullEntry();
     ct.transactionCleanNanEntry();
     ct.transactionCleanInvalidDate();
-    ct.exportTransaction("..//data//transactions_cleaned_date.csv");
+    cr.exportReview("..//data//reviews_cleaned.csv");
+    cr.~Cleaning();
+    ct.exportTransaction("..//data//transactions_cleaned.csv");
     ct.~Cleaning();
 }
