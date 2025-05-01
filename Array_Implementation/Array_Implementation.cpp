@@ -89,9 +89,9 @@ int main()
     //tarr.insertionSortCid(tfile);
 	//tarr.bubbleSortDate();
     //auto stop = high_resolution_clock::now();
-    rarr.showAllReviews();
-    tarr.showAllTransactions();
-    tarr.displayByProduct("Monitor");
+    //rarr.showAllReviews();
+    //tarr.showAllTransactions();
+    //tarr.displayByProduct("Monitor");
 	transactionsArray customerTransactions = tarr.binarySearchCustomer("CUST9944");
     //tarr.showTransaction(customerTransactions);
 	//auto stop = high_resolution_clock::now();

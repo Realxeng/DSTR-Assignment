@@ -206,39 +206,48 @@ public:
     }
 
     transactionsArray binarySearchCustomer(string cid) {
-		bubbleSortCid();
-		Transactions* result = new Transactions[top];
-        int left = 0, mid = 0, count = 0;
-        int right = top - 1;
+        bubbleSortCid(); // Ensure the list is sorted by `cid`
+        Transactions* result = new Transactions[top];
+        int left = 0, right = top - 1, count = 0;
+
         while (left <= right) {
-			if (list[left].cid == cid) {
-				while (list[left].cid == cid && left < top) {
-					result[count] = list[left];
-					count++;
-					left++;
-				}
+            int mid = (left + right) / 2;
+
+            if (list[mid].cid == cid) {
+                // Collect all matching transactions
+                int i = mid;
+                while (i >= 0 && list[i].cid == cid) { // Check left side of mid
+                    result[count] = list[i];
+                    count++;
+                    i--;
+                }
+                i = mid + 1;
+                while (i < top && list[i].cid == cid) { // Check right side of mid
+                    result[count] = list[i];
+                    count++;
+                    i++;
+                }
                 break;
-			}
-			mid = (left + right) / 2;
-            /*if (list[mid].cid == cid) {
-                result[0] = list[mid];
-            }*/
+            }
+
             if (list[mid].cid < cid) {
                 left = mid + 1;
             }
             else {
-				right = mid - 1;
+                right = mid - 1;
             }
         }
+
         if (count == 0) {
-            return transactionsArray();
+            return transactionsArray(); // Return an empty array if no match is found
         }
         else {
-			cout << "Transaction(s) found: " << count << endl;
-			transactionsArray resultArray = transactionsArray(result, count);
-			return resultArray;
+            cout << "Transaction(s) found: " << count << endl;
+            transactionsArray resultArray = transactionsArray(result, count);
+            return resultArray;
         }
     }
+
 
     Transactions* deleteAtIndex(Transactions* list, int index) {
         if (index < 0 || index > top) {
