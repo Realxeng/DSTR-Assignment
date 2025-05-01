@@ -9,41 +9,42 @@ using namespace std;
 
 int main()
 {
-    transactionsLinkedList transLL;
 
-    ifstream file("../data/transactions_cleaned.csv");
-    if (!file.is_open()) {
-        cerr << "Error opening file!" << endl;
-        return 1;
-    }
+    // transactionsLinkedList transLL;
 
-    string line;
-    getline(file, line); // Skip the header line
+    // ifstream file("../data/transactions_cleaned.csv");
+    // if (!file.is_open()) {
+    //     cerr << "Error opening file!" << endl;
+    //     return 1;
+    // }
 
-    while (getline(file, line)) {
-        stringstream ss(line);
-        string customerID, product, category, priceStr, date, paymentMethod;
-        float price;
+    // string line;
+    // getline(file, line); // Skip the header line
 
-        getline(ss, customerID, ',');
-        getline(ss, product, ',');
-        getline(ss, category, ',');
-        getline(ss, priceStr, ',');
-        getline(ss, date, ',');
-        getline(ss, paymentMethod, '\n');
+    // while (getline(file, line)) {
+    //     stringstream ss(line);
+    //     string customerID, product, category, priceStr, date, paymentMethod;
+    //     float price;
 
-        if (priceStr.empty()) continue; // Prevents crash on malformed line
-        price = stof(priceStr); // Convert price string to float
+    //     getline(ss, customerID, ',');
+    //     getline(ss, product, ',');
+    //     getline(ss, category, ',');
+    //     getline(ss, priceStr, ',');
+    //     getline(ss, date, ',');
+    //     getline(ss, paymentMethod, '\n');
 
-        // Insert into linked list
-        transLL.addSorted(customerID, product, category, price, date, paymentMethod);
-    }
+    //     if (priceStr.empty()) continue; // Prevents crash on malformed line
+    //     price = stof(priceStr); // Convert price string to float
 
-    file.close();
+    //     // Insert into linked list
+    //     transLL.addSorted(customerID, product, category, price, date, paymentMethod);
+    // }
 
-    // Display the sorted transactions
-    cout << "Transactions sorted by date:\n";
-    transLL.display();
+    // file.close();
+
+    // // Display the sorted transactions
+    // cout << "Transactions sorted by date:\n";
+    // transLL.display();
 
     return 0;
 }

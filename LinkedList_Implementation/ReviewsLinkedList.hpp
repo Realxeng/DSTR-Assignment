@@ -2,34 +2,34 @@
 #include <iostream>
 using namespace std;
 
-struct reviewsLL //Linked List for the reviews
+struct reviewNode //Linked List for the reviews
 {
     string productID, customerID, reviewDesc;
     int rate = 0;
 
-    reviewsLL* prev = nullptr;
-    reviewsLL* next = nullptr;
+    reviewNode* prev;   // Pointer to the previous node
+    reviewNode* next;   // Pointer to the next node
 };
 
 class ReviewsLinkedList
 {
-    reviewsLL* head = nullptr;
-    reviewsLL* tail = nullptr;
+    reviewNode* head;   // Pointer to the head of the linked list
+    reviewNode* tail;   // Pointer to the tail of the linked list
+    int size;      // Size of the list
 
 public:
-    reviewsLL* addNode(string productID, string customerID, int rate, string reviewDesc)
-    {
-        reviewsLL* newNode = new reviewsLL;
+    // Constructor
+    ReviewsLinkedList();
+    // Destructor
+    ~ReviewsLinkedList();
 
-        newNode->productID = productID;
-        newNode->customerID = customerID;
-        newNode->rate = rate;
-        newNode->reviewDesc = reviewDesc;
-
-        newNode->prev = nullptr;
-        newNode->next = nullptr;
-
-        return newNode;
-    }
+    // Methods
+    reviewNode* createNewReviewNode(string productID, string customerID, int rate, string reviewDesc);
+    void insertNode_atEnd(string productID, string customerID, int rate, string reviewDesc);
+    void deleteNode_atEnd();
+    void display();
+    int getSize();
+    reviewNode* getHead();
+    reviewNode* getTail();
 };
 
