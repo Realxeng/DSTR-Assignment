@@ -211,6 +211,41 @@ public:
         return result;
     }
 
+    transactionsArray insertionSortDate()
+    {
+        Transactions temp;
+        transactionsArray result = transactionsArray(top);
+        for (int i = 0; i < top; i++) {
+            temp.cid = list[i].cid;
+            temp.product = list[i].product;
+            temp.cat = list[i].cat;
+            temp.price = list[i].price;
+            temp.date = list[i].date;
+            temp.payment = list[i].payment;
+            if (i == 0) {
+                result.list[0] = temp;
+            }
+            else {
+                int j = 0;
+                while (j<i && temp.date > result.list[j].date) {
+                    j++;
+                    continue;
+                }
+                if (j == i) {
+                    result.list[i] = temp;
+                }
+                else {
+                    for (int k = i; k > j; k--) {
+                        result.list[k] = result.list[k - 1];
+                    }
+                    result.list[j] = temp;
+                }
+            }
+            //cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
+        }
+        return result;
+    }
+
     transactionsArray bubbleSortDate()
     {
 		transactionsArray ta = transactionsArray(top);

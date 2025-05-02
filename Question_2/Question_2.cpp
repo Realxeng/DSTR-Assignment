@@ -13,9 +13,6 @@ int main()
 {
 	ifstream tfile(transactionsFile);
 	transactionsArray ta = transactionsArray(tfile);
-	//ta = ta.insertionSortCid();
-	//ta = ta.bubbleSortDate();
-	//ta.showAllTransactions();
 	transactionsArray electronicsTransactions = ta.linearSearchCategory("Electronics");
 	electronicsTransactions.showAllTransactions();
 	cout << "Total transactions: " << ta.getTop() << endl;
