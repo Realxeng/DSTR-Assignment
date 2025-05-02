@@ -13,6 +13,74 @@ using namespace std::chrono;
 
 // Define Function in MAIN
 ReviewsLinkedList setUp_reviewLL();
+void performSortAndSearch(transactionsLinkedList& transLL, bool useInsertionSort);
+void performSearch(transactionsLinkedList& transLL);
+
+
+int main()
+{
+    int choice;
+    cout << "Menu:\n";
+    cout << "1. Reviews Linked List\n";
+    cout << "2. Transactions Linked List\n";
+    cout << "Enter your choice: ";
+    cin >> choice;
+    cin.ignore(); // Ignore the newline character left in the buffer
+
+    if (choice == 1) 
+    {
+        // Reviews Linked List
+        ReviewsLinkedList reviewsLL = setUp_reviewLL();
+
+        cout << "Review Linked List Menu:\n";
+        cout << "1. Display Reviews\n";
+        cout << "2. Sort by Product ID (using Merge Sort)\n";
+        cout << "3. Sort by Frequently used word in product reviews rated 1-star (using Merge Sort)\n";
+        cin >> choice;
+        cin.ignore(); // Ignore the newline character left in the buffer
+
+        switch (choice) {
+        case 1:
+            // Display Reviews
+            cout << "Displaying Reviews:\n";
+            reviewsLL.display();
+            break;
+
+        case 2:
+        default:
+            cout << "Invalid choice.\n";
+        }
+
+    }
+    else if (choice == 2) 
+    {
+        transactionsLinkedList transLL = transLL.setUp_transactionLL();
+
+        cout << "Transactions Linked List Menu:\n";
+        cout << "1. Display Transaction Records\n";
+        cout << "2. Sort by Date (using insertion sort)\n";
+        cout << "3. Sort by Date (using bubble sort)\n";
+
+        cin >> choice;
+        cin.ignore();
+
+        if (choice == 1)
+        {
+            cout << "Total Records: " << transLL.getLLSize() << endl;
+            transLL.display();
+        }
+        else if (choice == 2) 
+        {
+            performSortAndSearch(transLL, true);  //true = insertion sort
+        }
+        else if (choice == 3) 
+        {
+            performSortAndSearch(transLL, false); //false = bubble sort
+        }
+
+    }
+    return 0;
+}
 
 void performSearch(transactionsLinkedList& transLL) {
     int searchChoice;
@@ -61,71 +129,6 @@ void performSortAndSearch(transactionsLinkedList& transLL, bool useInsertionSort
         << duration_cast<milliseconds>(end - start).count() << " ms\n";
 
     performSearch(transLL);
-}
-
-int main()
-{
-    int choice;
-    cout << "Menu:\n";
-    cout << "1. Reviews Linked List\n";
-    cout << "2. Transactions Linked List\n";
-    cout << "Enter your choice: ";
-    cin >> choice;
-    cin.ignore(); // Ignore the newline character left in the buffer
-
-    if (choice == 1) 
-    {
-        // Reviews Linked List
-        ReviewsLinkedList reviewsLL = setUp_reviewLL();
-
-        cout << "Review Linked List Menu:\n";
-        cout << "1. Display Reviews\n";
-        cout << "2. Sort by Product ID (using Merge Sort)\n";
-
-        cin >> choice;
-        cin.ignore(); // Ignore the newline character left in the buffer
-
-        switch (choice) {
-        case 1:
-            // Display Reviews
-            cout << "Displaying Reviews:\n";
-            reviewsLL.display();
-            break;
-
-        case 2:
-        default:
-            cout << "Invalid choice.\n";
-        }
-
-    }
-    else if (choice == 2) 
-    {
-        transactionsLinkedList transLL = transLL.setUp_transactionLL();
-
-        cout << "Transactions Linked List Menu:\n";
-        cout << "1. Display Transaction Records\n";
-        cout << "2. Sort by Date (using insertion sort)\n";
-        cout << "3. Sort by Date (using bubble sort)\n";
-
-        cin >> choice;
-        cin.ignore();
-
-        if (choice == 1)
-        {
-            cout << "Total Records: " << transLL.getLLSize() << endl;
-            transLL.display();
-        }
-        else if (choice == 2) 
-        {
-            performSortAndSearch(transLL, true);  //true = insertion sort
-        }
-        else if (choice == 3) 
-        {
-            performSortAndSearch(transLL, false); //false = bubble sort
-        }
-
-    }
-    return 0;
 }
 
 ReviewsLinkedList setUp_reviewLL() 
