@@ -36,6 +36,8 @@ public:
 
     int getTop() { return top; }
 	void setTop(int top) { this->top = top; }
+	int getMax() { return max; }
+	void setMax(int max) { this->max = max; }
 
     int getMaxLine(ifstream& file) {
         int count = 0;
@@ -74,7 +76,6 @@ public:
             while (file.good()) {
                 string wholeline;
                 getline(file, wholeline, '\n');
-				cout << wholeline << endl;
                 istringstream iss(wholeline);
                 getline(iss, temp.cid, ',');
                 getline(iss, temp.product, ',');
@@ -210,13 +211,16 @@ public:
         return result;
     }
 
-    transactionsArray bubbleSortDate(transactionsArray ta)
+    transactionsArray bubbleSortDate()
     {
+		transactionsArray ta = transactionsArray(top);
+		ta.list = this->list;
         bool swapped = false;
-        for (int i = 0; i < ta.getTop() - 1; i++) {
+        for (int i = 0; i < top - 1; i++) {
             swapped = false;
-            for (int j = 0; j < ta.getTop() - i - 1; j++) {
+            for (int j = 0; j < top - i - 1; j++) {
                 if (ta.isEarlier(ta.list[j + 1].date, ta.list[j].date)) {
+					//cout << "Swapping: " << ta.list[j + 1].date << " and " << ta.list[j].date << endl;
                     Transactions temp = ta.list[j];
                     ta.list[j] = ta.list[j + 1];
                     ta.list[j + 1] = temp;
@@ -228,12 +232,14 @@ public:
         return ta;
     }
 
-    transactionsArray bubbleSortCid(transactionsArray ta)
+    transactionsArray bubbleSortCid()
     {
+        transactionsArray ta = transactionsArray(top);
+        ta.list = this->list;
         bool swapped = false;
-        for (int i = 0; i < ta.getTop() - 1; i++) {
+        for (int i = 0; i < top - 1; i++) {
             swapped = false;
-            for (int j = 0; j < ta.getTop() - i - 1; j++) {
+            for (int j = 0; j < top - i - 1; j++) {
                 if (ta.list[j + 1].cid < ta.list[j].cid) {
                     Transactions temp = ta.list[j];
                     ta.list[j] = ta.list[j + 1];
@@ -246,9 +252,11 @@ public:
         return ta;
     }
 
-    transactionsArray linearSearchCategory(transactionsArray ta, string cat) {
+    transactionsArray linearSearchCategory(string cat) {
+        transactionsArray ta = transactionsArray(top);
+        ta.list = this->list;
         int count = 0;
-        for (int i = 0; i < ta.getTop(); i++) {
+        for (int i = 0; i < top; i++) {
             if (ta.list[i].cat == cat) {
                 count++;
             }
@@ -259,20 +267,24 @@ public:
         cout << "Transaction(s) found: " << count << endl;
         Transactions* result = new Transactions[count];
         int index = 0;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < top; i++) {
             if (ta.list[i].cat == cat) {
                 result[index] = ta.list[i];
                 index++;
             }
+            if (index == count) {
+                break;
+            }
         }
         transactionsArray resultArray = transactionsArray(result, count);
-        delete[] result;
         return resultArray;
     }
 
-    transactionsArray linearSearchPayment(transactionsArray ta, string payment) {
+    transactionsArray linearSearchPayment(string payment) {
+        transactionsArray ta = transactionsArray(top);
+        ta.list = this->list;
         int count = 0;
-        for (int i = 0; i < ta.getTop(); i++) {
+        for (int i = 0; i < top; i++) {
             if (ta.list[i].payment == payment) {
                 count++;
             }
@@ -283,20 +295,24 @@ public:
         cout << "Transaction(s) found: " << count << endl;
         Transactions* result = new Transactions[count];
         int index = 0;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < top; i++) {
             if (ta.list[i].payment == payment) {
                 result[index] = ta.list[i];
                 index++;
             }
+            if (index == count) {
+                break;
+            }
         }
         transactionsArray resultArray = transactionsArray(result, count);
-        delete[] result;
         return resultArray;
     }
 
-    transactionsArray linearSearchProduct(transactionsArray ta, string product) {
+    transactionsArray linearSearchProduct(string product) {
+        transactionsArray ta = transactionsArray(top);
+        ta.list = this->list;
         int count = 0;
-        for (int i = 0; i < ta.getTop(); i++) {
+        for (int i = 0; i < top; i++) {
             if (ta.list[i].product == product) {
                 count++;
             }
@@ -307,20 +323,22 @@ public:
         cout << "Transaction(s) found: " << count << endl;
         Transactions* result = new Transactions[count];
         int index = 0;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < top; i++) {
             if (ta.list[i].product == product) {
                 result[index] = ta.list[i];
                 index++;
             }
+            if (index == count) {
+                break;
+            }
         }
         transactionsArray resultArray = transactionsArray(result, count);
-        delete[] result;
         return resultArray;
     }
 
-    transactionsArray binarySearchCustomer(transactionsArray tarr, string cid) {
-        transactionsArray ta = bubbleSortCid(tarr); // Ensure the list is sorted by `cid`  
-        int maxSize = ta.getTop();
+    transactionsArray binarySearchCustomer(string cid) {
+        transactionsArray ta = bubbleSortCid(); // Ensure the list is sorted by `cid`  
+        int maxSize = top;
         Transactions* result = new Transactions[maxSize]; // Allocate memory based on the maximum possible size  
         int left = 0, right = maxSize - 1, count = 0;
 

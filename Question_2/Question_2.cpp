@@ -15,7 +15,7 @@ int main()
 	transactionsArray ta = transactionsArray(tfile);
 	//ta.insertFromFile(tfile);
 	ta = ta.insertionSortCid();
-	ta = ta.bubbleSortDate(ta);
+	ta = ta.bubbleSortDate();
 	ta.showAllTransactions();
 	//cout << "Total transactions: " << ta.getTop() << endl;
 	//cout << "Total transactions in Electronics: " << ta.linearSearchCategory(ta, "Electronics").getTop() << endl;
