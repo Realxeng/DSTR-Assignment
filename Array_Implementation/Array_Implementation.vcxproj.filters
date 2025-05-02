@@ -21,8 +21,13 @@
     <ClCompile Include="reviewsArray.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="transactionsArray.hpp">
+    <ClCompile Include="transactionsArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="transactionsArray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
