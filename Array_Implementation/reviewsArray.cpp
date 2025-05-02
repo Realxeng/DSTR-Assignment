@@ -22,8 +22,7 @@ reviewsArray::reviewsArray(ifstream& file) {
     insertFromFile(file);
 }
 reviewsArray::~reviewsArray() {
-    delete[] list;
-    list = nullptr;
+
 }
 
 int reviewsArray::getTop() { return top; }
