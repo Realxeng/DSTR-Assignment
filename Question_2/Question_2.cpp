@@ -4,15 +4,17 @@
 
 using namespace std;
 
+const string transactionsFile = "../data/transactions_cleaned.csv";
+
 
 //Q: What percentage of purchases in the “Electronics” category were made using Credit Card payments ?
 
 int main()
 {
-	transactionsArray ta;
-	ifstream tfile("../data/transactions_cleaned.csv");
-	ta.insertFromFile(tfile);
-	ta = ta.insertionSortCid(ta);
+	ifstream tfile(transactionsFile);
+	transactionsArray ta = transactionsArray(tfile);
+	//ta.insertFromFile(tfile);
+	ta = ta.insertionSortCid();
 	ta = ta.bubbleSortDate(ta);
 	ta.showAllTransactions();
 	//cout << "Total transactions: " << ta.getTop() << endl;

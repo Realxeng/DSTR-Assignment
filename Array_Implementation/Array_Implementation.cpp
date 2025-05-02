@@ -28,23 +28,22 @@ int getMaxLine(ifstream file) {
 
 int main()
 {
-    int reviewSize = getMaxLine(ifstream(reviewsFile));
-    reviewsArray rarr = reviewsArray(reviewSize);
-    int transactionSize = getMaxLine(ifstream(transactionsFile));
-    transactionsArray tarr = transactionsArray(transactionSize);
     ifstream rfile(reviewsFile);
     ifstream tfile(transactionsFile);
-
+    //int reviewSize = getMaxLine(ifstream(reviewsFile));
+    //reviewsArray rarr = reviewsArray(reviewSize);
+    //int transactionSize = getMaxLine(ifstream(transactionsFile));
+    transactionsArray tarr = transactionsArray(tfile);
     //rarr.insertFromFile(rfile);
     //auto start = high_resolution_clock::now();
 	//rarr = insertionSortRating(rfile, rarr);
-    tarr.insertFromFile(tfile);
-    tarr.showAllTransactions();
+    //tarr.insertFromFile(tfile);
+    //tarr.showAllTransactions();
     tarr = tarr.insertionSortCid();
 	//tarr = tarr.bubbleSortDate(tarr);
     //auto stop = high_resolution_clock::now();
     //rarr.showAllReviews();
-    tarr.showAllTransactions();
+    //tarr.showAllTransactions();
     //tarr.displayByProduct("Monitor");
 	//rarr.mergeSortByPID();
 	//tarr.showTransaction(binarySearchCustomer(tarr, "CUST9944"));
@@ -54,7 +53,7 @@ int main()
 	//cout << "Time taken to sort: " << duration.count() << " microseconds" << endl;
 	//auto duration = duration_cast<microseconds>(stop - start);
 	//cout << "Time taken to sort: " << duration.count() << " microseconds" << endl;
-	tfile.close();
-	rfile.close();
+	//tfile.close();
+	//rfile.close();
 	return 0;
 }
