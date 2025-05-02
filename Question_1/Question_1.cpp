@@ -3,6 +3,7 @@
 #include "../Array_Implementation/transactionsArray.hpp"
 #include "../Array_Implementation/reviewsArray.hpp"
 #include "../LinkedList_Implementation/TransactionsLinkedList.hpp"
+#include "../LinkedList_Implementation/ReviewsLinkedList.hpp"
 
 using namespace std;
 using namespace std::chrono;
@@ -33,4 +34,6 @@ int main()
 	cout << "Time taken to sort reviews by cid using Insertion Sort: " << durationinsertion.count() << " microseconds" << endl;
 	cout << "Total transactions in transactions dataset: " << tarr.getTop() << endl;
 	cout << "Total transactions in reviews dataset: " << rarr.getTop() << endl;
+	transactionsLinkedList tll = transactionsLinkedList();
+	ReviewsLinkedList rll = ReviewsLinkedList();
 }

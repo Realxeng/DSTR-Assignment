@@ -33,6 +33,11 @@ public:
 		list = new Transactions[max];
 		insertFromFile(file);
     }
+    ~transactionsArray() {
+		delete[] list;
+		list = nullptr;
+    }
+
 
     int getTop() { return top; }
 	void setTop(int top) { this->top = top; }

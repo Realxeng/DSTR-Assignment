@@ -33,6 +33,10 @@ public:
         list = new Reviews[max];
         insertFromFile(file);
     }
+	~reviewsArray() {
+		delete[] list;
+		list = nullptr;
+	}
 
     int getTop() { return top; }
     void setTop(int top) { this->top = top; }
