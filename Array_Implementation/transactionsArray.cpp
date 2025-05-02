@@ -41,10 +41,10 @@ transactionsArray::transactionsArray(ifstream& file) {
 	list = new Transactions[max];
 	insertFromFile(file);
 }
-transactionsArray::~transactionsArray() {
-	delete[] list;
-	list = nullptr;
-}
+//transactionsArray::~transactionsArray() {
+//	delete[] list;
+//	list = nullptr;
+//}
 
 
 int transactionsArray::getTop() { return top; }

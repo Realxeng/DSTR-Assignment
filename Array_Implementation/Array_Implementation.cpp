@@ -16,17 +16,17 @@ int main()
 {
     ifstream rfile(reviewsFile);
     ifstream tfile(transactionsFile);
-    reviewsArray rarr = reviewsArray(rfile);
-    //transactionsArray tarr = transactionsArray(tfile);
+    //reviewsArray rarr = reviewsArray(rfile);
+    transactionsArray tarr = transactionsArray(tfile);
     //rarr.insertFromFile(rfile);
     //auto start = high_resolution_clock::now();
 	//rarr = insertionSortRating(rfile, rarr);
     //tarr.showAllTransactions();
-    //tarr = tarr.insertionSortCid();
+    tarr = tarr.insertionSortCid();
 	//tarr = tarr.bubbleSortDate();
     //auto stop = high_resolution_clock::now();
-    rarr.showAllReviews();
-	//tarr.showAllTransactions();
+    //rarr.showAllReviews();
+	tarr.showAllTransactions();
     //tarr.displayByProduct("Monitor");
 	//rarr.mergeSortByPID();
 	//tarr.showTransaction(tarr.binarySearchCustomer("CUST9944"));
@@ -41,7 +41,7 @@ int main()
 	//delete[] tarr.list;
 	//delete[] rarr.list;
 	//delete[] rarr;
-    rarr.~reviewsArray();
-    //tarr.~transactionsArray();
+    //rarr.~reviewsArray();
+    tarr.~transactionsArray();
 	return 0;
 }

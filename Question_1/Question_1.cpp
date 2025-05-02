@@ -30,10 +30,19 @@ int main()
 	tarr.insertionSortDate();
 	auto stopinsertion = high_resolution_clock::now();
 	auto durationinsertion = duration_cast<microseconds>(stopinsertion - startinsertion);
-	cout << "Time taken to sort transactions by date using Bubble Sort: " << durationbubble.count() << " microseconds" << endl;
-	cout << "Time taken to sort reviews by cid using Insertion Sort: " << durationinsertion.count() << " microseconds" << endl;
+	cout << "Time taken to sort transactions by date using Arryay Bubble Sort: " << durationbubble.count() << " microseconds" << endl;
+	cout << "Time taken to sort reviews by cid using Array Insertion Sort: " << durationinsertion.count() << " microseconds" << endl;
 	cout << "Total transactions in transactions dataset: " << tarr.getTop() << endl;
 	cout << "Total transactions in reviews dataset: " << rarr.getTop() << endl;
-	transactionsLinkedList tll = transactionsLinkedList();
-	ReviewsLinkedList rll = ReviewsLinkedList();
+	transactionsLinkedList tll = setUp_transactionLL();
+	auto startll = high_resolution_clock::now();
+	tll.bubbleSortByDate();
+	auto stopll = high_resolution_clock::now();
+	auto durationllbs = duration_cast<microseconds>(stopll - startll);
+	cout << "Time taken to sort transactions by date using Linked List Bubble Sort: " << durationllbs.count() << " microseconds" << endl;
+	auto startllis = high_resolution_clock::now();
+	tll.SortByDate();
+	auto stopllis = high_resolution_clock::now();
+	auto durationllis = duration_cast<microseconds>(stopllis - startllis);
+	cout << "Time taken to sort transactions by date using Linked List Insertion Sort: " << durationllis.count() << " microseconds" << endl;
 }

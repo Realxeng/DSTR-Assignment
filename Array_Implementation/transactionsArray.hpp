@@ -24,7 +24,7 @@ public:
 	transactionsArray(Transactions* list, int top);
 	transactionsArray(int size);
 	transactionsArray(ifstream& file);
-	~transactionsArray();
+	//~transactionsArray();
 	int getTop();
 	void setTop(int top);
 	int getMax();
