@@ -2,7 +2,6 @@
 
 using namespace std;
 
-Reviews* list;
 reviewsArray::reviewsArray() {
     list = NULL;
     top = 0;
