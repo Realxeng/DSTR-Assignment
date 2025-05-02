@@ -19,9 +19,6 @@ class ReviewsLinkedList
     reviewNode* tail;   // Pointer to the tail of the linked list
     int size;      // Size of the list
 
-    // Timing variables
-    double timeTaken_microseconds = 0.0;
-
 public:
     // === Constructor ===
     ReviewsLinkedList();

@@ -1,5 +1,4 @@
 #include "ReviewsLinkedList.hpp"
-#include <chrono> // For timing
 
 // Constructor
 ReviewsLinkedList::ReviewsLinkedList() {
