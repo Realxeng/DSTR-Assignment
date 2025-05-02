@@ -18,11 +18,14 @@
     <ClCompile Include="Array_Implementation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="reviewsArray.hpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="transactionsArray.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="reviewsArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="reviewsArray.hpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Array_Implementation\reviewsArray.cpp" />
     <ClCompile Include="..\Array_Implementation\transactionsArray.cpp" />
     <ClCompile Include="Cleaning.cpp" />
     <ClCompile Include="Data_Cleaning.cpp" />
