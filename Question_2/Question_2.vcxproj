@@ -127,7 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Array_Implementation\reviewsArray.cpp" />
+    <ClCompile Include="..\Array_Implementation\transactionsArray.cpp" />
     <ClCompile Include="Question_2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Array_Implementation\reviewsArray.hpp" />
+    <ClInclude Include="..\Array_Implementation\transactionsArray.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
