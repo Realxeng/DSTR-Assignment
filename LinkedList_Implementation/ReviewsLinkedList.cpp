@@ -87,3 +87,8 @@ reviewNode* ReviewsLinkedList::getHead() {
 reviewNode* ReviewsLinkedList::getTail() {
     return tail;
 }
+
+// Merge Sort
+reviewNode* ReviewsLinkedList::mergeSort(reviewNode* head) {
+    if ()
+}

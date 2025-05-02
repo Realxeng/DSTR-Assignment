@@ -6,7 +6,9 @@
 #include <chrono>
 
 #include "ReviewsLinkedList.hpp"
+#include "ReviewsLinkedList.cpp"
 #include "TransactionsLinkedList.hpp"
+#include "TransactionsLinkedList.cpp"
 using namespace std;
 using namespace std::chrono;
 

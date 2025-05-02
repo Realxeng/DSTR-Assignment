@@ -20,12 +20,12 @@ class ReviewsLinkedList
     int size;      // Size of the list
 
 public:
-    // Constructor
+    // === Constructor ===
     ReviewsLinkedList();
-    // Destructor
+    // === Destructor ===
     ~ReviewsLinkedList();
 
-    // Methods
+    // === Methods ===
     reviewNode* createNewReviewNode(string productID, string customerID, int rate, string reviewDesc);
     void insertNode_atEnd(string productID, string customerID, int rate, string reviewDesc);
     void deleteNode_atEnd();
@@ -33,6 +33,12 @@ public:
     int getSize();
     reviewNode* getHead();
     reviewNode* getTail();
+
+    // === Merge Sort ===
+    void sortByProductID();
+    reviewNode* mergeSort(reviewNode* head);
+    reviewNode* merge(reviewNode* left, reviewNode* right);
+    reviewNode* split(reviewNode* head);
 };
 
 #endif
