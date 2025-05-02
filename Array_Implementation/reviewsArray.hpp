@@ -27,9 +27,31 @@ public:
         list = new Reviews[size];
 		this->max = size;
     }
+    reviewsArray(ifstream& file) {
+        this->max = getMaxLine(file);
+        this->top = 0;
+        list = new Reviews[max];
+        insertFromFile(file);
+    }
 
     int getTop() { return top; }
     void setTop(int top) { this->top = top; }
+
+    int getMaxLine(ifstream& file) {
+        int count = 0;
+        if (file.is_open()) {
+            string line;
+            while (getline(file, line)) {
+                count++;
+            }
+        }
+        else {
+            cerr << "Unable to open file!";
+        }
+        file.clear(); // Clear EOF flag
+        file.seekg(0, ios::beg); // Move cursor to the beginning
+        return count;
+    }
 
     void insertToArray(Reviews data) {
         list[top] = data;

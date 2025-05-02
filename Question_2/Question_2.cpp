@@ -13,7 +13,6 @@ int main()
 {
 	ifstream tfile(transactionsFile);
 	transactionsArray ta = transactionsArray(tfile);
-	//ta.insertFromFile(tfile);
 	ta = ta.insertionSortCid();
 	ta = ta.bubbleSortDate();
 	ta.showAllTransactions();
