@@ -18,10 +18,13 @@
     <ClCompile Include="Data_Cleaning.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cleaning.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cleaning.hpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
