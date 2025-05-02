@@ -11,8 +11,8 @@ class Cleaning {
 	reviewsArray ra;
 	transactionsArray ta;
 public:
-	Cleaning(reviewsArray ra);
-	Cleaning(transactionsArray ta);
+	Cleaning(reviewsArray& ra);
+	Cleaning(transactionsArray& ta);
 	~Cleaning();
 	void reviewCleanNullEntry();
 	void reviewCleanInvalidRating();

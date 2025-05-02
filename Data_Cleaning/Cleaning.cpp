@@ -2,11 +2,11 @@
 
 using namespace std;
 
-Cleaning::Cleaning(reviewsArray ra) {
+Cleaning::Cleaning(reviewsArray& ra) {
 	this->ra = ra;
 	ta = NULL;
 }
-Cleaning::Cleaning(transactionsArray ta) {
+Cleaning::Cleaning(transactionsArray& ta) {
 	this->ta = ta;
 	ta = NULL;
 }
