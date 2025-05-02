@@ -42,15 +42,29 @@ int main()
         cin.ignore(); // Ignore the newline character left in the buffer
 
         switch (choice) {
-        case 1:
+        case 1: {
             // Display Reviews
             cout << "Displaying Reviews:\n";
             reviewsLL.display();
             break;
+        }
+        case 2: {
+            // Sort by Product ID
+            cout << "Sorting by Product ID...\n";
+            auto start = high_resolution_clock::now();  // Start timing
+            reviewsLL.sortByProductID();    // Sort the linked list by Product ID with Merge Sort
+            auto end = high_resolution_clock::now();    // End timing
+            cout << "Sorted Reviews:\n";
+            reviewsLL.display();
 
-        case 2:
-        default:
+            cout << "\nSorting of Reviews by ProductID using Merge Sort completed in: "
+                << duration_cast<microseconds>(end - start).count() << " microseconds\n";
+            break;
+        }
+        default: {
             cout << "Invalid choice.\n";
+            break;
+        }
         }
 
     }
