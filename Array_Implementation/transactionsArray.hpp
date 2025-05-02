@@ -264,7 +264,7 @@ public:
         if (count == 0) {
             return transactionsArray();
         }
-        cout << "Transaction(s) found: " << count << endl;
+        //cout << "Transaction(s) found: " << count << endl;
         Transactions* result = new Transactions[count];
         int index = 0;
         for (int i = 0; i < top; i++) {
@@ -292,7 +292,7 @@ public:
         if (count == 0) {
             return transactionsArray();
         }
-        cout << "Transaction(s) found: " << count << endl;
+        //cout << "Transaction(s) found: " << count << endl;
         Transactions* result = new Transactions[count];
         int index = 0;
         for (int i = 0; i < top; i++) {
@@ -320,7 +320,7 @@ public:
         if (count == 0) {
             return transactionsArray();
         }
-        cout << "Transaction(s) found: " << count << endl;
+        //cout << "Transaction(s) found: " << count << endl;
         Transactions* result = new Transactions[count];
         int index = 0;
         for (int i = 0; i < top; i++) {
@@ -375,7 +375,7 @@ public:
             return transactionsArray(); // Return an empty array  
         }
         else {
-            cout << "Transaction(s) found: " << count << endl;
+            //cout << "Transaction(s) found: " << count << endl;
             Transactions* list = new Transactions[count];
             for (int i = 0; i < count; i++) {
                 list[i] = result[i];
