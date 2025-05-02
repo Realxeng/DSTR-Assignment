@@ -2,8 +2,6 @@
 
 using namespace std;
 
-reviewsArray ra;
-transactionsArray ta;
 Cleaning::Cleaning(reviewsArray ra) {
 	this->ra = ra;
 	ta = NULL;

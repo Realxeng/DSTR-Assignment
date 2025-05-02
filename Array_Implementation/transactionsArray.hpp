@@ -14,7 +14,7 @@ struct Transactions
 class transactionsArray
 {
 private:
-	int top = 0;
+	int top = 0;	
 	int max = 0;
 	int getMaxLine(ifstream& file);
 	bool isEarlier(string date1, string date2);

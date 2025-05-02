@@ -127,10 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Array_Implementation\transactionsArray.cpp" />
     <ClCompile Include="Cleaning.cpp" />
     <ClCompile Include="Data_Cleaning.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Array_Implementation\reviewsArray.hpp" />
+    <ClInclude Include="..\Array_Implementation\transactionsArray.hpp" />
     <ClInclude Include="Cleaning.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
