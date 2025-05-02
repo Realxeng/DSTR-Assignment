@@ -57,6 +57,7 @@ public:
 				continue;
 			}
 			else {
+				cout << "Added double quotes at index: " << i << endl;
 				ra.list[i].review = "\"" + review + "\"";
 			}
 		}
@@ -66,7 +67,7 @@ public:
 		for (int i = 0; i < ta.getTop(); i++) {
 			if (ta.list[i].cid.empty() || ta.list[i].product.empty() || ta.list[i].cat.empty() 
 				|| ta.list[i].price.empty() || ta.list[i].date.empty() || ta.list[i].payment.empty()) {
-				cout << "Deleted transaction at index: " << i << endl;
+				cout << "Deleted null transaction at index: " << i << endl;
 				ta.list = ta.deleteAtIndex(ta.list, i);
 				i--;
 			}
@@ -76,7 +77,7 @@ public:
 	void transactionCleanNanEntry() {
 		for (int i = 0; i < ta.getTop(); i++) {
 			if (ta.list[i].price == "NaN") {
-				cout << "Deleted transaction at index: " << i << endl;
+				cout << "Deleted NaN price transaction at index: " << i << endl;
 				ta.list = ta.deleteAtIndex(ta.list, i);
 				i--;
 			}
@@ -86,7 +87,7 @@ public:
 	void transactionCleanInvalidDate() {
 		for (int i = 0; i < ta.getTop(); i++) {
 			if (ta.list[i].date == "Invalid Date") {
-				cout << "Deleted transaction at index: " << i << endl;
+				cout << "Deleted invalid date transaction at index: " << i << endl;
 				ta.list = ta.deleteAtIndex(ta.list, i);
 				i--;
 			}

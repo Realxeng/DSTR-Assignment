@@ -55,6 +55,27 @@ public:
         }
     }
 
+    void insertFromFileRaw(ifstream& file) {
+        if (file.is_open()) {
+            Reviews temp;
+			string header;
+			getline(file, header);
+            while (file.good()) {
+                string wholeline;
+                getline(file, wholeline, '\n');
+                istringstream iss(wholeline);
+                getline(iss, temp.pid, ',');
+                getline(iss, temp.cid, ',');
+                getline(iss, temp.rating, ',');
+                getline(iss, temp.review, '\n');
+                insertToArray(temp);
+            }
+        }
+        else {
+            cerr << "Unable to open file!";
+        }
+    }
+
     Reviews* deleteAtIndex(Reviews* list, int index) {
         if (index < 0 || index > top) {
             cout << "No transaction found at index " << index << ". Top: " << top << endl;
@@ -88,47 +109,37 @@ public:
         }
     }
 
-    reviewsArray insertionSortRating(ifstream& file, reviewsArray ar)
+    reviewsArray insertionSortCid()
     {
-        if (file.is_open()) {
-            Reviews temp;
-            string line;
-            while (getline(file, line, '\n')) {
-                istringstream iss(line);
-                getline(iss, temp.pid, ',');
-                getline(iss, temp.cid, ',');
-                getline(iss, temp.rating, ',');
-                getline(iss, temp.review, '\n');
-                int size = ar.getTop();
-                int i = ar.getTop() - 1;
-                while (i >= 0 && temp.rating <= ar.list[i].rating) {
-                    if (temp.rating == ar.list[i].rating) {
-                        if (temp.pid <= ar.list[i].pid) {
-                            if (temp.pid == ar.list[i].pid) {
-                                if (temp.cid < ar.list[i].cid) {
-                                    ar.list[i + 1] = ar.list[i];
-                                    i--;
-                                }
-                                else {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    ar.list[i + 1] = ar.list[i];
-                    i--;
-                }
-                //cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
-                ar.list[i + 1] = temp;
-                size++;
-                ar.setTop(size);
+        Reviews temp;
+        reviewsArray result = reviewsArray(top);
+        for (int i = 0; i < top; i++) {
+            temp.pid = list[i].pid;
+            temp.cid = list[i].cid;
+            temp.rating = list[i].rating;
+            temp.review = list[i].review;
+            if (i == 0) {
+                result.list[0] = temp;
             }
+            else {
+                int j = 0;
+                while (j<i && temp.cid > result.list[j].cid) {
+                    j++;
+                    continue;
+                }
+                if (j == i) {
+                    result.list[i] = temp;
+                }
+                else {
+                    for (int k = i; k > j; k--) {
+                        result.list[k] = result.list[k - 1];
+                    }
+                    result.list[j] = temp;
+                }
+            }
+            //cout << " Record: " << top << " Progress: " << (float)top / 4128 * 100 << "%\n";
         }
-        else {
-            cerr << "Unable to open file!";
-        }
-        file.close();
-        return ar;
+        return result;
     }
 
     void mergeSortByPID(int left = 0, int right = -1) {
