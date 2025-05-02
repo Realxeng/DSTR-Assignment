@@ -32,9 +32,10 @@ public:
     void SortByDate();
     void bubbleSortByDate();
     void searchByCategory(const string& targetCategory) const;
+	transactionsLinkedList returnByCategory(const string& targetCategory) const;
     void searchByPaymentMethod(const string& targetMethod) const;
+	transactionsLinkedList returnByPaymentMethod(const string& targetMethod) const;
     void display();
     int getLLSize();
+    transactionsLinkedList setUp_transactionLL();
 };
-
-transactionsLinkedList setUp_transactionLL();

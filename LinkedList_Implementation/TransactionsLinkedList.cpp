@@ -157,6 +157,26 @@ void transactionsLinkedList::searchByCategory(const string& targetCategory) cons
     }
 }
 
+//Linear search category and return the records in a new linked list
+transactionsLinkedList transactionsLinkedList::returnByCategory(const string& targetCategory) const {
+	transactionsLinkedList result;
+	if (!head) {
+		cout << "No transactions available.\n";
+		return result;
+	}
+	transactionsLL* current = head;
+	while (current) {
+		if (current->category == targetCategory) {
+			result.createTransactionNode(current->customerID, current->product, current->category, current->price, current->date, current->paymentMethod);
+		}
+		current = current->next;
+	}
+	if (result.head == nullptr) {
+		cout << "No transactions found in category: " << targetCategory << endl;
+	}
+	return result;
+}
+
 //Linear Search
 void transactionsLinkedList::searchByPaymentMethod(const string& targetMethod) const {
     if (!head) {
@@ -185,6 +205,26 @@ void transactionsLinkedList::searchByPaymentMethod(const string& targetMethod) c
     }
 }
 
+//Linear search payment method and return the records in a new linked list
+transactionsLinkedList transactionsLinkedList::returnByPaymentMethod(const string& targetMethod) const {
+	transactionsLinkedList result;
+	if (!head) {
+		cout << "No transactions available.\n";
+		return result;
+	}
+	transactionsLL* current = head;
+	while (current) {
+		if (current->paymentMethod == targetMethod) {
+			result.createTransactionNode(current->customerID, current->product, current->category, current->price, current->date, current->paymentMethod);
+		}
+		current = current->next;
+	}
+	if (result.head == nullptr) {
+		cout << "No transactions found with payment method: " << targetMethod << endl;
+	}
+	return result;
+}
+
 //display all nodes
 void transactionsLinkedList::display()
 {
@@ -207,6 +247,43 @@ int transactionsLinkedList::getLLSize()
         temp = temp->next;
     }
     return count;
+}
+
+transactionsLinkedList transactionsLinkedList::setUp_transactionLL()
+{
+    transactionsLinkedList transLL;
+
+    ifstream file("../data/transactions_cleaned.csv");
+    if (!file.is_open()) {
+        cerr << "Error opening file!" << endl;
+        return transLL;
+    }
+
+    string line;
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string customerID, product, category, priceStr, date, paymentMethod;
+        float price;
+
+        getline(ss, customerID, ',');
+        getline(ss, product, ',');
+        getline(ss, category, ',');
+        getline(ss, priceStr, ',');
+        getline(ss, date, ',');
+        getline(ss, paymentMethod, '\n');
+
+        if (priceStr.empty()) continue;
+        price = stof(priceStr);
+
+        transLL.createTransactionNode(customerID, product, category, price, date, paymentMethod);
+    }
+
+    file.close();
+    cout << "\nTransactions linked list created and populated.\n";
+    cout << "Number of transactions: " << transLL.getLLSize() << endl;
+
+    return transLL;
 }
 
 

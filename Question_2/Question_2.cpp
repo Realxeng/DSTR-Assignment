@@ -11,15 +11,45 @@ const string transactionsFile = "../data/transactions_cleaned.csv";
 
 int main()
 {
-	ifstream tfile(transactionsFile);
-	transactionsArray ta = transactionsArray(tfile);
-	transactionsArray electronicsTransactions = ta.linearSearchCategory("Electronics");
-	electronicsTransactions.showAllTransactions();
-	cout << "Total transactions: " << ta.getTop() << endl;
-	cout << "Total transactions in Electronics: " << electronicsTransactions.getTop() << endl;
-	transactionsArray creditCardTransactions = electronicsTransactions.linearSearchPayment("Credit Card");
-	cout << "Total transactions in Electronics using Credit Card: " << creditCardTransactions.getTop() << endl;
-	float percentage = (float)creditCardTransactions.getTop() / (float)electronicsTransactions.getTop() * 100;
-	cout << "Percentage of purchases in Electronics using Credit Card: " << percentage << "%" << endl;
+	int choice;
+	cout << "Choose" << endl;
+	cout << "1. Array Implementation" << endl;
+	cout << "2. Linked List Implementation" << endl;
+	cin >> choice;
+	if (choice == 1) {
+		ifstream tfile(transactionsFile);
+		transactionsArray ta = transactionsArray(tfile);
+		transactionsArray electronicsTransactions = ta.linearSearchCategory("Electronics");
+		electronicsTransactions.showAllTransactions();
+		cout << "Total transactions: " << ta.getTop() << endl;
+		cout << "Total transactions in Electronics: " << electronicsTransactions.getTop() << endl;
+		transactionsArray creditCardTransactions = electronicsTransactions.linearSearchPayment("Credit Card");
+		cout << "Total transactions in Electronics using Credit Card: " << creditCardTransactions.getTop() << endl;
+		float percentage = (float)creditCardTransactions.getTop() / (float)electronicsTransactions.getTop() * 100;
+		cout << "Percentage of purchases in Electronics using Credit Card: " << percentage << "%" << endl;
+	}
+	else if (choice == 2) {
+		transactionsLinkedList tll = tll.setUp_transactionLL();
+		transactionsLinkedList tllcat = tll.returnByCategory("Electronics");
+		transactionsLinkedList tllcatpay = tllcat.returnByPaymentMethod("Credit Card");
+		cout << "Total transactions: " << tll.getLLSize() << endl;
+		cout << "Total transactions in Electronics: " << tllcat.getLLSize() << endl;
+		cout << "Total transactions in Electronics using Credit Card: " << tllcatpay.getLLSize() << endl;
+		float percentage = (float)tllcatpay.getLLSize() / (float)tllcat.getLLSize() * 100;
+		cout << "Percentage of purchases in Electronics using Credit Card: " << percentage << "%" << endl;
+	}
+	else {
+		cout << "Invalid choice" << endl;
+	}
+	//ifstream tfile(transactionsFile);
+	//transactionsArray ta = transactionsArray(tfile);
+	//transactionsArray electronicsTransactions = ta.linearSearchCategory("Electronics");
+	//electronicsTransactions.showAllTransactions();
+	//cout << "Total transactions: " << ta.getTop() << endl;
+	//cout << "Total transactions in Electronics: " << electronicsTransactions.getTop() << endl;
+	//transactionsArray creditCardTransactions = electronicsTransactions.linearSearchPayment("Credit Card");
+	//cout << "Total transactions in Electronics using Credit Card: " << creditCardTransactions.getTop() << endl;
+	//float percentage = (float)creditCardTransactions.getTop() / (float)electronicsTransactions.getTop() * 100;
+	//cout << "Percentage of purchases in Electronics using Credit Card: " << percentage << "%" << endl;
 	return 0;
 }

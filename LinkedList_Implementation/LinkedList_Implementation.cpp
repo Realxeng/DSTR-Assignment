@@ -100,7 +100,7 @@ int main()
     }
     else if (choice == 2) 
     {
-        transactionsLinkedList transLL = setUp_transactionLL();
+        transactionsLinkedList transLL = transLL.setUp_transactionLL();
 
         cout << "Transactions Linked List Menu:\n";
         cout << "1. Display Transaction Records\n";
@@ -164,41 +164,4 @@ ReviewsLinkedList setUp_reviewLL()
 
     return reviewsLL;
 
-}
-
-transactionsLinkedList setUp_transactionLL()
-{
-    transactionsLinkedList transLL;
-
-    ifstream file("../data/transactions_cleaned.csv");
-    if (!file.is_open()) {
-        cerr << "Error opening file!" << endl;
-        return transLL;
-    }
-
-    string line;
-
-    while (getline(file, line)) {
-        stringstream ss(line);
-        string customerID, product, category, priceStr, date, paymentMethod;
-        float price;
-
-        getline(ss, customerID, ',');
-        getline(ss, product, ',');
-        getline(ss, category, ',');
-        getline(ss, priceStr, ',');
-        getline(ss, date, ',');
-        getline(ss, paymentMethod, '\n');
-
-        if (priceStr.empty()) continue;
-        price = stof(priceStr);
-
-        transLL.createTransactionNode(customerID, product, category, price, date, paymentMethod);
-    }
-
-    file.close();
-    cout << "\nTransactions linked list created and populated.\n";
-    cout << "Number of transactions: " << transLL.getLLSize() << endl;
-
-    return transLL;
 }

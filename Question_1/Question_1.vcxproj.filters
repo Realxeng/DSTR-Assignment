@@ -24,12 +24,24 @@
     <ClCompile Include="..\Array_Implementation\transactionsArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\LinkedList_Implementation\ReviewsLinkedList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LinkedList_Implementation\TransactionsLinkedList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Array_Implementation\reviewsArray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Array_Implementation\transactionsArray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LinkedList_Implementation\ReviewsLinkedList.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LinkedList_Implementation\TransactionsLinkedList.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

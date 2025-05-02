@@ -129,11 +129,15 @@
   <ItemGroup>
     <ClCompile Include="..\Array_Implementation\reviewsArray.cpp" />
     <ClCompile Include="..\Array_Implementation\transactionsArray.cpp" />
+    <ClCompile Include="..\LinkedList_Implementation\ReviewsLinkedList.cpp" />
+    <ClCompile Include="..\LinkedList_Implementation\TransactionsLinkedList.cpp" />
     <ClCompile Include="Question_1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Array_Implementation\reviewsArray.hpp" />
     <ClInclude Include="..\Array_Implementation\transactionsArray.hpp" />
+    <ClInclude Include="..\LinkedList_Implementation\ReviewsLinkedList.hpp" />
+    <ClInclude Include="..\LinkedList_Implementation\TransactionsLinkedList.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
