@@ -18,9 +18,6 @@
     <ClCompile Include="Question_2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Array_Implementation\reviewsArray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Array_Implementation\transactionsArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
