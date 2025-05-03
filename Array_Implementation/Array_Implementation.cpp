@@ -135,7 +135,8 @@ void transactions() {
 			{
 				string product;
 				cout << "Enter product name: ";
-				cin >> product;
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				getline(cin, product);
 				cin.clear();
 				transactionsArray taprod = tarr.linearSearchProduct(product);
 				taprod.showAllTransactions();
@@ -166,7 +167,6 @@ void transactions() {
 			}
 		}
 		tfile.close();
-		tarr.~transactionsArray();
 	}
 };
 
