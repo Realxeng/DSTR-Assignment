@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -7,11 +8,12 @@ using namespace std;
 
 struct Reviews
 {
-    string pid, cid, rating, review;
+	string pid, cid, rating, review;
 };
 
 class reviewsArray
 {
+private:
     int top = 0, max = 0;
 public:
 	Reviews* list;
@@ -30,5 +32,5 @@ public:
 	void deleteAtIndex(int index);
 	void showAllReviews();
 	reviewsArray insertionSortCid();
-	void mergeSortByPID(int left, int right);
+	void mergeSortByPID(int left = 0, int right = -1);
 };

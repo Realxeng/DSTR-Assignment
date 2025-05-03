@@ -154,7 +154,7 @@ reviewsArray reviewsArray::insertionSortCid()
     return result;
 }
 
-void reviewsArray::mergeSortByPID(int left = 0, int right = -1) {
+void reviewsArray::mergeSortByPID(int left, int right) {
     if (right == -1) right = top - 1;
     if (left >= right) return;
 
@@ -174,18 +174,18 @@ void reviewsArray::mergeSortByPID(int left = 0, int right = -1) {
     for (int i = 0; i < n2; i++) R[i] = list[mid + 1 + i];
 
     // Merge step
-    cout << "left: " << left << endl;
+    //cout << "left: " << left << endl;
     int i = 0, j = 0, k = left;
     while (i < n1 && j < n2) {
         if (L[i].pid <= R[j].pid) list[k++] = L[i++];
         else list[k++] = R[j++];
     }
     while (i < n1) {
-        cout << "Adding remaining L[" << i << "] = " << L[i].pid << " to list[" << k << "]" << endl;
+        //cout << "Adding remaining L[" << i << "] = " << L[i].pid << " to list[" << k << "]" << endl;
         list[k++] = L[i++];
     }
     while (j < n2) {
-        cout << "Adding remaining R[" << j << "] = " << R[j].pid << " to list[" << k << "]" << endl;
+        //cout << "Adding remaining R[" << j << "] = " << R[j].pid << " to list[" << k << "]" << endl;
         list[k++] = R[j++];
     }
 

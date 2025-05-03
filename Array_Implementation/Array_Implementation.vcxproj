@@ -23,9 +23,11 @@
     <ClCompile Include="reviewsArray.cpp" />
     <ClCompile Include="reviewsArray.hpp" />
     <ClCompile Include="transactionsArray.cpp" />
+    <ClCompile Include="wordsArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="transactionsArray.hpp" />
+    <ClInclude Include="wordsArray.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

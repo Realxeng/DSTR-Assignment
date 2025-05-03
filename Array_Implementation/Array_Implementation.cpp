@@ -1,9 +1,11 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <chrono>
 #include "transactionsArray.hpp"
+#include "wordsArray.hpp"
 #include "reviewsArray.hpp"
 
 using namespace std;
@@ -31,26 +33,42 @@ void menuShowTransactions(transactionsArray& tarr) {
 		}
 		case(2):
 		{
+			auto start = high_resolution_clock::now();
 			tarr = tarr.insertionSortCid();
+			auto stop = high_resolution_clock::now();
+			auto duration = duration_cast<microseconds>(stop - start);
 			tarr.showAllTransactions();
+			cout << "Time taken to do insertion sort by customer ID: " << duration.count() << " microseconds" << endl;
 			break;
 		}
 		case(3):
 		{
+			auto start = high_resolution_clock::now();
 			tarr = tarr.insertionSortDate();
+			auto stop = high_resolution_clock::now();
+			auto duration = duration_cast<microseconds>(stop - start);
 			tarr.showAllTransactions();
+			cout << "Time taken to do insertion sort by date: " << duration.count() << " microseconds" << endl;
 			break;
 		}
 		case(4):
 		{
+			auto start = high_resolution_clock::now();
 			tarr = tarr.bubbleSortCid();
+			auto stop = high_resolution_clock::now();
+			auto duration = duration_cast<microseconds>(stop - start);
 			tarr.showAllTransactions();
+			cout << "Time taken to do bubble sort by customer ID: " << duration.count() << " microseconds" << endl;
 			break;
 		}
 		case(5):
 		{
+			auto start = high_resolution_clock::now();
 			tarr = tarr.bubbleSortDate();
+			auto stop = high_resolution_clock::now();
+			auto duration = duration_cast<microseconds>(stop - start);
 			tarr.showAllTransactions();
+			cout << "Time taken to do bubble sort by date: " << duration.count() << " microseconds" << endl;
 			break;
 		}
 		case(6):
@@ -95,7 +113,6 @@ void transactions() {
 			cin >> cat;
 			transactionsArray tacat = tarr.linearSearchCategory(cat);
 			tacat.showAllTransactions();
-			continue;
 			break;
 		}
 		case(3):
@@ -105,7 +122,6 @@ void transactions() {
 			cin >> payment;
 			transactionsArray tapay = tarr.linearSearchPayment(payment);
 			tapay.showAllTransactions();
-			continue;
 			break;
 		}
 		case(4):
@@ -115,7 +131,6 @@ void transactions() {
 			cin >> product;
 			transactionsArray taprod = tarr.linearSearchProduct(product);
 			taprod.showAllTransactions();
-			continue;
 			break;
 		}
 		case(5):
@@ -125,7 +140,6 @@ void transactions() {
 			cin >> cid;
 			transactionsArray tacid = tarr.binarySearchCustomer(cid);
 			tacid.showAllTransactions();
-			continue;
 			break;
 		}
 		case(6):
@@ -137,7 +151,6 @@ void transactions() {
 		default:
 		{
 			cout << "Invalid choice. Please try again." << endl;
-			continue;
 			break;
 		}
 		}
@@ -150,37 +163,54 @@ void reviews() {
 	ifstream rfile(reviewsFile);
 	reviewsArray rarr = reviewsArray(rfile);
 	int choice = 0;
-	cout << "--------------------------" << endl <<
-		"1. Show all reviews" << endl <<
-		"2. Sort by product ID" << endl <<
-		"3. Sort by customer ID" << endl <<
-		"4. Exit to Menu" << endl;
-	cin >> choice;
 	while (choice != 5)
 	{
+		cout << "--------------------------" << endl <<
+			"1. Show all reviews" << endl <<
+			"2. Sort by product ID" << endl <<
+			"3. Sort by customer ID" << endl <<
+			"4. Show most used words" << endl <<
+			"5. Exit to Menu" << endl;
+		cin >> choice;
 		switch (choice)
 		{
 		case(1):
 		{
 			rarr.showAllReviews();
-			continue;
 			break;
 		}
 		case(2):
 		{
-			rarr.mergeSortByPID(0, -1);
+			auto start = high_resolution_clock::now();
+			rarr.mergeSortByPID(0,-1);
+			auto stop = high_resolution_clock::now();
+			auto duration = duration_cast<microseconds>(stop - start);
 			rarr.showAllReviews();
-			continue;
+			cout << "Time taken to do merge sort by product ID: " << duration.count() << " microseconds" << endl;
 			break;
 		}
 		case(3):
 		{
+			auto start = high_resolution_clock::now();
 			rarr = rarr.insertionSortCid();
+			auto stop = high_resolution_clock::now();
+			auto duration = duration_cast<microseconds>(stop - start);
 			rarr.showAllReviews();
-			continue;
+			cout << "Time taken to do insertion sort by customer ID: " << duration.count() << " microseconds" << endl;
 			break;
 		}
 		case(4):
+		{
+			auto start = high_resolution_clock::now();
+			wordsArray wa = wordsArray(rarr);
+			wa.showMostUsedWords();
+			auto stop = high_resolution_clock::now();
+			auto duration = duration_cast<microseconds>(stop - start);
+			//wa.~wordsArray();
+			cout << "Time taken to show most used words: " << duration.count() << " microseconds" << endl;
+			break;
+		}
+		case(5):
 		{
 			cout << "Exiting to menu..." << endl;
 			return;
@@ -188,7 +218,6 @@ void reviews() {
 		default:
 		{
 			cout << "Invalid choice. Please try again." << endl;
-			continue;
 			break;
 		}
 		}

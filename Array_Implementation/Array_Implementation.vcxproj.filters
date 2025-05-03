@@ -27,9 +27,15 @@
     <ClCompile Include="reviewsArray.hpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="wordsArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="transactionsArray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wordsArray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
