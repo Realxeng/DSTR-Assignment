@@ -192,3 +192,4 @@ void reviewsArray::mergeSortByPID(int left, int right) {
     delete[] L;
     delete[] R;
 }
+

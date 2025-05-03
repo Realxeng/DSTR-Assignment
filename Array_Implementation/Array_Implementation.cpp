@@ -201,7 +201,11 @@ void reviews() {
 		}
 		case(4):
 		{
+			int rating;
+			cout << "Enter rating: ";
+			cin >> rating;
 			auto start = high_resolution_clock::now();
+
 			wordsArray wa = wordsArray(rarr);
 			wa.showMostUsedWords();
 			auto stop = high_resolution_clock::now();
