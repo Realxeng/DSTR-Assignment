@@ -193,3 +193,18 @@ void reviewsArray::mergeSortByPID(int left, int right) {
     delete[] R;
 }
 
+reviewsArray reviewsArray::linearSearchRating(int rating) {
+    int count = 0;
+    Reviews* list = new Reviews[top];
+    for (int i = 0; i < top; i++) {
+        if (stoi(this->list[i].rating) == rating) {
+            list[count] = this->list[i];
+            count++;
+        }
+    }
+    if (count == 0) {
+        return reviewsArray();
+    }
+    reviewsArray result = reviewsArray(list, count);
+    return result;
+}

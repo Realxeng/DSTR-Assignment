@@ -170,7 +170,8 @@ void reviews() {
 			"2. Sort by product ID" << endl <<
 			"3. Sort by customer ID" << endl <<
 			"4. Show most used words" << endl <<
-			"5. Exit to Menu" << endl;
+			"5. Exit to Menu" << endl<<
+			"Enter your choice: ";
 		cin >> choice;
 		switch (choice)
 		{
@@ -215,7 +216,7 @@ void reviews() {
 			}
 			else if (rating >= 1 && rating <= 5) {
 				auto start = high_resolution_clock::now();
-				reviewsArray filterRating = rarr;
+				reviewsArray filterRating = rarr.linearSearchRating(rating);
 				wordsArray wa = wordsArray(filterRating);
 				wa.showMostUsedWords();
 				auto stop = high_resolution_clock::now();
@@ -225,6 +226,7 @@ void reviews() {
 			}
 			else {
 				cout << "Invalid rating!";
+				break;
 			}
 		}
 		case(5):

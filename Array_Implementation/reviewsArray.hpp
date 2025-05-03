@@ -33,4 +33,5 @@ public:
 	void showAllReviews();
 	reviewsArray insertionSortCid();
 	void mergeSortByPID(int left = 0, int right = -1);
+	reviewsArray linearSearchRating(int rating);
 };
