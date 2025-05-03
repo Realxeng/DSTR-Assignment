@@ -22,10 +22,16 @@ bool transactionsArray::isEarlier(string date1, string date2) {
     return date1 < date2;
 }
 
+string transactionsArray::cleanWord(string str) {
+    str.erase(remove_if(str.begin(), str.end(), ::ispunct), str.end());
+    transform(str.begin(), str.end(), str.begin(), ::tolower);
+    return str;
+}
+
 Transactions* list;
 transactionsArray::transactionsArray() {
     list = nullptr;
-    top = 0;
+    top = 0, max = 0;
 }
 transactionsArray::transactionsArray(Transactions* list, int top) {
 	this->list = list;
@@ -273,7 +279,7 @@ transactionsArray transactionsArray::linearSearchCategory(string cat) {
     int count = 0;
     Transactions* result = new Transactions[top];
     for (int i = 0; i < top; i++) {
-        if (list[i].cat == cat) {
+        if (cleanWord(list[i].cat) == cleanWord(cat)) {
             result[count] = list[i];
             count++;
         }
@@ -290,7 +296,7 @@ transactionsArray transactionsArray::linearSearchPayment(string payment) {
     int count = 0;
     Transactions* result = new Transactions[top];
     for (int i = 0; i < top; i++) {
-        if (list[i].payment == payment) {
+        if (cleanWord(list[i].payment) == cleanWord(payment)) {
             result[count] = list[i];
             count++;
         }
@@ -307,7 +313,7 @@ transactionsArray transactionsArray::linearSearchProduct(string product) {
     int count = 0;
     Transactions* result = new Transactions[top];
     for (int i = 0; i < top; i++) {
-        if (list[i].product == product) {
+        if (cleanWord(list[i].product) == cleanWord(product)) {
             result[count] = list[i];
             count++;
         }
@@ -329,16 +335,16 @@ transactionsArray transactionsArray::binarySearchCustomer(string cid) {
         while (left <= right) {
             int mid = (left + right) / 2;
 
-            if (ta.list[mid].cid == cid) {
+            if (cleanWord(ta.list[mid].cid) == cleanWord(cid)) {
                 // Collect all matching transactions  
                 int i = mid;
-                while (i >= 0 && ta.list[i].cid == cid) { // Check left side of mid  
+                while (i >= 0 && cleanWord(ta.list[i].cid) == cleanWord(cid)) { // Check left side of mid  
                     result[count] = ta.list[i];
                     count++;
                     i--;
                 }
                 i = mid + 1;
-                while (i < maxSize && ta.list[i].cid == cid) { // Check right side of mid  
+                while (i < maxSize && cleanWord(ta.list[i].cid) == cleanWord(cid)) { // Check right side of mid  
                     result[count] = ta.list[i];
                     count++;
                     i++;
@@ -346,7 +352,7 @@ transactionsArray transactionsArray::binarySearchCustomer(string cid) {
                 break;
             }
 
-            if (ta.list[mid].cid < cid) {
+            if (cleanWord(ta.list[mid].cid) < cleanWord(cid)) {
                 left = mid + 1;
             }
             else {

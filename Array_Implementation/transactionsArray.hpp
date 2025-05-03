@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -18,6 +19,7 @@ private:
 	int max = 0;
 	int getMaxLine(ifstream& file);
 	bool isEarlier(string date1, string date2);
+	string cleanWord(string str);
 public:
 	Transactions* list;
 	transactionsArray();
