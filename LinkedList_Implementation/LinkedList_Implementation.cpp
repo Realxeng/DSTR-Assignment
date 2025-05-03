@@ -87,29 +87,29 @@ int main()
     }
     else if (choice == 2) 
     {
-        // transactionsLinkedList transLL = transLL.setUp_transactionLL();
+        transactionsLinkedList transLL = transLL.setUp_transactionLL();
 
-        // cout << "Transactions Linked List Menu:\n";
-        // cout << "1. Display Transaction Records\n";
-        // cout << "2. Sort by Date (using insertion sort)\n";
-        // cout << "3. Sort by Date (using bubble sort)\n";
+        cout << "Transactions Linked List Menu:\n";
+        cout << "1. Display Transaction Records\n";
+        cout << "2. Sort by Date (using insertion sort)\n";
+        cout << "3. Sort by Date (using bubble sort)\n";
 
-        // cin >> choice;
-        // cin.ignore();
+        cin >> choice;
+        cin.ignore();
 
-        // if (choice == 1)
-        // {
-        //     cout << "Total Records: " << transLL.getLLSize() << endl;
-        //     transLL.display();
-        // }
-        // else if (choice == 2) 
-        // {
-        //     performSortAndSearch(transLL, true);  //true = insertion sort
-        // }
-        // else if (choice == 3) 
-        // {
-        //     performSortAndSearch(transLL, false); //false = bubble sort
-        // }
+        if (choice == 1)
+        {
+            cout << "Total Records: " << transLL.getLLSize() << endl;
+            transLL.display();
+        }
+        else if (choice == 2) 
+        {
+            performSortAndSearch(transLL, true);  //true = insertion sort
+        }
+        else if (choice == 3) 
+        {
+            performSortAndSearch(transLL, false); //false = bubble sort
+        }
 
     }
     return 0;
