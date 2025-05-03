@@ -30,6 +30,7 @@ class ReviewsLinkedList
     reviewNode* tail;   // Pointer to the tail of the linked list
     int size;      // Size of the list
 
+
 public:
     // === Constructor ===
     ReviewsLinkedList();
@@ -48,9 +49,9 @@ public:
     reviewNode* getTail();
 
     // === Merge Sort by Word Frequency ===
-    void sortByWordFrequency(int topN = 10);
-    WordFreqNode* wf_head;
-    WordFreqNode* wf_tail;
+    void sortByWordFrequency(int topN);
+    WordFreqNode* wf_head;  // Pointer to the head of the word frequency linked list
+    WordFreqNode* wf_tail;  // Pointer to the tail of the word frequency linked list
     WordFreqNode* mergeSortFreq(WordFreqNode* head);
     WordFreqNode* mergeFreq(WordFreqNode* left, WordFreqNode* right);
     WordFreqNode* splitFreq(WordFreqNode* head);

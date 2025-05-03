@@ -38,6 +38,7 @@ int main()
         cout << "1. Display Reviews\n";
         cout << "2. Sort by Product ID (using Merge Sort)\n";
         cout << "3. Sort by Frequently used word in product reviews rated 1-star (using Merge Sort)\n";
+        cout << "Enter your choice: ";
         cin >> choice;
         cin.ignore(); // Ignore the newline character left in the buffer
 
@@ -62,8 +63,20 @@ int main()
             break;
         }
         case 3: {
-            // Sor by Frequently used word in product reviews rated 1-star
+            cout << "How many top words do you want to display? ";
+            int topN;
+            cin >> topN;
+            cin.ignore(); // Ignore the newline character left in the buffer
+            // Sort by Frequently used word in product reviews rated 1-star
             cout << "Sorting by Frequently used word in product reviews rated 1-star...\n";
+            auto start = high_resolution_clock::now();  // Start timing
+            reviewsLL.sortByWordFrequency(topN);    // Sort the linked list by word frequency with Merge Sort
+            auto end = high_resolution_clock::now();    // End timing
+
+            cout << "\nSorting of Reviews by Frequently used word in product reviews rated 1-star using Merge Sort completed in: "
+                << duration_cast<microseconds>(end - start).count() << " microseconds\n";
+
+            break;
         }
         default: {
             cout << "Invalid choice.\n";
@@ -74,29 +87,29 @@ int main()
     }
     else if (choice == 2) 
     {
-        transactionsLinkedList transLL = transLL.setUp_transactionLL();
+        // transactionsLinkedList transLL = transLL.setUp_transactionLL();
 
-        cout << "Transactions Linked List Menu:\n";
-        cout << "1. Display Transaction Records\n";
-        cout << "2. Sort by Date (using insertion sort)\n";
-        cout << "3. Sort by Date (using bubble sort)\n";
+        // cout << "Transactions Linked List Menu:\n";
+        // cout << "1. Display Transaction Records\n";
+        // cout << "2. Sort by Date (using insertion sort)\n";
+        // cout << "3. Sort by Date (using bubble sort)\n";
 
-        cin >> choice;
-        cin.ignore();
+        // cin >> choice;
+        // cin.ignore();
 
-        if (choice == 1)
-        {
-            cout << "Total Records: " << transLL.getLLSize() << endl;
-            transLL.display();
-        }
-        else if (choice == 2) 
-        {
-            performSortAndSearch(transLL, true);  //true = insertion sort
-        }
-        else if (choice == 3) 
-        {
-            performSortAndSearch(transLL, false); //false = bubble sort
-        }
+        // if (choice == 1)
+        // {
+        //     cout << "Total Records: " << transLL.getLLSize() << endl;
+        //     transLL.display();
+        // }
+        // else if (choice == 2) 
+        // {
+        //     performSortAndSearch(transLL, true);  //true = insertion sort
+        // }
+        // else if (choice == 3) 
+        // {
+        //     performSortAndSearch(transLL, false); //false = bubble sort
+        // }
 
     }
     return 0;

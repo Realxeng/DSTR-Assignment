@@ -6,6 +6,9 @@ ReviewsLinkedList::ReviewsLinkedList() {
     head = nullptr;
     tail = nullptr;
     size = 0;
+
+    wf_head = nullptr;  // Initialize the head of the word frequency linked list
+    wf_tail = nullptr;  // Initialize the tail of the word frequency linked list
 }
 
 // Destructor
@@ -126,9 +129,9 @@ reviewNode* ReviewsLinkedList::split(reviewNode* head) {
 }
 
 reviewNode* ReviewsLinkedList::merge(reviewNode* left, reviewNode* right) {
-    // dummy node to help with merging
-    reviewNode* dummy = new reviewNode;
-    reviewNode* tailMerge = dummy;  // Pointer to the last node in the merged list
+    // temp node to help with merging
+    reviewNode* temp = new reviewNode;
+    reviewNode* tailMerge = temp;  // Pointer to the last node in the merged list
 
     while (left != nullptr && right != nullptr) {
         if (left->productID < right->productID) {  // Compare product IDs
@@ -151,9 +154,9 @@ reviewNode* ReviewsLinkedList::merge(reviewNode* left, reviewNode* right) {
         tailMerge->next = right;  // Add remaining right nodes
         right->prev = tailMerge;  // Set the prev of the right nodes
     }
-    reviewNode* mergedHead = dummy->next;  // The head of the merged list
+    reviewNode* mergedHead = temp->next;  // The head of the merged list
     mergedHead->prev = nullptr;  // Set the prev of the head to null
-    delete dummy;  // Delete the dummy node
+    delete temp;  // Delete the temp node
     return mergedHead;  // Return the head of the merged list
 }
 
@@ -179,6 +182,7 @@ static string normalise(const string& word) {
             t += tolower(c);  // Convert to lowercase
         }
     }
+    return t;  // Return the normalized word
 }
 
 // Word Frequency
@@ -256,4 +260,54 @@ WordFreqNode* ReviewsLinkedList::mergeSortFreq(WordFreqNode* head) {
 
     // Merge the sorted halves
     return mergeFreq(head, second);
+}
+
+WordFreqNode* ReviewsLinkedList::splitFreq(WordFreqNode* head) {
+    // use fast and slow pointers to find the middle of the list
+    WordFreqNode* fast = head;
+    WordFreqNode* slow = head;
+
+    while (fast->next != nullptr && fast->next->next != nullptr) { 
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+
+    WordFreqNode* secondHalf = slow->next;  // The second half starts after the middle
+    slow->next = nullptr;  // Split the list into two halves
+    if (secondHalf != nullptr) {
+        secondHalf->prev = nullptr;  // Set the prev of the new head of the second half to null
+    }
+    return secondHalf;  // Return the head of the second half
+}
+
+WordFreqNode* ReviewsLinkedList::mergeFreq(WordFreqNode* left, WordFreqNode* right) {
+    // temp node to help with merging
+    WordFreqNode* temp = new WordFreqNode("", 0);  // Create a temp node
+    WordFreqNode* tailMerge = temp;  // Pointer to the last node in the merged list
+
+    while (left != nullptr && right != nullptr) {
+        if (left->frequency > right->frequency) {  // Compare frequencies
+            tailMerge->next = left;  // Add left node to merged list
+            left->prev = tailMerge;  // Set the prev of the left node
+            left = left->next;  // Move to the next node in the left list
+        } else {
+            tailMerge->next = right;  // Add right node to merged list
+            right->prev = tailMerge;  // Set the prev of the right node
+            right = right->next;  // Move to the next node in the right list
+        }
+        tailMerge = tailMerge->next;  // Move to the last node in the merged list
+    }
+
+    // If there are remaining nodes in either list, add them to the merged list
+    if (left != nullptr) {
+        tailMerge->next = left;  // Add remaining left nodes
+        left->prev = tailMerge;  // Set the prev of the left nodes
+    } else if (right != nullptr) {
+        tailMerge->next = right;  // Add remaining right nodes
+        right->prev = tailMerge;  // Set the prev of the right nodes
+    }
+    WordFreqNode* mergedHead = temp->next;  // The head of the merged list
+    mergedHead->prev = nullptr;  // Set the prev of the head to null
+    delete temp;  // Delete the temp node
+    return mergedHead;  // Return the head of the merged list
 }
