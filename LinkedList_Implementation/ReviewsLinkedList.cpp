@@ -1,6 +1,7 @@
 #include "ReviewsLinkedList.hpp"
 #include <cctype> // for tolower
 #include <map>   // to use map for word frequency
+
 // Constructor
 ReviewsLinkedList::ReviewsLinkedList() {
     head = nullptr;

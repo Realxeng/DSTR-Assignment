@@ -164,8 +164,7 @@ void performSortAndSearch(transactionsLinkedList& transLL, bool useInsertionSort
     performSearch(transLL);
 }
 
-ReviewsLinkedList setUp_reviewLL() 
-{
+ReviewsLinkedList setUp_reviewLL(){
     // Reviews Linked List
     ReviewsLinkedList reviewsLL;
 
