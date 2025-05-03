@@ -22,8 +22,10 @@ void menuShowTransactions(transactionsArray& tarr) {
 		"3. Insertion Sort by date" << endl <<
 		"4. Bubble Sort by customer ID" << endl <<
 		"5. Bubble Sort by date" << endl <<
-		"6. Exit to Transactions Menu" << endl;
+		"6. Exit to Transactions Menu" << endl <<
+		"Enter your choice: ";
 	cin >> choice;
+	cin.clear();
 	switch (choice)
 	{
 		case(1):
@@ -85,78 +87,87 @@ void menuShowTransactions(transactionsArray& tarr) {
 };
 
 void transactions() {
-	ifstream tfile(transactionsFile);
-	transactionsArray tarr = transactionsArray(tfile);
-	int choice = 0;
 	while (true)
 	{
+		ifstream tfile(transactionsFile);
+		transactionsArray tarr = transactionsArray(tfile);
+		int choice = 0;
 		cout << "--------------------------" << endl <<
 			"1. Show transactions" << endl <<
 			"2. Search by category" << endl <<
 			"3. Search by payment method" << endl <<
 			"4. Search by product name" << endl <<
 			"5. Search by customer ID" << endl <<
-			"6. Exit to Menu" << endl;
+			"6. Exit to Menu" << endl <<
+			"Enter your choice: ";
 		cin >> choice;
+		cin.clear();
 		switch (choice)
 		{
-		case(1):
-		{
-			menuShowTransactions(tarr);
-			return;
-			break;
+			case(1):
+			{
+				menuShowTransactions(tarr);
+				return;
+				break;
+			}
+			case(2):
+			{
+				string cat;
+				cout << "Enter category: ";
+				cin >> cat;
+				cin.clear();
+				transactionsArray tacat = tarr.linearSearchCategory(cat);
+				tacat.showAllTransactions();
+				break;
+			}
+			case(3):
+			{
+				string payment;
+				cout << "Enter payment method: ";
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				getline(cin, payment);
+				cin.clear();
+				transactionsArray tapay = tarr.linearSearchPayment(payment);
+				tapay.showAllTransactions();
+				break;
+			}
+			case(4):
+			{
+				string product;
+				cout << "Enter product name: ";
+				cin >> product;
+				cin.clear();
+				transactionsArray taprod = tarr.linearSearchProduct(product);
+				taprod.showAllTransactions();
+				break;
+			}
+			case(5):
+			{
+				string cid;
+				cout << "Enter customer ID: ";
+				cin >> cid;
+				cin.clear();
+				transactionsArray tacid = tarr.binarySearchCustomer(cid);
+				tacid.showAllTransactions();
+				break;
+			}
+			case(6):
+			{
+				cin.clear();
+				cout << "Exiting to menu..." << endl;
+				return;
+				break;
+			}
+			default:
+			{
+				cin.clear();
+				cout << "Invalid choice. Please try again." << endl;
+				break;
+			}
 		}
-		case(2):
-		{
-			string cat;
-			cout << "Enter category: ";
-			cin >> cat;
-			transactionsArray tacat = tarr.linearSearchCategory(cat);
-			tacat.showAllTransactions();
-			break;
-		}
-		case(3):
-		{
-			string payment;
-			cout << "Enter payment method: ";
-			cin >> payment;
-			transactionsArray tapay = tarr.linearSearchPayment(payment);
-			tapay.showAllTransactions();
-			break;
-		}
-		case(4):
-		{
-			string product;
-			cout << "Enter product name: ";
-			cin >> product;
-			transactionsArray taprod = tarr.linearSearchProduct(product);
-			taprod.showAllTransactions();
-			break;
-		}
-		case(5):
-		{
-			string cid;
-			cout << "Enter customer ID: ";
-			cin >> cid;
-			transactionsArray tacid = tarr.binarySearchCustomer(cid);
-			tacid.showAllTransactions();
-			break;
-		}
-		case(6):
-		{
-			cout << "Exiting to menu..." << endl;
-			return;
-			break;
-		}
-		default:
-		{
-			cout << "Invalid choice. Please try again." << endl;
-			break;
-		}
-		}
+		tfile.close();
+		tarr.~transactionsArray();
 	}
-	tfile.close();
-	tarr.~transactionsArray();
 };
 
 void reviews() {
@@ -173,6 +184,7 @@ void reviews() {
 			"5. Exit to Menu" << endl<<
 			"Enter your choice: ";
 		cin >> choice;
+		cin.clear();
 		switch (choice)
 		{
 		case(1):
@@ -205,6 +217,7 @@ void reviews() {
 			int rating;
 			cout << "Enter rating (0 to not filter): ";
 			cin >> rating;
+			cin.clear();
 			if (rating == 0) {
 				auto start = high_resolution_clock::now();
 				wordsArray wa = wordsArray(rarr);
@@ -256,6 +269,7 @@ int main()
 			"3. Exit program" << endl;
 		cout << "Enter your choice: ";
 		cin >> choice;
+		cin.clear();
 		switch (choice)
 		{
 			case(1):
