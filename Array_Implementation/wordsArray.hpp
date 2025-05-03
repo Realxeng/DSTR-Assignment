@@ -22,4 +22,5 @@ public:
 	wordsArray(reviewsArray& ra);
 	~wordsArray();
 	void showMostUsedWords();
+	string showWord(int rank);
 };

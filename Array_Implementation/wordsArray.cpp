@@ -79,3 +79,7 @@ void wordsArray::showMostUsedWords() {
 		cout << "No words added!";
 	}
 }
+
+string wordsArray::showWord(int rank) {
+	return words[rank - 1].word;
+}
