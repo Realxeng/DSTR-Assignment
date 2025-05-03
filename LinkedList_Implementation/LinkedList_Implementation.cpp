@@ -61,6 +61,10 @@ int main()
                 << duration_cast<microseconds>(end - start).count() << " microseconds\n";
             break;
         }
+        case 3: {
+            // Sor by Frequently used word in product reviews rated 1-star
+            cout << "Sorting by Frequently used word in product reviews rated 1-star...\n";
+        }
         default: {
             cout << "Invalid choice.\n";
             break;

@@ -1,5 +1,6 @@
 #include "ReviewsLinkedList.hpp"
-
+#include <cctype> // for tolower
+#include <map>   // to use map for word frequency
 // Constructor
 ReviewsLinkedList::ReviewsLinkedList() {
     head = nullptr;
@@ -169,4 +170,90 @@ void ReviewsLinkedList::sortByProductID() {
     while (tail->next != nullptr) {
         tail = tail->next;  // Move to the last node
     }
+}
+
+static string normalise(const string& word) {
+    string t;
+    for (char c : word) {
+        if (isalnum(c)) {  // Check if the character is an alphabet
+            t += tolower(c);  // Convert to lowercase
+        }
+    }
+}
+
+// Word Frequency
+WordFreqNode::WordFreqNode(const string& word, int frequency) {
+    this->word = word;  // Assign the word
+    this->frequency = frequency;  // Assign the frequency
+    this->next = nullptr;  // Set next to null
+    this->prev = nullptr;  // Set prev to null
+}
+
+void ReviewsLinkedList::sortByWordFrequency(int topN) {
+    // Count words in 1-star reviews
+    map<string, int> freq;  // Map to store word frequency
+    for (reviewNode* temp = head; temp != nullptr; temp = temp->next) {
+        if (temp->rate == 1) {  // Only consider 1-star reviews
+            istringstream iss(temp->reviewDesc);    // Split the review into words
+            string word;
+            while (iss >> word) {   // while there are words in the review
+                // Convert word to lowercase
+                word = normalise(word);
+                if (!word.empty()) {  // If the word is not empty
+                    freq[word]++;  // Increment the frequency of the word
+                }
+            }
+
+        }
+    }
+
+    // Create a linked list of word frequencies
+    for (const auto& [word, count] : freq) {     // auto pick datatype, 
+        auto* node = new WordFreqNode(word, count);  // Create a new node
+
+        if (wf_head == nullptr) {  // If the list is empty
+            wf_head = node;  // Set head to the new node
+            wf_tail = node;  // Set tail to the new node
+        } else {
+            wf_tail->next = node;  // Add the new node to the end of the list
+            node->prev = wf_tail;  // Set the prev of the new node
+            wf_tail = node;  // Update tail to point to the new node
+        }
+
+        size++;  // Increase the size of the list
+    }
+
+    // Sort the linked list by frequency
+    wf_head = mergeSortFreq(wf_head);  // Sort the list using merge sort
+
+    // redo the tail pointer
+    wf_tail = wf_head;
+    while (wf_tail->next != nullptr) {
+        wf_tail = wf_tail->next;  // Move to the last node
+    }
+
+    // Display the top N words
+    cout << "Top " << topN << " words in 1-star reviews:\n";
+    WordFreqNode* temp = wf_head;  // Create a temp pointer to traverse the list
+
+    for (int i = 0; i < topN && temp != nullptr; i++) {
+        cout << temp->word << ": " << temp->frequency << endl;  // Display the word and its frequency
+        temp = temp->next;  // Move to the next node
+    }
+}
+
+WordFreqNode* ReviewsLinkedList::mergeSortFreq(WordFreqNode* head) {
+    if (head == nullptr || head->next == nullptr) {  // if the list is empty or has only one node
+        return head;
+    }
+
+    // Split the list into two halves
+    WordFreqNode* second = splitFreq(head);
+
+    // Recursively sort the two halves
+    head = mergeSortFreq(head);
+    second = mergeSortFreq(second);
+
+    // Merge the sorted halves
+    return mergeFreq(head, second);
 }
