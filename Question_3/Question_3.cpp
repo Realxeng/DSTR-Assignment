@@ -9,7 +9,8 @@ int main()
 {
     ifstream rfile(reviewsFile);
     reviewsArray rarr = reviewsArray(rfile);
-    wordsArray warr = wordsArray(rarr);
+    reviewsArray reviewOneRating = rarr.linearSearchRating(1);
+    wordsArray warr = wordsArray(reviewOneRating);
     warr.showMostUsedWords();
     cout << "\nThe most frequent word is: \"" << warr.showWord(1) << "\"" << endl;
 }
