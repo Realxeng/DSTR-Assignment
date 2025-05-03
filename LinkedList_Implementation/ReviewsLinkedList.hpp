@@ -24,6 +24,16 @@ struct WordFreqNode{
 
 };
 
+struct RatingFreqNode{
+    int rating;
+    int frequency;
+    RatingFreqNode* next;
+    RatingFreqNode* prev;
+
+    // Constructor for RatingFreqNode
+    RatingFreqNode(int rating, int frequency);
+};
+
 class ReviewsLinkedList
 {
     reviewNode* head;   // Pointer to the head of the linked list
@@ -47,6 +57,18 @@ public:
     int getSize();
     reviewNode* getHead();
     reviewNode* getTail();
+
+    // === Linear Search by Product ID ===
+    reviewNode* searchByProductID(string productID);
+
+    // === Merge Sort for Rating ===
+    void sortByRating(string pid);
+    RatingFreqNode* rf_head;  // Pointer to the head of the rating frequency linked list
+    RatingFreqNode* rf_tail;  // Pointer to the tail of the rating frequency linked list
+    RatingFreqNode* mergeSortRating(RatingFreqNode* head);
+    RatingFreqNode* mergeRating(RatingFreqNode* left, RatingFreqNode* right);
+    RatingFreqNode* splitRating(RatingFreqNode* head);
+
 
     // === Merge Sort by Word Frequency ===
     void sortByWordFrequency(int topN);
