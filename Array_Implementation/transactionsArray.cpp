@@ -28,14 +28,16 @@ string transactionsArray::cleanWord(string str) {
     return str;
 }
 
-Transactions* list;
 transactionsArray::transactionsArray() {
     list = nullptr;
     top = 0, max = 0;
 }
 transactionsArray::transactionsArray(Transactions* list, int top) {
-	this->list = list;
     this->top = this->max = top;
+    this->list = new Transactions[top];
+    for (int i = 0; i < top; i++) {
+        this->list[i] = list[i];
+    }
 }
 transactionsArray::transactionsArray(int size) {
     list = new Transactions[size];
@@ -48,7 +50,10 @@ transactionsArray::transactionsArray(ifstream& file) {
 	insertFromFile(file);
 }
 transactionsArray::~transactionsArray() {
-
+    /*if (list != nullptr) {
+        delete[] list;
+        list = nullptr;
+    }*/
 }
 
 
@@ -286,6 +291,7 @@ transactionsArray transactionsArray::linearSearchCategory(string cat) {
     }
     //cout << "Transaction(s) found: " << count << endl;
     if (count == 0) {
+        delete[] result;
         return transactionsArray();
     }
     transactionsArray resultArray = transactionsArray(result, count);
@@ -303,6 +309,7 @@ transactionsArray transactionsArray::linearSearchPayment(string payment) {
     }
     //cout << "Transaction(s) found: " << count << endl;
     if (count == 0) {
+        delete[] result;
         return transactionsArray();
     }
     transactionsArray resultArray = transactionsArray(result, count);
@@ -320,6 +327,7 @@ transactionsArray transactionsArray::linearSearchProduct(string product) {
     }
     //cout << "Transaction(s) found: " << count << endl;
     if (count == 0) {
+        delete[] result;
         return transactionsArray();
     }
     transactionsArray resultArray = transactionsArray(result, count);

@@ -17,11 +17,11 @@ class transactionsArray
 private:
 	int top = 0;	
 	int max = 0;
+	Transactions* list;
 	int getMaxLine(ifstream& file);
 	bool isEarlier(string date1, string date2);
 	string cleanWord(string str);
 public:
-	Transactions* list;
 	transactionsArray();
 	transactionsArray(Transactions* list, int top);
 	transactionsArray(int size);
