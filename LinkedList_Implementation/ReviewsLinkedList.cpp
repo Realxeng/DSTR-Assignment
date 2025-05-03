@@ -10,6 +10,9 @@ ReviewsLinkedList::ReviewsLinkedList() {
 
     wf_head = nullptr;  // Initialize the head of the word frequency linked list
     wf_tail = nullptr;  // Initialize the tail of the word frequency linked list
+
+    rf_head = nullptr;  // Initialize the head of the rating frequency linked list
+    rf_tail = nullptr;  // Initialize the tail of the rating frequency linked list
 }
 
 // Destructor
@@ -135,7 +138,7 @@ reviewNode* ReviewsLinkedList::merge(reviewNode* left, reviewNode* right) {
     reviewNode* tailMerge = temp;  // Pointer to the last node in the merged list
 
     while (left != nullptr && right != nullptr) {
-        if (left->productID < right->productID) {  // Compare product IDs
+        if (left->rate > right->rate) {  // Compare ratings
             tailMerge->next = left;  // Add left node to merged list
             left->prev = tailMerge;  // Set the prev of the left node
             left = left->next;  // Move to the next node in the left list
@@ -144,7 +147,7 @@ reviewNode* ReviewsLinkedList::merge(reviewNode* left, reviewNode* right) {
             right->prev = tailMerge;  // Set the prev of the right node
             right = right->next;  // Move to the next node in the right list
         }
-        tailMerge = tailMerge->next;  // Move to the last node in the merged list
+
     }
 
     // If there are remaining nodes in either list, add them to the merged list
@@ -311,4 +314,140 @@ WordFreqNode* ReviewsLinkedList::mergeFreq(WordFreqNode* left, WordFreqNode* rig
     mergedHead->prev = nullptr;  // Set the prev of the head to null
     delete temp;  // Delete the temp node
     return mergedHead;  // Return the head of the merged list
+}
+
+// Linear Search by Product ID
+reviewNode* ReviewsLinkedList::searchByProductID(string productID) {
+    reviewNode dummy; // dummy head (empty node) for the new linked list of filtered reviews by productID
+    reviewNode* tail_filters = &dummy; // tail pointer for the new linked list
+
+    for (reviewNode* temp = head; temp != nullptr; temp = temp->next) {
+        if (temp->productID == productID) {  // If the product ID matches
+            tail_filters->next = temp;  // Add the node to the new linked list
+            tail_filters = temp;  // Move to the last node in the merged list
+        }
+    }
+    tail_filters->next = nullptr;  // Set the next of the last node to null
+    reviewNode* head_filters = dummy.next;  // The head of the new linked list
+    return head_filters;  // Return the head of the new linked list
+}
+
+// Rating Frequency
+RatingFreqNode::RatingFreqNode(int rating, int frequency) {
+    this->rating = rating;  // Assign the rating
+    this->frequency = frequency;  // Assign the frequency
+    this->next = nullptr;  // Set next to null
+    this->prev = nullptr;  // Set prev to null
+}
+
+void ReviewsLinkedList::sortByRating(string pid) {
+
+    rf_head = nullptr;  // Initialize the head of the rating frequency linked list
+    rf_tail = nullptr;  // Initialize the tail of the rating frequency linked list
+
+    reviewNode* filtered = searchByProductID(pid);
+
+    // Count ratings
+    map<int, int> freq;  // Map to store rating frequency
+    for (reviewNode* temp = filtered; temp != nullptr; temp = temp->next) {
+            freq[temp->rate]++;  // Increment the frequency of the rating
+    }
+
+    // Create a linked list of rating frequencies
+    for (const auto& [rating, count] : freq) {     // auto pick datatype, 
+        RatingFreqNode* node = new RatingFreqNode(rating, count);  // Create a new node
+
+        if (rf_head == nullptr) {  // If the list is empty
+            rf_head = node;  // Set head to the new node
+            rf_tail = node;  // Set tail to the new node
+        } else {
+            rf_tail->next = node;  // Add the new node to the end of the list
+            node->prev = rf_tail;  // Set the prev of the new node
+            rf_tail = node;  // Update tail to point to the new node
+        }
+    }
+
+    // Sort the linked list by frequency
+    rf_head = mergeSortRating(rf_head);  // Sort the list using merge sort
+
+    // redo the tail pointer
+    rf_tail = rf_head;
+    while (rf_tail->next != nullptr) {
+        rf_tail = rf_tail->next;  // Move to the last node
+    }
+
+    // Display the rating frequencies
+    cout << "Rating frequencies for product " << pid << ":\n";
+    RatingFreqNode* temp = rf_head;  // Create a temp pointer to traverse the list
+    while (temp != nullptr) {  // Traverse the list
+        cout << "Rating: " << temp->rating << ", Frequency: " << temp->frequency << endl;  // Display the rating and its frequency
+        temp = temp->next;  // Move to the next node
+    }
+
+}
+
+RatingFreqNode* ReviewsLinkedList::splitRating(RatingFreqNode* head) {
+    // use fast and slow pointers to find the middle of the list
+    RatingFreqNode* fast = head;
+    RatingFreqNode* slow = head;
+
+    while (fast->next != nullptr && fast->next->next != nullptr) {
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    
+    RatingFreqNode* secondHalf = slow->next;  // The second half starts after the middle
+    slow->next = nullptr;  // Split the list into two halves
+    if (secondHalf != nullptr) {
+        secondHalf->prev = nullptr;  // Set the prev of the new head of the second half to null
+    }
+    return secondHalf;  // Return the head of the second half
+}
+
+RatingFreqNode* ReviewsLinkedList::mergeRating(RatingFreqNode* left, RatingFreqNode* right) {
+    // temp node to help with merging
+    RatingFreqNode* temp = new RatingFreqNode(0, 0);  // Create a temp node
+    RatingFreqNode* tailMerge = temp;  // Pointer to the last node in the merged list
+
+    while (left != nullptr && right != nullptr) {
+        if (left->frequency > right->frequency) {  // Compare frequencies
+            tailMerge->next = left;  // Add left node to merged list
+            left->prev = tailMerge;  // Set the prev of the left node
+            left = left->next;  // Move to the next node in the left list
+        } else {
+            tailMerge->next = right;  // Add right node to merged list
+            right->prev = tailMerge;  // Set the prev of the right node
+            right = right->next;  // Move to the next node in the right list
+        }
+        tailMerge = tailMerge->next;  // Move to the last node in the merged list
+    }
+    
+    // If there are remaining nodes in either list, add them to the merged list
+    if (left != nullptr) {
+        tailMerge->next = left;  // Add remaining left nodes
+        left->prev = tailMerge;  // Set the prev of the left nodes
+    } else if (right != nullptr) {
+        tailMerge->next = right;  // Add remaining right nodes
+        right->prev = tailMerge;  // Set the prev of the right nodes
+    }
+    RatingFreqNode* mergedHead = temp->next;  // The head of the merged list
+    mergedHead->prev = nullptr;  // Set the prev of the head to null
+    delete temp;  // Delete the temp node
+    return mergedHead;  // Return the head of the merged list
+}
+
+RatingFreqNode* ReviewsLinkedList::mergeSortRating(RatingFreqNode* head) {
+    if (head == nullptr || head->next == nullptr) {  // if the list is empty or has only one node
+        return head;
+    }
+
+    // Split the list into two halves
+    RatingFreqNode* second = splitRating(head);
+
+    // Recursively sort the two halves
+    head = mergeSortRating(head);
+    second = mergeSortRating(second);
+
+    // Merge the sorted halves
+    return mergeRating(head, second);
 }
