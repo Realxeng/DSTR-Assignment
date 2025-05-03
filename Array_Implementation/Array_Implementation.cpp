@@ -202,17 +202,30 @@ void reviews() {
 		case(4):
 		{
 			int rating;
-			cout << "Enter rating: ";
+			cout << "Enter rating (0 to not filter): ";
 			cin >> rating;
-			auto start = high_resolution_clock::now();
-
-			wordsArray wa = wordsArray(rarr);
-			wa.showMostUsedWords();
-			auto stop = high_resolution_clock::now();
-			auto duration = duration_cast<microseconds>(stop - start);
-			//wa.~wordsArray();
-			cout << "Time taken to show most used words: " << duration.count() << " microseconds" << endl;
-			break;
+			if (rating == 0) {
+				auto start = high_resolution_clock::now();
+				wordsArray wa = wordsArray(rarr);
+				wa.showMostUsedWords();
+				auto stop = high_resolution_clock::now();
+				auto duration = duration_cast<microseconds>(stop - start);
+				wa.~wordsArray();
+				cout << "Time taken to show most used words: " << duration.count() << " microseconds" << endl;
+			}
+			else if (rating >= 1 && rating <= 5) {
+				auto start = high_resolution_clock::now();
+				reviewsArray filterRating = rarr;
+				wordsArray wa = wordsArray(filterRating);
+				wa.showMostUsedWords();
+				auto stop = high_resolution_clock::now();
+				auto duration = duration_cast<microseconds>(stop - start);
+				wa.~wordsArray();
+				cout << "Time taken to show most used words: " << duration.count() << " microseconds" << endl;
+			}
+			else {
+				cout << "Invalid rating!";
+			}
 		}
 		case(5):
 		{
