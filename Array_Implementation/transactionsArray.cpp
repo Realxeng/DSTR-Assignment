@@ -280,11 +280,9 @@ transactionsArray transactionsArray::bubbleSortCid()
 }
 
 transactionsArray transactionsArray::linearSearchCategory(string cat) {
-    transactionsArray ta = transactionsArray(top);
-    ta.list = this->list;
     int count = 0;
     for (int i = 0; i < top; i++) {
-        if (ta.list[i].cat == cat) {
+        if (list[i].cat == cat) {
             count++;
         }
     }
@@ -295,8 +293,8 @@ transactionsArray transactionsArray::linearSearchCategory(string cat) {
     Transactions* result = new Transactions[count];
     int index = 0;
     for (int i = 0; i < top; i++) {
-        if (ta.list[i].cat == cat) {
-            result[index] = ta.list[i];
+        if (list[i].cat == cat) {
+            result[index] = list[i];
             index++;
         }
         if (index == count) {
@@ -308,11 +306,9 @@ transactionsArray transactionsArray::linearSearchCategory(string cat) {
 }
 
 transactionsArray transactionsArray::linearSearchPayment(string payment) {
-    transactionsArray ta = transactionsArray(top);
-    ta.list = this->list;
     int count = 0;
     for (int i = 0; i < top; i++) {
-        if (ta.list[i].payment == payment) {
+        if (list[i].payment == payment) {
             count++;
         }
     }
@@ -323,8 +319,8 @@ transactionsArray transactionsArray::linearSearchPayment(string payment) {
     Transactions* result = new Transactions[count];
     int index = 0;
     for (int i = 0; i < top; i++) {
-        if (ta.list[i].payment == payment) {
-            result[index] = ta.list[i];
+        if (list[i].payment == payment) {
+            result[index] = list[i];
             index++;
         }
         if (index == count) {
@@ -336,11 +332,9 @@ transactionsArray transactionsArray::linearSearchPayment(string payment) {
 }
 
 transactionsArray transactionsArray::linearSearchProduct(string product) {
-    transactionsArray ta = transactionsArray(top);
-    ta.list = this->list;
     int count = 0;
     for (int i = 0; i < top; i++) {
-        if (ta.list[i].product == product) {
+        if (list[i].product == product) {
             count++;
         }
     }
@@ -351,8 +345,8 @@ transactionsArray transactionsArray::linearSearchProduct(string product) {
     Transactions* result = new Transactions[count];
     int index = 0;
     for (int i = 0; i < top; i++) {
-        if (ta.list[i].product == product) {
-            result[index] = ta.list[i];
+        if (list[i].product == product) {
+            result[index] = list[i];
             index++;
         }
         if (index == count) {
