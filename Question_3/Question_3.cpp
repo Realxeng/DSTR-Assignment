@@ -10,6 +10,8 @@ const string reviewsFile = "../data/reviews_cleaned.csv";
 int main()
 {
     ifstream rfile(reviewsFile);
+    
+    // Array Implementation
     reviewsArray rarr = reviewsArray(rfile);
     auto startarray = high_resolution_clock::now();
     reviewsArray reviewOneRating = rarr.linearSearchRating(1);
@@ -19,4 +21,6 @@ int main()
     warr.showMostUsedWords();
     cout << "\nThe most frequent word is: \"" << warr.showWord(1) << "\"" << endl;
     cout << "Time taken to show the most frequent word with array and linear search is: " << durationarray.count() << " microseconds" << endl;
+
+    // Linked List Implementation
 }

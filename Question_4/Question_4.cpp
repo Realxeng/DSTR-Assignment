@@ -1,1 +1,1 @@
-// Which star rating occurs most frequently for product PROD820 in the reviews dataset?
+// Which rating occurs most frequently for product PROD820 in the reviews dataset?
