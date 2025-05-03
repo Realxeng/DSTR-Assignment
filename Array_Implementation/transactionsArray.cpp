@@ -173,12 +173,7 @@ transactionsArray transactionsArray::insertionSortCid()
     Transactions temp;
     transactionsArray result = transactionsArray(top);
     for (int i = 0; i < top; i++) {
-		temp.cid = list[i].cid;
-		temp.product = list[i].product;
-		temp.cat = list[i].cat;
-		temp.price = list[i].price;
-		temp.date = list[i].date;
-		temp.payment = list[i].payment;
+        temp = list[i];
         if (i == 0) {
             result.list[0] = temp;
         }
@@ -208,12 +203,7 @@ transactionsArray transactionsArray::insertionSortDate()
     Transactions temp;
     transactionsArray result = transactionsArray(top);
     for (int i = 0; i < top; i++) {
-        temp.cid = list[i].cid;
-        temp.product = list[i].product;
-        temp.cat = list[i].cat;
-        temp.price = list[i].price;
-        temp.date = list[i].date;
-        temp.payment = list[i].payment;
+        temp = list[i];
         if (i == 0) {
             result.list[0] = temp;
         }
@@ -281,25 +271,16 @@ transactionsArray transactionsArray::bubbleSortCid()
 
 transactionsArray transactionsArray::linearSearchCategory(string cat) {
     int count = 0;
+    Transactions* result = new Transactions[top];
     for (int i = 0; i < top; i++) {
         if (list[i].cat == cat) {
+            result[count] = list[i];
             count++;
         }
     }
+    //cout << "Transaction(s) found: " << count << endl;
     if (count == 0) {
         return transactionsArray();
-    }
-    //cout << "Transaction(s) found: " << count << endl;
-    Transactions* result = new Transactions[count];
-    int index = 0;
-    for (int i = 0; i < top; i++) {
-        if (list[i].cat == cat) {
-            result[index] = list[i];
-            index++;
-        }
-        if (index == count) {
-            break;
-        }
     }
     transactionsArray resultArray = transactionsArray(result, count);
     return resultArray;
@@ -307,25 +288,16 @@ transactionsArray transactionsArray::linearSearchCategory(string cat) {
 
 transactionsArray transactionsArray::linearSearchPayment(string payment) {
     int count = 0;
+    Transactions* result = new Transactions[top];
     for (int i = 0; i < top; i++) {
         if (list[i].payment == payment) {
+            result[count] = list[i];
             count++;
         }
     }
+    //cout << "Transaction(s) found: " << count << endl;
     if (count == 0) {
         return transactionsArray();
-    }
-    //cout << "Transaction(s) found: " << count << endl;
-    Transactions* result = new Transactions[count];
-    int index = 0;
-    for (int i = 0; i < top; i++) {
-        if (list[i].payment == payment) {
-            result[index] = list[i];
-            index++;
-        }
-        if (index == count) {
-            break;
-        }
     }
     transactionsArray resultArray = transactionsArray(result, count);
     return resultArray;
@@ -333,25 +305,16 @@ transactionsArray transactionsArray::linearSearchPayment(string payment) {
 
 transactionsArray transactionsArray::linearSearchProduct(string product) {
     int count = 0;
+    Transactions* result = new Transactions[top];
     for (int i = 0; i < top; i++) {
         if (list[i].product == product) {
+            result[count] = list[i];
             count++;
         }
     }
+    //cout << "Transaction(s) found: " << count << endl;
     if (count == 0) {
         return transactionsArray();
-    }
-    //cout << "Transaction(s) found: " << count << endl;
-    Transactions* result = new Transactions[count];
-    int index = 0;
-    for (int i = 0; i < top; i++) {
-        if (list[i].product == product) {
-            result[index] = list[i];
-            index++;
-        }
-        if (index == count) {
-            break;
-        }
     }
     transactionsArray resultArray = transactionsArray(result, count);
     return resultArray;
