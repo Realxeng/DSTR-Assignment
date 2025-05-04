@@ -2,6 +2,7 @@
 #include <chrono>
 #include <fstream>
 #include <sstream>
+#include "../Memory_Monitor/memory_monitor_MacOS.hpp"  // Memory monitor for MacOS to get the peak memory usage
 #include "../Array_Implementation/reviewsArray.hpp"
 #include "../Array_Implementation/wordsArray.hpp"
 #include "../LinkedList_Implementation/ReviewsLinkedList.hpp"
@@ -56,6 +57,8 @@ int main() {
             cout << "\nThe most frequent rating for " << productID << " is: " << reviewsLL.rf_head->rating << endl;
             cout << "Sorting of Reviews by Rating using Merge Sort completed in: "
                 << duration_cast<microseconds>(end - start).count() << " microseconds\n";
+            cout << "Peak memory usage: " << peakMemoryKB() << " KB\n";
+            break;
         }
     }
     

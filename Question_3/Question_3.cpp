@@ -1,5 +1,7 @@
 #include <iostream>
 #include <chrono>
+#include "../Memory_Monitor/memory_monitor_MacOS.hpp"  // Memory monitor for MacOS to get the peak memory usage
+#include <sys/resource.h>
 #include <fstream>
 #include <sstream>
 #include "../Array_Implementation/wordsArray.hpp"
@@ -51,9 +53,11 @@ int main()
             auto start = high_resolution_clock::now();
             reviewsLL.sortByWordFrequency(topN);  // Sort the linked list by word frequency
             auto end = high_resolution_clock::now();
-            cout << "The most frequent word is: \"" << reviewsLL.wf_head->word << "\"" << endl;
+            cout << "\nThe most frequent word is: \"" << reviewsLL.wf_head->word << "\"" << endl;
             cout << "Time taken to show the most frequent word with linked list and merge sort is: " 
                 << duration_cast<microseconds>(end - start).count() << " microseconds" << endl;
+            cout << "Peak memory usage: " << peakMemoryKB() << " KB\n";
+            
             break;
         }
     }
