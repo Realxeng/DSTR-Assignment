@@ -8,7 +8,7 @@ reviewsArray::reviewsArray() {
 }
 reviewsArray::reviewsArray(Reviews* list, int top) {
     this->list = list;
-    this->top = top;
+    this->top = this->max = top;
 }
 reviewsArray::reviewsArray(int size) {
     list = new Reviews[size];

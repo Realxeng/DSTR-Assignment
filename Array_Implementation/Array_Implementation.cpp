@@ -219,8 +219,8 @@ void menuShowReviews(reviewsArray& rarr) {
 		cout << "Enter rating: ";
 		cin >> rating;
 		auto start = high_resolution_clock::now();
-		reviewsArray ra = rarr.linearSearchRating(rating);
-		ra.showAllReviews();
+		reviewsArray rarat = rarr.linearSearchRating(rating);
+		rarat.showAllReviews();
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<microseconds>(stop - start);
 		cout << "Time taken to filter by rating: " << duration.count() << " microseconds" << endl;
@@ -232,8 +232,8 @@ void menuShowReviews(reviewsArray& rarr) {
 		cout << "Enter product id: ";
 		cin >> pid;
 		auto start = high_resolution_clock::now();
-		reviewsArray ra = rarr.linearSearchProduct(pid);
-		ra.showAllReviews();
+		reviewsArray raprod = rarr.linearSearchProduct(pid);
+		raprod.showAllReviews();
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<microseconds>(stop - start);
 		cout << "Time taken to filter by product id: " << duration.count() << " microseconds" << endl;
