@@ -254,7 +254,7 @@ void reviews() {
 		{
 		case(1):
 		{
-			menuShowReviews();
+			menuShowReviews(rarr);
 			break;
 		}
 		case(2):
