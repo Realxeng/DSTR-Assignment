@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -15,6 +16,7 @@ class reviewsArray
 {
 private:
     int top = 0, max = 0;
+	string cleanWord(string str);
 public:
 	Reviews* list;
 	reviewsArray();
@@ -34,4 +36,5 @@ public:
 	reviewsArray insertionSortCid();
 	void mergeSortByPID(int left = 0, int right = -1);
 	reviewsArray linearSearchRating(int rating);
+	reviewsArray linearSearchProduct(string pid);
 };

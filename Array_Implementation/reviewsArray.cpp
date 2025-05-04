@@ -24,6 +24,14 @@ reviewsArray::~reviewsArray() {
 
 }
 
+
+string reviewsArray::cleanWord(string str) {
+    // Remove punctuation and convert to lowercase
+    str.erase(remove_if(str.begin(), str.end(), ::ispunct), str.end());
+    transform(str.begin(), str.end(), str.begin(), ::tolower);
+    return str;
+}
+
 int reviewsArray::getTop() { return top; }
 void reviewsArray::setTop(int top) { this->top = top; }
 
@@ -203,6 +211,23 @@ reviewsArray reviewsArray::linearSearchRating(int rating) {
         }
     }
     if (count == 0) {
+        return reviewsArray();
+    }
+    reviewsArray result = reviewsArray(list, count);
+    return result;
+}
+
+reviewsArray reviewsArray::linearSearchProduct(string pid) {
+    int count = 0;
+    Reviews* list = new Reviews[top];
+    for (int i = 0; i < top; i++) {
+        if (cleanWord(this->list[i].pid) == cleanWord(pid)) {
+            list[count] = this->list[i];
+            count++;
+        }
+    }
+    if (count == 0) {
+        delete[] list;
         return reviewsArray();
     }
     reviewsArray result = reviewsArray(list, count);
