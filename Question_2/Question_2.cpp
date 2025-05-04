@@ -34,7 +34,7 @@ int main()
 			cout << "Total transactions in Electronics using Credit Card: " << creditCardTransactions.getTop() << endl;
 			float percentage = (float)creditCardTransactions.getTop() / (float)electronicsTransactions.getTop() * 100;
 			cout << "Percentage of purchases in Electronics using Credit Card: " << percentage << "%" << endl;
-			cout << "Time taken to do linear search for payment using array is: " << duration.count() << "microseconds" << endl;
+			cout << "Time taken to do linear search for payment using array is: " << duration.count() << " microseconds" << endl;
 		}
 		else if (choice == 2) {
 			auto start = high_resolution_clock::now();
@@ -48,7 +48,7 @@ int main()
 			cout << "Total transactions in Electronics using Credit Card: " << tllcatpay.getLLSize() << endl;
 			float percentage = (float)tllcatpay.getLLSize() / (float)tllcat.getLLSize() * 100;
 			cout << "Percentage of purchases in Electronics using Credit Card: " << percentage << "%" << endl;
-			cout << "Time taken to do linear search for payment using linked list is: " << duration.count() << "microseconds" << endl;
+			cout << "Time taken to do linear search for payment using linked list is: " << duration.count() << " microseconds" << endl;
 		}
 		else {
 			cout << "Exiting Program.." << endl;
