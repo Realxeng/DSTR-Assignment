@@ -6,8 +6,13 @@ wordsArray::wordsArray() {
 	this->words = new Words[1];
 	this->size = 0;
 }
-wordsArray::wordsArray(reviewsArray& ra) {
-	this->words = mostUsedWords(ra);
+wordsArray::wordsArray(reviewsArray& ra, int i) {
+	if (i == 0) {
+		this->words = mostUsedWords(ra);
+	}
+	if (i == 1) {
+		this->words = mostFrequentRating(ra);
+	}
 }
 wordsArray::~wordsArray() {
 
@@ -62,6 +67,16 @@ Words* wordsArray::mostUsedWords(reviewsArray& ra) {
 	return words;
 }
 
+Words* wordsArray::mostFrequentRating(reviewsArray& ra) {
+	Words* words = new Words[1];
+	size = 0;
+	for (int i = 0; i < ra.getTop(); i++) {
+		string rating = ra.list[i].rating;
+		addNewWords(words, rating);
+	}
+	return words;
+}
+
 string wordsArray::cleanWord(string str) {
 	// Remove punctuation and convert to lowercase
 	str.erase(remove_if(str.begin(), str.end(), ::ispunct), str.end());
@@ -77,6 +92,17 @@ void wordsArray::showMostUsedWords() {
 	}
 	else {
 		cout << "No words added!";
+	}
+}
+
+void wordsArray::showMostFrequentRatings() {
+	if (size > 0) {
+		for (int i = 0; i < size; i++) {
+			cout << words[i].count << " Occurrence of the rating: \"" << words[i].word << "\"" << endl;
+		}
+	}
+	else {
+		cout << "No ratings added!";
 	}
 }
 

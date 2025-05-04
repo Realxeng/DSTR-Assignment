@@ -20,7 +20,7 @@ int main()
     reviewsArray rarr = reviewsArray(rfile);
     auto startarray = high_resolution_clock::now();
     reviewsArray reviewOneRating = rarr.linearSearchRating(1);
-    wordsArray warr = wordsArray(reviewOneRating);
+    wordsArray warr = wordsArray(reviewOneRating,0);
     auto stoparray = high_resolution_clock::now();
     auto durationarray = duration_cast<microseconds>(stoparray - startarray);
     warr.showMostUsedWords();

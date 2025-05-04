@@ -1,6 +1,5 @@
 #pragma once
 #include <algorithm>
-#include <cctype>
 #include "reviewsArray.hpp"
 
 struct Words
@@ -16,11 +15,13 @@ private:
 	int size = 0;
 	Words* addNewWords(Words* words, string word);
 	Words* mostUsedWords(reviewsArray& ra);
+	Words* mostFrequentRating(reviewsArray& ra);
 	string cleanWord(string str);
 public:
 	wordsArray();
-	wordsArray(reviewsArray& ra);
+	wordsArray(reviewsArray& ra, int i);
 	~wordsArray();
 	void showMostUsedWords();
+	void showMostFrequentRatings();
 	string showWord(int rank);
 };
