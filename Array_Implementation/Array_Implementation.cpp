@@ -4,6 +4,8 @@
 #include <sstream>
 #include <string>
 #include <chrono>
+#include <Windows.h>
+#include <Psapi.h>
 #include "transactionsArray.hpp"
 #include "wordsArray.hpp"
 #include "reviewsArray.hpp"
@@ -13,6 +15,14 @@ using namespace std::chrono;
 
 const string reviewsFile = "../data/reviews_cleaned.csv";
 const string transactionsFile = "../data/transactions_cleaned.csv";
+
+size_t getPeakMemory() {
+	PROCESS_MEMORY_COUNTERS pmc;
+	if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) {
+		return pmc.PeakWorkingSetSize/1024;  // in kilobytes
+	}
+	return 0;
+}
 
 void menuShowTransactions(transactionsArray& tarr) {
 	int choice;
@@ -116,30 +126,42 @@ void transactions() {
 				cout << "Enter category: ";
 				cin >> cat;
 				cin.clear();
+				auto start = high_resolution_clock::now();
 				transactionsArray tacat = tarr.linearSearchCategory(cat);
 				tacat.showAllTransactions();
+				auto stop = high_resolution_clock::now();
+				auto duration = duration_cast<microseconds>(stop - start);
+				cout << "Time taken to filter by category: " << duration.count() << " microseconds" << endl;
 				break;
 			}
 			case(3):
 			{
 				string payment;
 				cout << "Enter payment method: ";
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.ignore(1000, '\n');
 				getline(cin, payment);
 				cin.clear();
+				auto start = high_resolution_clock::now();
 				transactionsArray tapay = tarr.linearSearchPayment(payment);
 				tapay.showAllTransactions();
+				auto stop = high_resolution_clock::now();
+				auto duration = duration_cast<microseconds>(stop - start);
+				cout << "Time taken to filter by payment: " << duration.count() << " microseconds" << endl;
 				break;
 			}
 			case(4):
 			{
 				string product;
 				cout << "Enter product name: ";
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cin.ignore(1000, '\n');
 				getline(cin, product);
 				cin.clear();
+				auto start = high_resolution_clock::now();
 				transactionsArray taprod = tarr.linearSearchProduct(product);
 				taprod.showAllTransactions();
+				auto stop = high_resolution_clock::now();
+				auto duration = duration_cast<microseconds>(stop - start);
+				cout << "Time taken to filter by product: " << duration.count() << " microseconds" << endl;
 				break;
 			}
 			case(5):
@@ -148,8 +170,12 @@ void transactions() {
 				cout << "Enter customer ID: ";
 				cin >> cid;
 				cin.clear();
+				auto start = high_resolution_clock::now();
 				transactionsArray tacid = tarr.binarySearchCustomer(cid);
 				tacid.showAllTransactions();
+				auto stop = high_resolution_clock::now();
+				auto duration = duration_cast<microseconds>(stop - start);
+				cout << "Time taken to filter by customer id: " << duration.count() << " microseconds" << endl;
 				break;
 			}
 			case(6):
@@ -170,6 +196,45 @@ void transactions() {
 	}
 };
 
+void menuShowReviews(reviewsArray& rarr) {
+	int choice;
+	cout << "--------------------------" << endl <<
+		"1. Show all reviews" << endl <<
+		"2. Search by rating" << endl <<
+		"3. Search by product" << endl <<
+		"Enter your choice: ";
+	cin >> choice;
+	switch (choice)
+	{
+	case(1):
+		rarr.showAllReviews();
+		break;
+	case(2):
+		int rating;
+		cout << "Enter rating: ";
+		cin >> rating;
+		auto start = high_resolution_clock::now();
+		reviewsArray ra = rarr.linearSearchRating(rating);
+		ra.showAllReviews();
+		auto stop = high_resolution_clock::now();
+		auto duration = duration_cast<microseconds>(stop - start);
+		cout << "Time taken to filter by rating: " << duration.count() << " microseconds" << endl;
+		break;
+	case(3):
+		string pid;
+		cout << "Enter product id: ";
+		cin >> pid;
+		auto start = high_resolution_clock::now();
+		reviewsArray ra = rarr.linearSearchProduct(pid);
+		ra.showAllReviews();
+		auto stop = high_resolution_clock::now();
+		auto duration = duration_cast<microseconds>(stop - start);
+		cout << "Time taken to filter by product id: " << duration.count() << " microseconds" << endl;
+	default:
+		break;
+	}
+}
+
 void reviews() {
 	ifstream rfile(reviewsFile);
 	reviewsArray rarr = reviewsArray(rfile);
@@ -177,7 +242,7 @@ void reviews() {
 	while (choice != 5)
 	{
 		cout << "--------------------------" << endl <<
-			"1. Show all reviews" << endl <<
+			"1. Show reviews" << endl <<
 			"2. Sort by product ID" << endl <<
 			"3. Sort by customer ID" << endl <<
 			"4. Show most used words" << endl <<
@@ -189,7 +254,7 @@ void reviews() {
 		{
 		case(1):
 		{
-			rarr.showAllReviews();
+			menuShowReviews();
 			break;
 		}
 		case(2):
@@ -284,6 +349,7 @@ int main()
 			}
 			default:
 			{
+				cout << "Peak Memory Usage: " << getPeakMemory() << "KB" << endl;
 				cout << "Exiting program..." << endl;
 				return 0;
 			}
