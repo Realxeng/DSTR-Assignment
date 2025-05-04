@@ -170,8 +170,9 @@ void transactions() {
 				cout << "Enter customer ID: ";
 				cin >> cid;
 				cin.clear();
+				transactionsArray tasort = tarr.insertionSortCid();
 				auto start = high_resolution_clock::now();
-				transactionsArray tacid = tarr.binarySearchCustomer(cid);
+				transactionsArray tacid = tasort.binarySearchCustomer(cid);
 				tacid.showAllTransactions();
 				auto stop = high_resolution_clock::now();
 				auto duration = duration_cast<microseconds>(stop - start);

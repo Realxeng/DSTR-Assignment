@@ -335,7 +335,7 @@ transactionsArray transactionsArray::linearSearchProduct(string product) {
 }
 
 transactionsArray transactionsArray::binarySearchCustomer(string cid) {
-        transactionsArray ta = bubbleSortCid(); // Ensure the list is sorted by `cid`  
+         // Ensure the list is sorted by `cid`  
         int maxSize = top;
         Transactions* result = new Transactions[maxSize]; // Allocate memory based on the maximum possible size  
         int left = 0, right = maxSize - 1, count = 0;
@@ -343,24 +343,24 @@ transactionsArray transactionsArray::binarySearchCustomer(string cid) {
         while (left <= right) {
             int mid = (left + right) / 2;
 
-            if (cleanWord(ta.list[mid].cid) == cleanWord(cid)) {
+            if (cleanWord(list[mid].cid) == cleanWord(cid)) {
                 // Collect all matching transactions  
                 int i = mid;
-                while (i >= 0 && cleanWord(ta.list[i].cid) == cleanWord(cid)) { // Check left side of mid  
-                    result[count] = ta.list[i];
+                while (i >= 0 && cleanWord(list[i].cid) == cleanWord(cid)) { // Check left side of mid  
+                    result[count] = list[i];
                     count++;
                     i--;
                 }
                 i = mid + 1;
-                while (i < maxSize && cleanWord(ta.list[i].cid) == cleanWord(cid)) { // Check right side of mid  
-                    result[count] = ta.list[i];
+                while (i < maxSize && cleanWord(list[i].cid) == cleanWord(cid)) { // Check right side of mid  
+                    result[count] = list[i];
                     count++;
                     i++;
                 }
                 break;
             }
 
-            if (cleanWord(ta.list[mid].cid) < cleanWord(cid)) {
+            if (cleanWord(list[mid].cid) < cleanWord(cid)) {
                 left = mid + 1;
             }
             else {
