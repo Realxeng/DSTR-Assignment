@@ -81,8 +81,8 @@ public:
 
     // === Merge Sort by Product ID ===
     void sortByProductID();
-    reviewNode* mergeSort(reviewNode* head);
-    reviewNode* merge(reviewNode* left, reviewNode* right);
+    reviewNode* mergeSortByProductID(reviewNode* head);
+    reviewNode* mergeByProductID(reviewNode* left, reviewNode* right);
     reviewNode* split(reviewNode* head);
 };
 

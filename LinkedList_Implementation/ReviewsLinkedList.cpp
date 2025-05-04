@@ -97,7 +97,7 @@ reviewNode* ReviewsLinkedList::getTail() {
 }
 
 // Merge Sort
-reviewNode* ReviewsLinkedList::mergeSort(reviewNode* head) {
+reviewNode* ReviewsLinkedList::mergeSortByProductID(reviewNode* head) {
     if (head == nullptr || head->next == nullptr) {   // if the list is empty or has only one node
         return head;
     }
@@ -106,11 +106,11 @@ reviewNode* ReviewsLinkedList::mergeSort(reviewNode* head) {
     reviewNode* second = split(head);
 
     // Recursively sort the two halves
-    head = mergeSort(head);
-    second = mergeSort(second);
+    head = mergeSortByProductID(head);
+    second = mergeSortByProductID(second);
 
     // Merge the sorted halves
-    return merge(head, second);
+    return mergeByProductID(head, second);
 }
 
 reviewNode* ReviewsLinkedList::split(reviewNode* head) {
@@ -132,13 +132,13 @@ reviewNode* ReviewsLinkedList::split(reviewNode* head) {
 
 }
 
-reviewNode* ReviewsLinkedList::merge(reviewNode* left, reviewNode* right) {
+reviewNode* ReviewsLinkedList::mergeByProductID(reviewNode* left, reviewNode* right) {
     // temp node to help with merging
     reviewNode* temp = new reviewNode;
     reviewNode* tailMerge = temp;  // Pointer to the last node in the merged list
 
     while (left != nullptr && right != nullptr) {
-        if (left->rate > right->rate) {  // Compare ratings
+        if (left->productID < right->productID) {  // Compare ratings
             tailMerge->next = left;  // Add left node to merged list
             left->prev = tailMerge;  // Set the prev of the left node
             left = left->next;  // Move to the next node in the left list
@@ -147,7 +147,7 @@ reviewNode* ReviewsLinkedList::merge(reviewNode* left, reviewNode* right) {
             right->prev = tailMerge;  // Set the prev of the right node
             right = right->next;  // Move to the next node in the right list
         }
-
+        tailMerge = tailMerge->next;  // Move to the last node in the merged list
     }
 
     // If there are remaining nodes in either list, add them to the merged list
@@ -170,7 +170,7 @@ void ReviewsLinkedList::sortByProductID() {
         return;
     }
 
-    head = mergeSort(head);  // Sort the list using merge sort
+    head = mergeSortByProductID(head);  // Sort the list using merge sort
 
     // Update the tail pointer
     tail = head;
