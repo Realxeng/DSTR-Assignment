@@ -72,7 +72,7 @@ Words* wordsArray::mostFrequentRating(reviewsArray& ra) {
 	size = 0;
 	for (int i = 0; i < ra.getTop(); i++) {
 		string rating = ra.list[i].rating;
-		addNewWords(words, rating);
+		words = addNewWords(words, rating);
 	}
 	return words;
 }
