@@ -202,14 +202,19 @@ void menuShowReviews(reviewsArray& rarr) {
 		"1. Show all reviews" << endl <<
 		"2. Search by rating" << endl <<
 		"3. Search by product" << endl <<
+		"4. Exit to reviews menu" << endl <<
 		"Enter your choice: ";
 	cin >> choice;
+	cin.clear();
 	switch (choice)
 	{
 	case(1):
+	{
 		rarr.showAllReviews();
 		break;
+	}
 	case(2):
+	{
 		int rating;
 		cout << "Enter rating: ";
 		cin >> rating;
@@ -220,7 +225,9 @@ void menuShowReviews(reviewsArray& rarr) {
 		auto duration = duration_cast<microseconds>(stop - start);
 		cout << "Time taken to filter by rating: " << duration.count() << " microseconds" << endl;
 		break;
+	}
 	case(3):
+	{
 		string pid;
 		cout << "Enter product id: ";
 		cin >> pid;
@@ -230,8 +237,18 @@ void menuShowReviews(reviewsArray& rarr) {
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<microseconds>(stop - start);
 		cout << "Time taken to filter by product id: " << duration.count() << " microseconds" << endl;
-	default:
 		break;
+	}
+	case(4):
+	{
+		return;
+		break;
+	}
+	default:
+	{
+		cout << "Invalid input!";
+		break;
+	}
 	}
 }
 
@@ -306,11 +323,13 @@ void reviews() {
 				cout << "Invalid rating!";
 				break;
 			}
+			break;
 		}
 		case(5):
 		{
 			cout << "Exiting to menu..." << endl;
 			return;
+			break;
 		}
 		default:
 		{
