@@ -32,7 +32,7 @@ int main()
 	auto durationinsertion = duration_cast<milliseconds>(stopinsertion - startinsertion);
 	sorted.showAllTransactions();
 	cout << "Time taken to sort transactions by date using Array Bubble Sort: " << durationbubble.count() << " ms" << endl;
-	cout << "Time taken to sort reviews by cid using Array Insertion Sort: " << durationinsertion.count() << " ms" << endl;
+	cout << "Time taken to sort transactions by date using Array Insertion Sort: " << durationinsertion.count() << " ms" << endl;
 	cout << "Total transactions in transactions dataset: " << tarr.getTop() << endl;
 	cout << "Total transactions in reviews dataset: " << rarr.getTop() << endl;
 	transactionsLinkedList tll = tll.setUp_transactionLL();
