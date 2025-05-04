@@ -15,28 +15,48 @@ ReviewsLinkedList setUp_reviewLL();
 
 int main()
 {
-    // Array Implementation
-    ifstream rfile(reviewsFile);    
-    reviewsArray rarr = reviewsArray(rfile);
-    auto startarray = high_resolution_clock::now();
-    reviewsArray reviewOneRating = rarr.linearSearchRating(1);
-    wordsArray warr = wordsArray(reviewOneRating,0);
-    auto stoparray = high_resolution_clock::now();
-    auto durationarray = duration_cast<microseconds>(stoparray - startarray);
-    warr.showMostUsedWords();
-    cout << "\nThe most frequent word is: \"" << warr.showWord(1) << "\"" << endl;
-    cout << "Time taken to show the most frequent word with array and linear search is: " << durationarray.count() << " microseconds" << endl;
+    cout << "Question 3: Which words are most frequently used in product reviews rated 1-star?" << endl;
+    cout << "---------------------------------------------------------" << endl;
+    cout << "Which implementation you want to run:" << endl;
+    cout << "1. Array Implementation" << endl;
+    cout << "2. Linked List Implementation" << endl;
+    cout << "Enter your choice: ";
+    int choice;
+    cin >> choice;
+    cin.ignore(); // Ignore the newline character left in the buffer
 
-
-    // Linked List Implementation
-    ReviewsLinkedList reviewsLL = setUp_reviewLL();  // Set up the linked list with reviews
-    cout << "Sorted Reviews (Top 10): " << endl;
-    auto start = high_resolution_clock::now();
-    reviewsLL.sortByWordFrequency(10);  // Sort the linked list by word frequency
-    auto end = high_resolution_clock::now();
-    cout << "The most frequent word is: \"" << reviewsLL.wf_head->word << "\"" << endl;
-    cout << "Time taken to show the most frequent word with linked list and merge sort is: " 
-         << duration_cast<microseconds>(end - start).count() << " microseconds" << endl;
+    switch (choice) {
+        case 1: {
+            Array Implementation
+            ifstream rfile(reviewsFile);    
+            reviewsArray rarr = reviewsArray(rfile);
+            auto startarray = high_resolution_clock::now();
+            reviewsArray reviewOneRating = rarr.linearSearchRating(1);
+            wordsArray warr = wordsArray(reviewOneRating,0);
+            auto stoparray = high_resolution_clock::now();
+            auto durationarray = duration_cast<microseconds>(stoparray - startarray);
+            warr.showMostUsedWords();
+            cout << "\nThe most frequent word is: \"" << warr.showWord(1) << "\"" << endl;
+            cout << "Time taken to show the most frequent word with array and linear search is: " << durationarray.count() << " microseconds" << endl;
+            break;
+        }
+        case 2: {
+            // Linked List Implementation
+            ReviewsLinkedList reviewsLL = setUp_reviewLL();  // Set up the linked list with reviews
+            cout << "How many top words do you want to display? ";
+            int topN;
+            cin >> topN;
+            cin.ignore(); // Ignore the newline character left in the buffer
+            cout << "Sorted Reviews (" << topN << " words): " << endl;
+            auto start = high_resolution_clock::now();
+            reviewsLL.sortByWordFrequency(topN);  // Sort the linked list by word frequency
+            auto end = high_resolution_clock::now();
+            cout << "The most frequent word is: \"" << reviewsLL.wf_head->word << "\"" << endl;
+            cout << "Time taken to show the most frequent word with linked list and merge sort is: " 
+                << duration_cast<microseconds>(end - start).count() << " microseconds" << endl;
+            break;
+        }
+    }
 }
 
 
