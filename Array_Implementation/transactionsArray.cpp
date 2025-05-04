@@ -182,26 +182,33 @@ void transactionsArray::showTransaction(transactionsArray tarr) {
 
 transactionsArray transactionsArray::insertionSortCid()
 {
+    //create new transactions array
     Transactions temp;
     transactionsArray result = transactionsArray(top);
+    //iterate through the source array
     for (int i = 0; i < top; i++) {
         temp = list[i];
+        //Assign the first value to the new array
         if (i == 0) {
             result.list[0] = temp;
         }
         else{
 			int j = 0;
+            //check if the value in the array is larger than the match value
             while (j<i && temp.cid > result.list[j].cid) {
                 j++;
                 continue;
             }
+            //assign the value at the end if the value is largest
             if (j == i) {
 				result.list[i] = temp;
 			}
+            //move all the larger value forward
 			else {
 				for (int k = i; k > j; k--) {
 					result.list[k] = result.list[k - 1];
 				}
+                //assign the value to the space created
 				result.list[j] = temp;
 			}
         }
@@ -242,22 +249,29 @@ transactionsArray transactionsArray::insertionSortDate()
 
 transactionsArray transactionsArray::bubbleSortDate()
 {
+    //create a new array to be returned
 	transactionsArray ta = transactionsArray(top);
+    //copy all the values
 	ta.list = this->list;
     bool swapped = false;
+    //iterate through the whole array values
     for (int i = 0; i < top - 1; i++) {
         swapped = false;
+        //iterate the value through the whole array
         for (int j = 0; j < top - i - 1; j++) {
+            //check if the next value is smaller
             if (ta.isEarlier(ta.list[j + 1].date, ta.list[j].date)) {
-				//cout << "Swapping: " << ta.list[j + 1].date << " and " << ta.list[j].date << endl;
+                //move the next value backward
                 Transactions temp = ta.list[j];
                 ta.list[j] = ta.list[j + 1];
                 ta.list[j + 1] = temp;
                 swapped = true;
             }
         }
+        //continue next iteration if its swapped
         if (!swapped) break;
     }
+    //return the result
     return ta;
 }
 
@@ -283,18 +297,24 @@ transactionsArray transactionsArray::bubbleSortCid()
 
 transactionsArray transactionsArray::linearSearchCategory(string cat) {
     int count = 0;
+    //create a temporary list
     Transactions* result = new Transactions[top];
+    //iterate through the whole array
     for (int i = 0; i < top; i++) {
+        //find the matching record
         if (cleanWord(list[i].cat) == cleanWord(cat)) {
+            //assign the matching record to the list
             result[count] = list[i];
             count++;
         }
     }
-    //cout << "Transaction(s) found: " << count << endl;
+    //check if there are any matches
     if (count == 0) {
         delete[] result;
+        //return empty array if no match
         return transactionsArray();
     }
+    //return array with the results
     transactionsArray resultArray = transactionsArray(result, count);
     return resultArray;
 }
@@ -336,15 +356,18 @@ transactionsArray transactionsArray::linearSearchProduct(string product) {
 }
 
 transactionsArray transactionsArray::binarySearchCustomer(string cid) {
-    transactionsArray ta = bubbleSortCid(); // Ensure the list is sorted by `cid`  
+    transactionsArray ta = bubbleSortCid(); // Ensure the list is sorted by `cid`
     auto start = high_resolution_clock::now();
     int maxSize = top;
     Transactions* result = new Transactions[maxSize]; // Allocate memory based on the maximum possible size  
     int left = 0, right = maxSize - 1, count = 0;
 
+    //iterate until the end of the array
     while (left <= right) {
+        //find the middle
         int mid = (left + right) / 2;
 
+        //check if the middle is the match
         if (cleanWord(ta.list[mid].cid) == cleanWord(cid)) {
             // Collect all matching transactions  
             int i = mid;
@@ -361,10 +384,12 @@ transactionsArray transactionsArray::binarySearchCustomer(string cid) {
             }
             break;
         }
-
+        
+        //eliminate the first half if the mid is smaller than the match
         if (cleanWord(ta.list[mid].cid) < cleanWord(cid)) {
             left = mid + 1;
         }
+        //eliminate the second half if the mid is already larger
         else {
             right = mid - 1;
         }
@@ -375,12 +400,13 @@ transactionsArray transactionsArray::binarySearchCustomer(string cid) {
         return transactionsArray(); // Return an empty array  
     }
     else {
-        //cout << "Transaction(s) found: " << count << endl;
+        //create a new list with all the result
         Transactions* list = new Transactions[count];
         for (int i = 0; i < count; i++) {
             list[i] = result[i];
         }
         delete[] result; // Free the temporary result array  
+        //return the result as an array
         transactionsArray resultArray = transactionsArray(list, count);
         auto stop = high_resolution_clock::now();
         auto duration = duration_cast<microseconds>(stop - start);
