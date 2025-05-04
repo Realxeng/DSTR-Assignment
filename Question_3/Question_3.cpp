@@ -27,7 +27,7 @@ int main()
 
     switch (choice) {
         case 1: {
-            Array Implementation
+            // Array Implementation
             ifstream rfile(reviewsFile);    
             reviewsArray rarr = reviewsArray(rfile);
             auto startarray = high_resolution_clock::now();
