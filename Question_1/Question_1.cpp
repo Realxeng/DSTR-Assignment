@@ -27,10 +27,11 @@ int main()
 	auto stopbubble = high_resolution_clock::now();
 	auto durationbubble = duration_cast<milliseconds>(stopbubble - startbubble);
 	auto startinsertion = high_resolution_clock::now();
-	tarr.insertionSortDate();
+	transactionsArray sorted = tarr.insertionSortDate();
 	auto stopinsertion = high_resolution_clock::now();
 	auto durationinsertion = duration_cast<milliseconds>(stopinsertion - startinsertion);
-	cout << "Time taken to sort transactions by date using Arryay Bubble Sort: " << durationbubble.count() << " ms" << endl;
+	sorted.showAllTransactions();
+	cout << "Time taken to sort transactions by date using Array Bubble Sort: " << durationbubble.count() << " ms" << endl;
 	cout << "Time taken to sort reviews by cid using Array Insertion Sort: " << durationinsertion.count() << " ms" << endl;
 	cout << "Total transactions in transactions dataset: " << tarr.getTop() << endl;
 	cout << "Total transactions in reviews dataset: " << rarr.getTop() << endl;
@@ -39,6 +40,7 @@ int main()
 	tll.bubbleSortByDate();
 	auto stopll = high_resolution_clock::now();
 	auto durationllbs = duration_cast<milliseconds>(stopll - startll);
+	tll.display();
 	cout << "Time taken to sort transactions by date using Linked List Bubble Sort: " << durationllbs.count() << " ms" << endl;
 	auto startllis = high_resolution_clock::now();
 	tll.SortByDate();
