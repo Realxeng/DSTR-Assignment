@@ -1,6 +1,7 @@
 #include "transactionsArray.hpp"
 
 using namespace std;
+using namespace std::chrono;
 
 int transactionsArray::getMaxLine(ifstream& file) {
     int count = 0;
@@ -335,51 +336,55 @@ transactionsArray transactionsArray::linearSearchProduct(string product) {
 }
 
 transactionsArray transactionsArray::binarySearchCustomer(string cid) {
-         // Ensure the list is sorted by `cid`  
-        int maxSize = top;
-        Transactions* result = new Transactions[maxSize]; // Allocate memory based on the maximum possible size  
-        int left = 0, right = maxSize - 1, count = 0;
+    transactionsArray ta = bubbleSortCid(); // Ensure the list is sorted by `cid`  
+    auto start = high_resolution_clock::now();
+    int maxSize = top;
+    Transactions* result = new Transactions[maxSize]; // Allocate memory based on the maximum possible size  
+    int left = 0, right = maxSize - 1, count = 0;
 
-        while (left <= right) {
-            int mid = (left + right) / 2;
+    while (left <= right) {
+        int mid = (left + right) / 2;
 
-            if (cleanWord(list[mid].cid) == cleanWord(cid)) {
-                // Collect all matching transactions  
-                int i = mid;
-                while (i >= 0 && cleanWord(list[i].cid) == cleanWord(cid)) { // Check left side of mid  
-                    result[count] = list[i];
-                    count++;
-                    i--;
-                }
-                i = mid + 1;
-                while (i < maxSize && cleanWord(list[i].cid) == cleanWord(cid)) { // Check right side of mid  
-                    result[count] = list[i];
-                    count++;
-                    i++;
-                }
-                break;
+        if (cleanWord(ta.list[mid].cid) == cleanWord(cid)) {
+            // Collect all matching transactions  
+            int i = mid;
+            while (i >= 0 && cleanWord(ta.list[i].cid) == cleanWord(cid)) { // Check left side of mid  
+                result[count] = ta.list[i];
+                count++;
+                i--;
             }
-
-            if (cleanWord(list[mid].cid) < cleanWord(cid)) {
-                left = mid + 1;
+            i = mid + 1;
+            while (i < maxSize && cleanWord(ta.list[i].cid) == cleanWord(cid)) { // Check right side of mid  
+                result[count] = ta.list[i];
+                count++;
+                i++;
             }
-            else {
-                right = mid - 1;
-            }
+            break;
         }
 
-        if (count == 0) {
-            delete[] result; // Free allocated memory if no match is found  
-            return transactionsArray(); // Return an empty array  
+        if (cleanWord(ta.list[mid].cid) < cleanWord(cid)) {
+            left = mid + 1;
         }
         else {
-            //cout << "Transaction(s) found: " << count << endl;
-            Transactions* list = new Transactions[count];
-            for (int i = 0; i < count; i++) {
-                list[i] = result[i];
-            }
-            delete[] result; // Free the temporary result array  
-            transactionsArray resultArray = transactionsArray(list, count);
-            return resultArray;
+            right = mid - 1;
         }
     }
+
+    if (count == 0) {
+        delete[] result; // Free allocated memory if no match is found  
+        return transactionsArray(); // Return an empty array  
+    }
+    else {
+        //cout << "Transaction(s) found: " << count << endl;
+        Transactions* list = new Transactions[count];
+        for (int i = 0; i < count; i++) {
+            list[i] = result[i];
+        }
+        delete[] result; // Free the temporary result array  
+        transactionsArray resultArray = transactionsArray(list, count);
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        cout << "Time taken to do binary search for transactions is: " << duration.count() << "microseconds" << endl;
+        return resultArray;
+    }
+}
