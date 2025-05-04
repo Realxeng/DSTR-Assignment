@@ -220,7 +220,7 @@ void reviews() {
 			cin.clear();
 			if (rating == 0) {
 				auto start = high_resolution_clock::now();
-				wordsArray wa = wordsArray(rarr);
+				wordsArray wa = wordsArray(rarr, 0);
 				wa.showMostUsedWords();
 				auto stop = high_resolution_clock::now();
 				auto duration = duration_cast<microseconds>(stop - start);
@@ -230,7 +230,7 @@ void reviews() {
 			else if (rating >= 1 && rating <= 5) {
 				auto start = high_resolution_clock::now();
 				reviewsArray filterRating = rarr.linearSearchRating(rating);
-				wordsArray wa = wordsArray(filterRating);
+				wordsArray wa = wordsArray(filterRating, 0);
 				wa.showMostUsedWords();
 				auto stop = high_resolution_clock::now();
 				auto duration = duration_cast<microseconds>(stop - start);
