@@ -1,6 +1,8 @@
 #include <iostream>
 #include <chrono>
 #include <fstream>
+#include <Windows.h>
+#include <Psapi.h>
 #include <sstream>
 #include "../Memory_Monitor/memory_monitor_MacOS.hpp"  // Memory monitor for MacOS to get the peak memory usage
 #include "../Array_Implementation/reviewsArray.hpp"
@@ -17,6 +19,14 @@ const string reviewsFile = "../data/reviews_cleaned.csv";
 ReviewsLinkedList setUp_reviewLL();
 
 //Q: Which rating occurs most frequently for product PROD820 in the reviews dataset?
+
+size_t getPeakMemory() {
+    PROCESS_MEMORY_COUNTERS pmc;
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) {
+        return pmc.PeakWorkingSetSize / 1024;  // in kilobytes
+    }
+    return 0;
+}
 
 int main() {
     cout << "Question 4: Which rating occurs most frequently for product PROD820 in the reviews dataset?" << endl;
@@ -41,24 +51,25 @@ int main() {
             reviewsArray raProduct = rarr.linearSearchProduct(pid);
             wordsArray wa = wordsArray(raProduct, 1);
             wa.showMostFrequentRatings();
-            cout << "The most frequent rating for "<< raProduct.list[0].pid<< " is: " << wa.showWord(1);
+            cout << "The most frequent rating for "<< raProduct.list[0].pid<< " is: " << wa.showWord(1) << endl;
+            cout << "Peak Memory Usage: " << getPeakMemory() << "KB" << endl;
             break;
         }
         case 2: {
             // Linked List Implementation
-            ReviewsLinkedList reviewsLL = setUp_reviewLL();  // Set up the linked list with reviews
-            string productID;
-            cout << "Enter the Product ID your want to search: ";
-            getline(cin, productID);
-            auto start = high_resolution_clock::now();  // Start timing
-            reviewsLL.sortByRating(productID);  // Sort the linked list by rating with Merge Sort
-            auto end = high_resolution_clock::now();    // End timing
-            
-            cout << "\nThe most frequent rating for " << productID << " is: " << reviewsLL.rf_head->rating << endl;
-            cout << "Sorting of Reviews by Rating using Merge Sort completed in: "
-                << duration_cast<microseconds>(end - start).count() << " microseconds\n";
-            cout << "Peak memory usage: " << peakMemoryKB() << " KB\n";
-            break;
+            //ReviewsLinkedList reviewsLL = setUp_reviewLL();  // Set up the linked list with reviews
+            //string productID;
+            //cout << "Enter the Product ID your want to search: ";
+            //getline(cin, productID);
+            //auto start = high_resolution_clock::now();  // Start timing
+            //reviewsLL.sortByRating(productID);  // Sort the linked list by rating with Merge Sort
+            //auto end = high_resolution_clock::now();    // End timing
+            //
+            //cout << "\nThe most frequent rating for " << productID << " is: " << reviewsLL.rf_head->rating << endl;
+            //cout << "Sorting of Reviews by Rating using Merge Sort completed in: "
+            //    << duration_cast<microseconds>(end - start).count() << " microseconds\n";
+            //cout << "Peak memory usage: " << peakMemoryKB() << " KB\n";
+            //break;
         }
     }
     

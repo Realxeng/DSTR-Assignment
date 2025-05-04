@@ -1,9 +1,12 @@
 #include <iostream>
 #include <chrono>
 #include "../Memory_Monitor/memory_monitor_MacOS.hpp"  // Memory monitor for MacOS to get the peak memory usage
-#include <sys/resource.h>
+//#include <sys/resource.h> (for Linux)
 #include <fstream>
 #include <sstream>
+#include <string>
+#include <Windows.h>
+#include <Psapi.h>
 #include "../Array_Implementation/wordsArray.hpp"
 #include "../LinkedList_Implementation/ReviewsLinkedList.hpp"
 #include "../LinkedList_Implementation/ReviewsLinkedList.cpp"
@@ -14,6 +17,14 @@ using namespace std::chrono;
 const string reviewsFile = "../data/reviews_cleaned.csv";
 
 ReviewsLinkedList setUp_reviewLL();
+
+size_t getPeakMemory() {
+    PROCESS_MEMORY_COUNTERS pmc;
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) {
+        return pmc.PeakWorkingSetSize / 1024;  // in kilobytes
+    }
+    return 0;
+}
 
 int main()
 {
@@ -28,36 +39,37 @@ int main()
     cin.ignore(); // Ignore the newline character left in the buffer
 
     switch (choice) {
-        case 1: {
-            // Array Implementation
-            ifstream rfile(reviewsFile);    
-            reviewsArray rarr = reviewsArray(rfile);
-            auto startarray = high_resolution_clock::now();
-            reviewsArray reviewOneRating = rarr.linearSearchRating(1);
-            wordsArray warr = wordsArray(reviewOneRating,0);
-            auto stoparray = high_resolution_clock::now();
-            auto durationarray = duration_cast<microseconds>(stoparray - startarray);
-            warr.showMostUsedWords();
-            cout << "\nThe most frequent word is: \"" << warr.showWord(1) << "\"" << endl;
-            cout << "Time taken to show the most frequent word with array and linear search is: " << durationarray.count() << " microseconds" << endl;
-            break;
-        }
+    case 1: {
+        // Array Implementation
+        ifstream rfile(reviewsFile);
+        reviewsArray rarr = reviewsArray(rfile);
+        auto startarray = high_resolution_clock::now();
+        reviewsArray reviewOneRating = rarr.linearSearchRating(1);
+        wordsArray warr = wordsArray(reviewOneRating, 0);
+        auto stoparray = high_resolution_clock::now();
+        auto durationarray = duration_cast<microseconds>(stoparray - startarray);
+        warr.showMostUsedWords();
+        cout << "\nThe most frequent word is: \"" << warr.showWord(1) << "\"" << endl;
+        cout << "Time taken to show the most frequent word with array and linear search is: " << durationarray.count() << " microseconds" << endl;
+        cout << "Peak Memory Usage: " << getPeakMemory() << "KB" << endl;
+        break;
+    }
         case 2: {
-            // Linked List Implementation
-            ReviewsLinkedList reviewsLL = setUp_reviewLL();  // Set up the linked list with reviews
-            cout << "How many top words do you want to display? ";
-            int topN;
-            cin >> topN;
-            cin.ignore(); // Ignore the newline character left in the buffer
-            cout << "Sorted Reviews (" << topN << " words): " << endl;
-            auto start = high_resolution_clock::now();
-            reviewsLL.sortByWordFrequency(topN);  // Sort the linked list by word frequency
-            auto end = high_resolution_clock::now();
-            cout << "\nThe most frequent word is: \"" << reviewsLL.wf_head->word << "\"" << endl;
-            cout << "Time taken to show the most frequent word with linked list and merge sort is: " 
-                << duration_cast<microseconds>(end - start).count() << " microseconds" << endl;
-            cout << "Peak memory usage: " << peakMemoryKB() << " KB\n";
-            
+            //// Linked List Implementation
+            //ReviewsLinkedList reviewsLL = setUp_reviewLL();  // Set up the linked list with reviews
+            //cout << "How many top words do you want to display? ";
+            //int topN;
+            //cin >> topN;
+            //cin.ignore(); // Ignore the newline character left in the buffer
+            //cout << "Sorted Reviews (" << topN << " words): " << endl;
+            //auto start = high_resolution_clock::now();
+            //reviewsLL.sortByWordFrequency(topN);  // Sort the linked list by word frequency
+            //auto end = high_resolution_clock::now();
+            //cout << "\nThe most frequent word is: \"" << reviewsLL.wf_head->word << "\"" << endl;
+            //cout << "Time taken to show the most frequent word with linked list and merge sort is: " 
+            //    << duration_cast<microseconds>(end - start).count() << " microseconds" << endl;
+            //cout << "Peak memory usage: " << peakMemoryKB() << " KB\n";
+            //
             break;
         }
     }
