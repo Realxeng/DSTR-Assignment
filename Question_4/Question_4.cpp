@@ -18,31 +18,47 @@ ReviewsLinkedList setUp_reviewLL();
 //Q: Which rating occurs most frequently for product PROD820 in the reviews dataset?
 
 int main() {
+    cout << "Question 4: Which rating occurs most frequently for product PROD820 in the reviews dataset?" << endl;
+    cout << "---------------------------------------------------------" << endl;
+    cout << "Which implementation you want to run:" << endl;
+    cout << "1. Array Implementation" << endl;
+    cout << "2. Linked List Implementation" << endl;
+    cout << "Enter your choice: ";
+    int choice;
+    cin >> choice;
+    cin.ignore(); // Ignore the newline character left in the buffer
 
-    // Array Implementation
-	ifstream rfile(reviewsFile);
-	reviewsArray rarr = reviewsArray(rfile);
-	string pid;
-	cout << "Enter the Product ID your want to search: ";
-	cin >> pid;
-	cout << endl;
-	reviewsArray raProduct = rarr.linearSearchProduct(pid);
-	wordsArray wa = wordsArray(raProduct, 1);
-	wa.showMostFrequentRatings();
-	cout << "The most frequent rating for "<< raProduct.list[0].pid<< " is: " << wa.showWord(1);
-
-    // Linked List Implementation
-    ReviewsLinkedList reviewsLL = setUp_reviewLL();  // Set up the linked list with reviews
-    string productID;
-    cout << "Enter the Product ID your want to search: ";
-    getline(cin, productID);
-    auto start = high_resolution_clock::now();  // Start timing
-    reviewsLL.sortByRating(productID);  // Sort the linked list by rating with Merge Sort
-    auto end = high_resolution_clock::now();    // End timing
+    switch (choice) {
+        case 1: {
+            // Array Implementation
+            ifstream rfile(reviewsFile);
+            reviewsArray rarr = reviewsArray(rfile);
+            string pid;
+            cout << "Enter the Product ID your want to search: ";
+            cin >> pid;
+            cout << endl;
+            reviewsArray raProduct = rarr.linearSearchProduct(pid);
+            wordsArray wa = wordsArray(raProduct, 1);
+            wa.showMostFrequentRatings();
+            cout << "The most frequent rating for "<< raProduct.list[0].pid<< " is: " << wa.showWord(1);
+            break;
+        }
+        case 2: {
+            // Linked List Implementation
+            ReviewsLinkedList reviewsLL = setUp_reviewLL();  // Set up the linked list with reviews
+            string productID;
+            cout << "Enter the Product ID your want to search: ";
+            getline(cin, productID);
+            auto start = high_resolution_clock::now();  // Start timing
+            reviewsLL.sortByRating(productID);  // Sort the linked list by rating with Merge Sort
+            auto end = high_resolution_clock::now();    // End timing
+            
+            cout << "\nThe most frequent rating for " << productID << " is: " << reviewsLL.rf_head->rating << endl;
+            cout << "Sorting of Reviews by Rating using Merge Sort completed in: "
+                << duration_cast<microseconds>(end - start).count() << " microseconds\n";
+        }
+    }
     
-    cout << "\nThe most frequent rating for " << productID << " is: " << reviewsLL.rf_head->rating << endl;
-    cout << "Sorting of Reviews by Rating using Merge Sort completed in: "
-        << duration_cast<microseconds>(end - start).count() << " microseconds\n";
 }
 
 ReviewsLinkedList setUp_reviewLL(){
