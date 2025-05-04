@@ -1,6 +1,7 @@
 #ifndef REVIEWS_LINKED_LIST_HPP
 #define REVIEWS_LINKED_LIST_HPP
 
+#include <sstream>
 #include <iostream>
 using namespace std;
 
