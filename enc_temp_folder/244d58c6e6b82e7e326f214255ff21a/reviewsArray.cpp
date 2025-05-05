@@ -238,18 +238,18 @@ reviewsArray reviewsArray::linearSearchRating(int rating) {
 
 //display review with specific product id
 reviewsArray reviewsArray::linearSearchProduct(string pid) {
-	int count = 0; //amt of matchingproduct review
-	Reviews* list = new Reviews[top]; //temp array
-	for (int i = 0; i < top; i++) { //check every line
+	int count = 0; //amt of matching 
+    Reviews* list = new Reviews[top];
+    for (int i = 0; i < top; i++) {
         if (cleanWord(this->list[i].pid) == cleanWord(pid)) { //ignore case
-			list[count] = this->list[i]; //add to temp array
-			count++; //increment count
+            list[count] = this->list[i];
+            count++;
         }
     }
-	if (count == 0) { // no match
-        delete[] list;// delete temp array
-		return reviewsArray(); //empty
+    if (count == 0) {
+        delete[] list;
+        return reviewsArray();
     }
-	reviewsArray result = reviewsArray(list, count); //result
-	return result; //return result
+    reviewsArray result = reviewsArray(list, count);
+    return result;
 }

@@ -18,12 +18,12 @@ const string reviewsFile = "../data/reviews_cleaned.csv";
 
 ReviewsLinkedList setUp_reviewLL();
 
-size_t getPeakMemory() { //get peak memory usage
-	PROCESS_MEMORY_COUNTERS pmc; //holds memory information
-	if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) { //get process memory information (pmc)
-        return pmc.PeakWorkingSetSize / 1024;  // converts to display in kilobytes
+size_t getPeakMemory() {
+    PROCESS_MEMORY_COUNTERS pmc;
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) {
+        return pmc.PeakWorkingSetSize / 1024;  // in kilobytes
     }
-	return 0; //if unable to get memory info
+    return 0;
 }
 
 int main()
@@ -34,21 +34,21 @@ int main()
     cout << "1. Array Implementation" << endl;
     cout << "2. Linked List Implementation" << endl;
     cout << "Enter your choice: ";
-    int choice; //user input
+    int choice;
     cin >> choice;
     cin.ignore(); // Ignore the newline character left in the buffer
 
-	switch (choice) { //decide which implementation to run based on user input
+    switch (choice) {
     case 1: {
         // Array Implementation
-        ifstream rfile(reviewsFile); //open file
-		reviewsArray rarr = reviewsArray(rfile); //create reviewsArray obj
-		auto startarray = high_resolution_clock::now();// start timer
-		reviewsArray reviewOneRating = rarr.linearSearchRating(1); //search for 1-star reviews
-		wordsArray warr = wordsArray(reviewOneRating, 0); //create wordsArray obj
-		auto stoparray = high_resolution_clock::now(); //stop timer
-		auto durationarray = duration_cast<microseconds>(stoparray - startarray); //calculate duration
-		warr.showMostUsedWords(); //show most used words
+        ifstream rfile(reviewsFile);
+        reviewsArray rarr = reviewsArray(rfile);
+        auto startarray = high_resolution_clock::now();
+        reviewsArray reviewOneRating = rarr.linearSearchRating(1);
+        wordsArray warr = wordsArray(reviewOneRating, 0);
+        auto stoparray = high_resolution_clock::now();
+        auto durationarray = duration_cast<microseconds>(stoparray - startarray);
+        warr.showMostUsedWords();
         cout << "\nThe most frequent word is: \"" << warr.showWord(1) << "\"" << endl;
         cout << "Time taken to show the most frequent word with array and linear search is: " << durationarray.count() << " microseconds" << endl;
         cout << "Peak Memory Usage: " << getPeakMemory() << "KB" << endl;

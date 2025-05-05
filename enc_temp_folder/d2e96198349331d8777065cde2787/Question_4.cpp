@@ -20,12 +20,12 @@ ReviewsLinkedList setUp_reviewLL();
 
 //Q: Which rating occurs most frequently for product PROD820 in the reviews dataset?
 
-size_t getPeakMemory() { //get peak memory usage
-    PROCESS_MEMORY_COUNTERS pmc; //holds memory information
-    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) { //get process memory information (pmc)
-        return pmc.PeakWorkingSetSize / 1024;  // converts to display in kilobytes
+size_t getPeakMemory() {
+    PROCESS_MEMORY_COUNTERS pmc;
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) {
+        return pmc.PeakWorkingSetSize / 1024;  // in kilobytes
     }
-    return 0; //if unable to get memory info
+    return 0;
 }
 
 int main() {
@@ -42,15 +42,15 @@ int main() {
     switch (choice) {
         case 1: {
             // Array Implementation
-			ifstream rfile(reviewsFile); //open file
-			reviewsArray rarr = reviewsArray(rfile); //create reviewsArray obj
-            string pid; //user input variable
+            ifstream rfile(reviewsFile);
+            reviewsArray rarr = reviewsArray(rfile);
+            string pid;
             cout << "Enter the Product ID your want to search: ";
             cin >> pid;
             cout << endl;
-			reviewsArray raProduct = rarr.linearSearchProduct(pid); //search for product reviews
-			wordsArray wa = wordsArray(raProduct, 1); //create wordsArray obj
-			wa.showMostFrequentRatings(); //show most frequent ratings
+            reviewsArray raProduct = rarr.linearSearchProduct(pid);
+            wordsArray wa = wordsArray(raProduct, 1);
+            wa.showMostFrequentRatings();
             cout << "The most frequent rating for "<< raProduct.list[0].pid<< " is: " << wa.showWord(1) << endl;
             cout << "Peak Memory Usage: " << getPeakMemory() << "KB" << endl;
             break;
