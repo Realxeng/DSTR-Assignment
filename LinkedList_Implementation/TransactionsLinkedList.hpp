@@ -19,22 +19,23 @@ private:
     transactionsLL* head = nullptr;
     transactionsLL* tail = nullptr;
 
-    bool isEarlier(string d1, string d2);
+    transactionsLL* getMiddleNode(transactionsLL* start, transactionsLL* end);
 
 public:
-    //idk what to do with this
-    //// Constructor
-    //transactionsLinkedList();
-    //// Destructor
-    //~transactionsLinkedList();
+    // Constructor
+    transactionsLinkedList();
+    // Destructor
+    ~transactionsLinkedList();
 
     void createTransactionNode(string customerID, string product, string category, float price, string date, string paymentMethod);
-    void SortByDate();
+    void insertionSortByDate();
+    void insertionSortByCusID();
     void bubbleSortByDate();
-    void searchByCategory(const string& targetCategory) const;
+    void linearSearchByCategory(const string& targetCategory) const;
 	transactionsLinkedList returnByCategory(const string& targetCategory) const;
-    void searchByPaymentMethod(const string& targetMethod) const;
+    void linearSearchByPaymentMethod(const string& targetMethod) const;
 	transactionsLinkedList returnByPaymentMethod(const string& targetMethod) const;
+    transactionsLinkedList binarySearchByCustomerID(const std::string& targetID);
     void display();
     int getLLSize();
     transactionsLinkedList setUp_transactionLL();

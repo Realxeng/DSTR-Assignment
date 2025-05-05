@@ -23,61 +23,204 @@ size_t getPeakMemory() {
     return 0;
 }
 
-void performSearch(transactionsLinkedList& transLL) {
+void performSearch(transactionsLinkedList& transLL, bool sortedByCusID)
+{
     int searchChoice;
-    cout << "\nSearch by:\n1. Category\n2. Payment Method\nEnter choice: ";
-    cin >> searchChoice;
+    cout << "\nSearch by:\n"
+        << "1. Category (Linear Search)\n"
+        << "2. Payment Method (Linear Search)\n";
 
+    if (sortedByCusID) {
+        cout << "3. Customer ID (Binary Search)\n";
+    }
+
+    cout << "Enter choice: ";
+    cin >> searchChoice;
     cin.ignore(); // clear newline
+
     string searchTerm;
 
-    if (searchChoice == 1) {
+    if (searchChoice == 1)
+    {
         cout << "Enter category: ";
         getline(cin, searchTerm);
 
         auto start = high_resolution_clock::now();
-        transLL.searchByCategory(searchTerm);
+        transLL.linearSearchByCategory(searchTerm);
         auto end = high_resolution_clock::now();
         cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
         cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
-
     }
-    else if (searchChoice == 2) {
+    else if (searchChoice == 2)
+    {
         cout << "Enter payment method: ";
         getline(cin, searchTerm);
 
         auto start = high_resolution_clock::now();
-        transLL.searchByPaymentMethod(searchTerm);
+        transLL.linearSearchByPaymentMethod(searchTerm);
         auto end = high_resolution_clock::now();
         cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
         cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
     }
-    else {
-        cout << "Invalid choice.\n";
+    else if (searchChoice == 3 && sortedByCusID)
+    {
+        cout << "Enter customer ID (e.g. CUST1234): ";
+        getline(cin, searchTerm);
+
+        auto start = high_resolution_clock::now();
+        transactionsLinkedList result = transLL.binarySearchByCustomerID(searchTerm);
+        auto end = high_resolution_clock::now();
+
+        if (result.getLLSize() > 0)
+        {
+            cout << "\nTransaction Found:\n";
+            result.display();
+        }
+        else
+        {
+            cout << "Customer ID not found.\n";
+        }
+
+        cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
+        cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
+    }
+    else
+    {
+        cout << "Invalid choice or unsupported search (list must be sorted by Customer ID for binary search).\n";
     }
 }
 
-void performSortAndSearch(transactionsLinkedList& transLL, bool useInsertionSort) {
+//void performSearch(transactionsLinkedList& transLL)
+//{
+//    int searchChoice;
+//    cout << "\nSearch by:\n"
+//        << "1. Category (Linear Search)\n"
+//        << "2. Payment Method (Linear Search)\n"
+//        << "Enter choice: ";
+//    cin >> searchChoice;
+//    
+//    cin.ignore(); // clear newline
+//    string searchTerm;
+//
+//    if (searchChoice == 1)
+//    {
+//        cout << "Enter category: ";
+//        getline(cin, searchTerm);
+//
+//        auto start = high_resolution_clock::now();
+//        transLL.linearSearchByCategory(searchTerm);
+//        auto end = high_resolution_clock::now();
+//        cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
+//        cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
+//    }
+//    else if (searchChoice == 2)
+//    {
+//        cout << "Enter payment method: ";
+//        getline(cin, searchTerm);
+//
+//        auto start = high_resolution_clock::now();
+//        transLL.linearSearchByPaymentMethod(searchTerm);
+//        auto end = high_resolution_clock::now();
+//        cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
+//        cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
+//    }
+//    else
+//    {
+//        cout << "Invalid choice.\n";
+//    }
+//}
+
+void performBinarySearch(transactionsLinkedList& transLL) {
+    string searchTerm;
+    cout << "Enter customer ID (e.g. CUST1234): ";
+    getline(cin, searchTerm);
+
+    auto start = high_resolution_clock::now();
+    transactionsLinkedList result = transLL.binarySearchByCustomerID(searchTerm);
+    auto end = high_resolution_clock::now();
+
+    if (result.getLLSize() > 0) // Check if the result contains any nodes
+    {
+        cout << "\nTransaction Found:\n";
+        result.display(); // Display the matching transaction(s)
+    }
+    else
+    {
+        cout << "Customer ID not found.\n";
+    }
+
+    cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
+    cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
+}
+
+void performSortAndSearch(transactionsLinkedList& transLL, int sortChoice)
+{
     auto start = high_resolution_clock::now();
 
-    if (useInsertionSort)
-        transLL.SortByDate();
-    else
+    switch (sortChoice)
+    {
+    case 1:
+        transLL.insertionSortByDate();
+        cout << "\nInsertion Sort by Date completed in: ";
+        break;
+    case 2:
+        transLL.insertionSortByCusID();
+        cout << "\nInsertion Sort by Customer ID completed in: ";
+        break;
+    case 3:
         transLL.bubbleSortByDate();
+        cout << "\nBubble Sort by Date completed in: ";
+        break;
+    default:
+        cout << "Invalid sort option.\n";
+        return;
+    }
 
     auto end = high_resolution_clock::now();
     transLL.display();
-    cout << (useInsertionSort ? "\nInsertion Sort" : "\nBubble Sort")
-        << " completed in: "
-        << duration_cast<milliseconds>(end - start).count() << " ms\n";
+    cout << duration_cast<milliseconds>(end - start).count() << " ms\n";
     cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
-    performSearch(transLL);
+
+    // Pass flag based on sort type
+    bool sortedByCusID = (sortChoice == 2);
+    performSearch(transLL, sortedByCusID);
 }
+
+//void performSortAndSearch(transactionsLinkedList& transLL, int sortChoice) 
+//{
+//    auto start = high_resolution_clock::now();
+//
+//    switch (sortChoice) 
+//    {
+//    case 1:
+//        transLL.insertionSortByDate();
+//        cout << "\nInsertion Sort by Date completed in: ";
+//        break;
+//    case 2:
+//        transLL.insertionSortByCusID();
+//        cout << "\nInsertion Sort by Customer ID completed in: \n";
+//        performBinarySearch(transLL);
+//        return;
+//        break;
+//    case 3:
+//        transLL.bubbleSortByDate();
+//        cout << "\nBubble Sort by Date completed in: ";
+//        break;
+//    default:
+//        cout << "Invalid sort option.\n";
+//        return;
+//    }
+//
+//    auto end = high_resolution_clock::now();
+//    transLL.display();
+//    cout << duration_cast<milliseconds>(end - start).count() << " ms\n";
+//    cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
+//
+//    performSearch(transLL);
+//}
 
 // Define Function in MAIN
 ReviewsLinkedList setUp_reviewLL();
-// void performSortAndSearch(transactionsLinkedList& transLL, bool useInsertionSort);
-// void performSearch(transactionsLinkedList& transLL);
 
 
 int main()
@@ -181,32 +324,40 @@ int main()
         }
 
     }
-    else if (choice == 2) 
+    else if (choice == 2)
     {
-         transactionsLinkedList transLL = transLL.setUp_transactionLL();
+        transactionsLinkedList transLL = transLL.setUp_transactionLL();
 
-         cout << "Transactions Linked List Menu:\n";
-         cout << "1. Display Transaction Records\n";
-         cout << "2. Sort by Date (using insertion sort)\n";
-         cout << "3. Sort by Date (using bubble sort)\n";
+        cout << "Transactions Linked List Menu:\n";
+        cout << "1. Display Transaction Records\n";
+        cout << "2. Sort by Date (using Insertion Sort)\n";
+        cout << "3. Sort by Customer ID (using Insertion Sort)\n";
+        cout << "4. Sort by Date (using Bubble Sort)\n";
 
-         cin >> choice;
-         cin.ignore();
+        cin >> choice;
+        cin.ignore();
 
-         if (choice == 1)
-         {
-             cout << "Total Records: " << transLL.getLLSize() << endl;
-             transLL.display();
-         }
-         else if (choice == 2) 
-         {
-             performSortAndSearch(transLL, true);  //true = insertion sort
-         }
-         else if (choice == 3) 
-         {
-             performSortAndSearch(transLL, false); //false = bubble sort
-         }
-
+        if (choice == 1)
+        {
+            cout << "Total Records: " << transLL.getLLSize() << endl;
+            transLL.display();
+        }
+        else if (choice == 2)
+        {
+            performSortAndSearch(transLL, 1);  // 1 = insertion sort by date
+        }
+        else if (choice == 3)
+        {
+            performSortAndSearch(transLL, 2);  // 2 = insertion sort by customer ID
+        }
+        else if (choice == 4)
+        {
+            performSortAndSearch(transLL, 3);  // 3 = bubble sort by date
+        }
+        else
+        {
+            cout << "Invalid choice.\n";
+        }
     }
     return 0;
 }

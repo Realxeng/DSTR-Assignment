@@ -9,22 +9,28 @@ using namespace std;
 using namespace std::chrono;
 using namespace std;
 
-// Function to check which date is earlier
-bool transactionsLinkedList::isEarlier(string d1, string d2)
-{
-    int day1, month1, year1;
-    int day2, month2, year2;
+//constructor
+transactionsLinkedList::transactionsLinkedList() : head(nullptr), tail(nullptr), size(0) {}
+//destructor
+transactionsLinkedList::~transactionsLinkedList() {}
 
-    if (sscanf_s(d1.c_str(), "%d/%d/%d", &year1, &month1, &day1) != 3)
-        cerr << "Invalid date format: " << d1 << endl;
+//Function to get the middle node of the linked list
+transactionsLL* transactionsLinkedList::getMiddleNode(transactionsLL* start, transactionsLL* end) {
+    if (!start) return nullptr;
 
-    if (sscanf_s(d2.c_str(), "%d/%d/%d", &year2, &month2, &day2) != 3)
-        cerr << "Invalid date format: " << d2 << endl;
+    transactionsLL* slow = start;
+    transactionsLL* fast = start;
 
-    if (year1 != year2) return year1 < year2;
-    if (month1 != month2) return month1 < month2;
-    return day1 < day2;
-};
+    while (fast != end && fast->next != end) {
+        fast = fast->next;
+        if (fast != end) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+    }
+
+    return slow;
+}
 
 void transactionsLinkedList::createTransactionNode(string customerID, string product, string category, float price, string date, string paymentMethod)
 {
@@ -44,7 +50,7 @@ void transactionsLinkedList::createTransactionNode(string customerID, string pro
 };
 
 //insertion sort sorted by date from newest to oldest
-void transactionsLinkedList::SortByDate()
+void transactionsLinkedList::insertionSortByDate()
 {
     if (!head or !head->next) 
     {
@@ -65,7 +71,7 @@ void transactionsLinkedList::SortByDate()
         {
             sorted = current;
         }
-        else if (isEarlier(current->date, sorted->date))//insert to the front
+        else if (current->date < sorted->date)//insert to the front
         {
             current->next = sorted;
             sorted->prev = current;
@@ -74,7 +80,7 @@ void transactionsLinkedList::SortByDate()
         else//insert to middle or behind
         {
             transactionsLL* temp = sorted;
-            while (temp->next && isEarlier(temp->next->date, current->date)) //loop to find date that is later than current node date
+            while (temp->next && temp->next->date < current->date) //loop to find date that is later than current node date
             {
                 temp = temp->next;
             }
@@ -99,6 +105,55 @@ void transactionsLinkedList::SortByDate()
     }
 };
 
+//insertion sort sorted by customer ID
+void transactionsLinkedList::insertionSortByCusID()
+{
+	if (!head or !head->next)
+	{
+		return;
+	}
+	transactionsLL* sorted = nullptr;
+	transactionsLL* current = head;
+	while (current != nullptr)//loop through the original LL
+	{
+		transactionsLL* next = current->next;
+		// Disconnect current
+		current->prev = current->next = nullptr;
+		if (!sorted)//insert current node into new LL as Head
+		{
+			sorted = current;
+		}
+		else if (current->customerID < sorted->customerID)//insert to the front
+		{
+			current->next = sorted;
+			sorted->prev = current;
+			sorted = current;
+		}
+		else//insert to middle or behind
+		{
+			transactionsLL* temp = sorted;
+			while (temp->next && temp->next->customerID < current->customerID) //loop to find date that is later than current node date
+			{
+				temp = temp->next;
+			}
+			current->next = temp->next;
+			if (temp->next)
+			{
+				temp->next->prev = current;
+			}
+			current->prev = temp;
+			temp->next = current;
+		}
+		current = next;
+	}
+	// Recalculate tail
+	head = sorted;
+	tail = head;
+	while (tail->next) {
+		tail = tail->next;
+	}
+};
+
 //bubble sort
 void transactionsLinkedList::bubbleSortByDate() {
     if (!head or !head->next) return;
@@ -112,7 +167,7 @@ void transactionsLinkedList::bubbleSortByDate() {
         ptr1 = head;
 
         while (ptr1->next != lptr) {
-            if (!isEarlier(ptr1->date, ptr1->next->date)) {
+            if (ptr1->date > ptr1->next->date) {
                 // Swap data values instead of nodes
                 swap(ptr1->customerID, ptr1->next->customerID);
                 swap(ptr1->product, ptr1->next->product);
@@ -130,7 +185,7 @@ void transactionsLinkedList::bubbleSortByDate() {
 }
 
 //Linear Search
-void transactionsLinkedList::searchByCategory(const string& targetCategory) const {
+void transactionsLinkedList::linearSearchByCategory(const string& targetCategory) const {
     if (!head) {
         cout << "No transactions available.\n";
         return;
@@ -178,7 +233,7 @@ transactionsLinkedList transactionsLinkedList::returnByCategory(const string& ta
 }
 
 //Linear Search
-void transactionsLinkedList::searchByPaymentMethod(const string& targetMethod) const {
+void transactionsLinkedList::linearSearchByPaymentMethod(const string& targetMethod) const {
     if (!head) {
         cout << "No transactions available.\n";
         return;
@@ -223,6 +278,37 @@ transactionsLinkedList transactionsLinkedList::returnByPaymentMethod(const strin
 		cout << "No transactions found with payment method: " << targetMethod << endl;
 	}
 	return result;
+}
+
+//Binary Search by customer ID
+transactionsLinkedList transactionsLinkedList::binarySearchByCustomerID(const string& targetID) {
+    if (!head) return transactionsLinkedList();
+
+    // Define boundaries
+    transactionsLL* left = head;
+    transactionsLL* right = tail;
+
+    while (left != nullptr && right != nullptr && left != right->next) {
+        // Find middle node
+        transactionsLL* mid = getMiddleNode(left, right);
+
+        if (!mid) return transactionsLinkedList();
+
+        if (mid->customerID == targetID) {
+            // Create a new linked list with the found node
+            transactionsLinkedList result;
+            result.createTransactionNode(mid->customerID, mid->product, mid->category, mid->price, mid->date, mid->paymentMethod);
+            return result;
+        }
+        else if (mid->customerID < targetID) {
+            left = mid->next;
+        }
+        else {
+            right = mid->prev;
+        }
+    }
+
+    return transactionsLinkedList(); // Not found
 }
 
 //display all nodes
