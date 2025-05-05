@@ -43,7 +43,7 @@ int main()
 	tll.display();
 	cout << "Time taken to sort transactions by date using Linked List Bubble Sort: " << durationllbs.count() << " ms" << endl;
 	auto startllis = high_resolution_clock::now();
-	tll.SortByDate();
+	tll.insertionSortByDate();
 	auto stopllis = high_resolution_clock::now();
 	auto durationllis = duration_cast<milliseconds>(stopllis - startllis);
 	cout << "Time taken to sort transactions by date using Linked List Insertion Sort: " << durationllis.count() << " ms" << endl;

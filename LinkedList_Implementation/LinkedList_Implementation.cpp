@@ -48,7 +48,7 @@ void performSearch(transactionsLinkedList& transLL, bool sortedByCusID)
         auto start = high_resolution_clock::now();
         transLL.linearSearchByCategory(searchTerm);
         auto end = high_resolution_clock::now();
-        cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
+        cout << "Search completed in " << duration_cast<microseconds>(end - start).count() << " microseconds.\n";
         cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
     }
     else if (searchChoice == 2)
@@ -59,7 +59,7 @@ void performSearch(transactionsLinkedList& transLL, bool sortedByCusID)
         auto start = high_resolution_clock::now();
         transLL.linearSearchByPaymentMethod(searchTerm);
         auto end = high_resolution_clock::now();
-        cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
+        cout << "Search completed in " << duration_cast<microseconds>(end - start).count() << " microseconds.\n";
         cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
     }
     else if (searchChoice == 3 && sortedByCusID)
@@ -81,7 +81,7 @@ void performSearch(transactionsLinkedList& transLL, bool sortedByCusID)
             cout << "Customer ID not found.\n";
         }
 
-        cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
+        cout << "Search completed in " << duration_cast<microseconds>(end - start).count() << " microseconds.\n";
         cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
     }
     else
@@ -90,45 +90,8 @@ void performSearch(transactionsLinkedList& transLL, bool sortedByCusID)
     }
 }
 
-//void performSearch(transactionsLinkedList& transLL)
-//{
-//    int searchChoice;
-//    cout << "\nSearch by:\n"
-//        << "1. Category (Linear Search)\n"
-//        << "2. Payment Method (Linear Search)\n"
-//        << "Enter choice: ";
-//    cin >> searchChoice;
-//    
-//    cin.ignore(); // clear newline
-//    string searchTerm;
-//
-//    if (searchChoice == 1)
-//    {
-//        cout << "Enter category: ";
-//        getline(cin, searchTerm);
-//
-//        auto start = high_resolution_clock::now();
-//        transLL.linearSearchByCategory(searchTerm);
-//        auto end = high_resolution_clock::now();
-//        cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
-//        cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
-//    }
-//    else if (searchChoice == 2)
-//    {
-//        cout << "Enter payment method: ";
-//        getline(cin, searchTerm);
-//
-//        auto start = high_resolution_clock::now();
-//        transLL.linearSearchByPaymentMethod(searchTerm);
-//        auto end = high_resolution_clock::now();
-//        cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
-//        cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
-//    }
-//    else
-//    {
-//        cout << "Invalid choice.\n";
-//    }
-//}
+
+
 
 void performBinarySearch(transactionsLinkedList& transLL) {
     string searchTerm;
@@ -149,7 +112,7 @@ void performBinarySearch(transactionsLinkedList& transLL) {
         cout << "Customer ID not found.\n";
     }
 
-    cout << "Search completed in " << duration_cast<milliseconds>(end - start).count() << " ms.\n";
+    cout << "Search completed in " << duration_cast<microseconds>(end - start).count() << " microseconds.\n";
     cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
 }
 
@@ -178,46 +141,13 @@ void performSortAndSearch(transactionsLinkedList& transLL, int sortChoice)
 
     auto end = high_resolution_clock::now();
     transLL.display();
-    cout << duration_cast<milliseconds>(end - start).count() << " ms\n";
+    cout << duration_cast<microseconds>(end - start).count() << " microseconds\n";
     cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
 
     // Pass flag based on sort type
     bool sortedByCusID = (sortChoice == 2);
     performSearch(transLL, sortedByCusID);
 }
-
-//void performSortAndSearch(transactionsLinkedList& transLL, int sortChoice) 
-//{
-//    auto start = high_resolution_clock::now();
-//
-//    switch (sortChoice) 
-//    {
-//    case 1:
-//        transLL.insertionSortByDate();
-//        cout << "\nInsertion Sort by Date completed in: ";
-//        break;
-//    case 2:
-//        transLL.insertionSortByCusID();
-//        cout << "\nInsertion Sort by Customer ID completed in: \n";
-//        performBinarySearch(transLL);
-//        return;
-//        break;
-//    case 3:
-//        transLL.bubbleSortByDate();
-//        cout << "\nBubble Sort by Date completed in: ";
-//        break;
-//    default:
-//        cout << "Invalid sort option.\n";
-//        return;
-//    }
-//
-//    auto end = high_resolution_clock::now();
-//    transLL.display();
-//    cout << duration_cast<milliseconds>(end - start).count() << " ms\n";
-//    cout << "Peak memory usage: " << getPeakMemory() << "KB" << endl;
-//
-//    performSearch(transLL);
-//}
 
 // Define Function in MAIN
 ReviewsLinkedList setUp_reviewLL();
